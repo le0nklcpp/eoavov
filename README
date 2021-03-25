@@ -1,0 +1,16 @@
+DESCRIPTION
+===========
+
+eoavov is game engine based on Tesseract game engine which is based on Sauerbraten game engine(funny).It provides many features for scripting.Also it is single-player only.
+Not ready yet.
+
+LICENSING INFO
+==========
+This project is licensed under zlib license.See game/LICENSE
+
+
+BUILDING
+=========
+You can build this project using g++ on GNU/Linux and with MinGW+MSYS on Windows,
+but you will have to install libsdl2,libsdl2-mixer,libsdl2-image and zlib development files first.
+If you're using MinGW, then use version 7.0 or higher, because older versions of MinGW are a bit buggy.
