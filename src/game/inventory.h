@@ -31,20 +31,6 @@ void set(char *,char*,char*,char*,int,int,float);
 ~RPGitem(){}
 };
 
-struct RPGWeapon:RPGitem
-{
-int clip,clipitemid;
-float minrange,maxrange; // for AI
-bool onehanded;
-RPGWeapon(char *,char*,char*,char*,int,int,float,int,int,bool,float,float);
-virtual ~RPGWeapon(){}
-virtual void doattack(fpsEntity*user,invItem*i){}
-virtual void doattack2(fpsEntity*user,invItem*i){}
-virtual void reload(fpsEntity*user,invItem*i){}
-virtual int getammo(fpsEntity*user,invItem*i){}
-virtual void setammo(invItem*i,int ammo){}
-};
-
 struct invItem
 {
  int itemid;
@@ -55,6 +41,19 @@ struct invItem
  void setproperty(int prop,char*value);
 };
 
+struct RPGWeapon:RPGitem
+{
+int clip,clipitemid;
+float minrange,maxrange; // for AI
+bool onehanded;
+RPGWeapon(char *,char*,char*,char*,int,int,float,int,int,bool,float,float);
+virtual ~RPGWeapon(){}
+virtual void doattack(fpsEntity*user,invItem*i){}
+virtual void doattack2(fpsEntity*user,invItem*i){}
+virtual void reload(fpsEntity*user,invItem*i){}
+virtual int getammo(fpsEntity*user,invItem*i){return 0;}
+virtual void setammo(invItem*i,int ammo){}
+};
 
 struct inventory
 {
