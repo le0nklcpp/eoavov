@@ -18,19 +18,6 @@ enum // for scripting - get/set invItem variables
 #define TYPE_TOOL 2
 #define TYPE_ARMOR 3
 #define TYPE_CUSTOM 4
-
-struct RPGitem
-{
-char name[48],devname[48]; // devname used in scripts and for getitembyname
-string model,vmodel;
-int weight,type;
-float vol; // what part of the inventory capacity does this item take.Max 1.0
-RPGitem():weight(0),vol(0.0),name("empty"),model(""),vmodel(""){}
-RPGitem(char *,char*,char*,char*,int,int,float);
-void set(char *,char*,char*,char*,int,int,float);
-~RPGitem(){}
-};
-
 struct invItem
 {
  int itemid;
@@ -40,16 +27,26 @@ struct invItem
  void getproperty(int prop,char*value);
  void setproperty(int prop,char*value);
 };
-
+struct RPGitem
+{
+char name[48],devname[48]; // devname used in scripts and for getitembyname
+string model,vmodel;
+int weight,type;
+float vol; // what part of the inventory capacity does this item take.Max 1.0
+RPGitem():weight(0),vol(0.0),name("empty"),model(""),vmodel(""){}
+RPGitem(char *,char*,char*,char*,int,int,float);
+void set(char *,char*,char*,char*,int,int,float);
+virtual void draw(fpsEntity*user,invItem*i);
+virtual void use(fpsEntity*user,invItem*i,bool release){}
+virtual void alt(fpsEntity*user,invItem*i,bool release){}
+virtual ~RPGitem(){}
+};
 struct RPGWeapon:RPGitem
 {
 int clip,clipitemid;
 float minrange,maxrange; // for AI
 bool onehanded;
 RPGWeapon(char *,char*,char*,char*,int,int,float,int,int,bool,float,float);
-virtual ~RPGWeapon(){}
-virtual void doattack(fpsEntity*user,invItem*i){}
-virtual void doattack2(fpsEntity*user,invItem*i){}
 virtual void reload(fpsEntity*user,invItem*i){}
 virtual int getammo(fpsEntity*user,invItem*i){return 0;}
 virtual void setammo(invItem*i,int ammo){}

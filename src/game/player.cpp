@@ -95,15 +95,22 @@ void playerEnt::think()
     trydisconnect(true);
    }
  }
+#define retitem(a,b,c) RPGitem*a = RPG::getrpgitem(b);if(a)c
 void playerEnt::attack(bool down)
 {
- if(!down&&nextattacktime<=lastmillis&&carries) // Yes, we throw the object we held before
+ if(nextattacktime<=lastmillis) // Yes, we throw the object we held before
   {
-   fpsEntity* ent = carries;
-   dropent();
-   ent->vel.add(vec(camdir).mul(THROW_FORCE));
-   nextattacktime = lastmillis + NEXT_USE_DELAY;
-   return;
+   if(carries)
+    {
+    fpsEntity* ent = carries;
+    dropent();
+    ent->vel.add(vec(camdir).mul(THROW_FORCE));
+    nextattacktime = lastmillis + NEXT_USE_DELAY;
+    }
+   else if(hands)
+    {
+     retitem(i,*hands,{i->use(this,hands,down);});
+    }
   }
 }
 bool playerEnt::setev(int attr,char*val)
@@ -117,16 +124,15 @@ bool playerEnt::setev(int attr,char*val)
      case(EV_NEXTINTERACTTIME):setv(nextinteracttime);break;
      default:return false;break;
     }
-   return true;
   }
+ return true;
 }
 invItem* playerEnt::draw(int index)
 {
  invItem*item = RPGObject::draw(index);
  if(item)
   {
-   RPGitem*res = RPG::getrpgitem(*item);
-   setvmodel(res?res->vmodel:(char*)"",0,0);
+   retitem(res,*item,{res->draw(this,item);});
   }
  return item;
 }

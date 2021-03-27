@@ -13,6 +13,10 @@ RPGitem::RPGitem(char* n,char * dn,char*vmdl,char*mdl,int w,int i,float v)
 {
  set(n,dn,vmdl,mdl,w,i,v);
 }
+void RPGitem::draw(fpsEntity*user,invItem*i)
+{
+if(user==player1)player1->setvmodel(vmodel,0,0);
+}
 void RPGitem::set(char* n,char * dn,char*vmdl,char*mdl,int w,int i,float v)
 {
  copystring(name,n);
