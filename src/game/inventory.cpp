@@ -6,8 +6,7 @@ void RPGItemEnt::playerused()
   if(player1->inv.additem(item)<0)return;
   item = NULL;
   }
- nextthink = lastmillis;
- state = CS_DEAD; // entity will be removed in next cycle
+ killed(this);
 }
 RPGitem::RPGitem(char* n,char * dn,char*vmdl,char*mdl,int w,int i,float v)
 {
@@ -57,9 +56,7 @@ int inventory::getweight()
  int w = 0;
  loopv(items)
  {
-  RPGitem* item = RPG::getrpgitem(*items[i]);
-  if(item)w += item->weight;
-  else {delete items.remove(i--);}
+  w += items[i]->parent->weight;
  }
  return w;
 }
@@ -73,9 +70,7 @@ float inventory::getvolume()
  float v = 0.0;
  loopv(items)
  {
-  RPGitem* item = RPG::getrpgitem(*items[i]);
-  if(item)v += item->vol;
-  else {delete items.remove(i--);}
+  v += items[i]->parent->vol;
  }
  return v;
 }
@@ -86,7 +81,7 @@ Returns -1 if too much weight, -2 if too much volume, item index on success
 */
 int inventory::additem(invItem *i)
 {
- RPGitem * item = RPG::getrpgitem(*i);
+ RPGitem * item = i->parent;
  if(!item)return -3;
  if(getweight()+item->weight>maxweight)return -1;
  if(getvolume()+item->vol>1.0)return -2;
@@ -100,31 +95,30 @@ Id - item index in inventory
 */
 void invItem::setproperty(int prop,char*value) // there was mistake with variable names
 {
+ int n = atof(value);
  switch(prop)
   {
-  case(inv_ivar1):ivar1 = atoi(value);break;
-  case(inv_ivar2):ivar2 = atoi(value);break;
-  case(inv_ivar3):ivar3 = atoi(value);break;
-  case(inv_fvar1):fvar1 = atof(value);break;
-  case(inv_fvar2):fvar2 = atof(value);break;
-  case(inv_fvar3):fvar3 = atof(value);break;
-  case(inv_itemid):itemid = atoi(value);break;
-
+  case(inv_ivar1):ivar1 = n;break;
+  case(inv_ivar2):ivar2 = n;break;
+  case(inv_ivar3):ivar3 = n;break;
+  case(inv_fvar1):fvar1 = n;break;
+  case(inv_fvar2):fvar2 = n;break;
+  case(inv_fvar3):fvar3 = n;break;
+  case(inv_itemid):if(RPG::itemexists(n))parent = RPG::itemlist[n];break;
   }
 }
 void invItem::getproperty(int prop,char * var)
 {
  switch(prop)
  {
- case(inv_ivar1):setvar(var,ivar1);break;
- case(inv_ivar2):setvar(var,ivar2);break;
- case(inv_ivar3):setvar(var,ivar3);break;
- case(inv_fvar1):setfvar(var,fvar1);break;
- case(inv_fvar2):setfvar(var,fvar2);break;
- case(inv_fvar3):setfvar(var,fvar3);break;
- case(inv_itemid):setvar(var,itemid);break;
+ case(inv_ivar1):setvar(var,ivar1,false);break;
+ case(inv_ivar2):setvar(var,ivar2,false);break;
+ case(inv_ivar3):setvar(var,ivar3,false);break;
+ case(inv_fvar1):setfvar(var,fvar1,false);break;
+ case(inv_fvar2):setfvar(var,fvar2,false);break;
+ case(inv_fvar3):setfvar(var,fvar3,false);break;
+ case(inv_itemid):setsvar(var,parent->devname,false);break;
  }
- touchvar(var);
 }
 void inventory::removeitem(int id)
 {
@@ -137,11 +131,6 @@ void inventory::clear()
 namespace RPG
 {
  vector<RPGitem*>itemlist;
- RPGitem *getrpgitem(invItem i)
- {
-  if(i.itemid<0||i.itemid>=itemlist.length())return NULL;
-  return itemlist[i.itemid];
- }
  int getitembyname(char * name)
  {
   loopv(itemlist)
@@ -172,10 +161,14 @@ namespace RPG
  {
   return itemlist.inrange(index);
  }
+ RPGitem* retrpgitem(int index)
+ {
+  return itemexists(index)?itemlist[index]:NULL;
+ }
 ICOMMAND(rpg_register_item,"ssssiif",(char*n,char*dn,char*vmdl,char*mdl,int*w,int*i,float*v),registeritem(n,dn,vmdl,mdl,*w,*i,*v))
 ICOMMAND(rpg_get_item_by_name,"s",(char*s),{intret(getitembyname(s));});
 ICOMMAND(player_inv_length,"",(),{intret(player1?player1->inv.items.length():0);});
 ICOMMAND(player_inv_operation,"iiis",(int*index,int*s,int*p,char*v),{Player1InvItemOperations(*index,(bool)*s,*p,v);});
 ICOMMAND(player_inv_remove,"i",(int*i),{if(player1)player1->inv.removeitem(*i);});
-ICOMMAND(player_add_item,"i",(int*i),{if(player1&&RPG::itemexists(*i))intret(player1->inv.additem(new invItem(*i)));})
+ICOMMAND(player_add_item,"i",(int*i),{if(player1&&itemexists(*i))intret(player1->inv.additem(new invItem(itemlist[*i])));})
 };

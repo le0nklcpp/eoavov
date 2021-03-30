@@ -95,7 +95,6 @@ void playerEnt::think()
     trydisconnect(true);
    }
  }
-#define retitem(a,b,c) RPGitem*a = RPG::getrpgitem(b);if(a)c
 void playerEnt::attack(bool down)
 {
  if(nextattacktime<=lastmillis) // Yes, we throw the object we held before
@@ -109,7 +108,7 @@ void playerEnt::attack(bool down)
     }
    else if(hands)
     {
-     retitem(i,*hands,{i->use(this,hands,down);});
+     hands->parent->use(this,hands,down);
     }
   }
 }
@@ -132,7 +131,7 @@ invItem* playerEnt::draw(int index)
  invItem*item = RPGObject::draw(index);
  if(item)
   {
-   retitem(res,*item,{res->draw(this,item);});
+   item->parent->draw(this,item);
   }
  return item;
 }

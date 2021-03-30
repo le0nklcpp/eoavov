@@ -19,7 +19,11 @@ struct propEnt:fpsEntity
  propEnt(extentity &e): propid(e.attr1)
   {
    tag = e.attr5;
-   if(!proptypes.inrange(propid))return;
+   if(!proptypes.inrange(propid))
+    {
+     killed(this);
+     return;
+    }
    state = CS_ALIVE;
    yaw = e.attr2;
    pitch = e.attr3;

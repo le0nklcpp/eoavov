@@ -18,15 +18,7 @@ enum // for scripting - get/set invItem variables
 #define TYPE_TOOL 2
 #define TYPE_ARMOR 3
 #define TYPE_CUSTOM 4
-struct invItem
-{
- int itemid;
- int ivar1,ivar2,ivar3; // custom variables for some scripts
- float fvar1,fvar2,fvar3;
- invItem(int iid):itemid(iid),ivar1(0),ivar2(0),ivar3(0),fvar1(0),fvar2(0),fvar3(0){}
- void getproperty(int prop,char*value);
- void setproperty(int prop,char*value);
-};
+struct invItem;
 struct RPGitem
 {
 char name[48],devname[48]; // devname used in scripts and for getitembyname
@@ -51,7 +43,15 @@ virtual void reload(fpsEntity*user,invItem*i){}
 virtual int getammo(fpsEntity*user,invItem*i){return 0;}
 virtual void setammo(invItem*i,int ammo){}
 };
-
+struct invItem{
+ RPGitem*parent;
+ int ivar1,ivar2,ivar3; // custom variables for some scripts
+ float fvar1,fvar2,fvar3;
+ invItem(RPGitem*item):parent(item),ivar1(0),ivar2(0),ivar3(0),fvar1(0),fvar2(0),fvar3(0){}
+ ~invItem(){parent = NULL;}
+ void getproperty(int prop,char*value);
+ void setproperty(int prop,char*value);
+};
 struct inventory
 {
  int maxweight;
@@ -68,26 +68,29 @@ struct inventory
 namespace RPG
 {
  extern vector <RPGitem*> itemlist;
- RPGitem *getrpgitem(invItem i);
  extern int registeritem(char * name,char*devname,char*vmodel,char*model,int weight,int type,float vol);
  extern int getitembyname(char * name);
  extern int registerweapon(RPGWeapon*weapon);
  extern bool itemexists(int index);
+ extern RPGitem *retrpgitem(int index);
 };
 struct RPGItemEnt:fpsEntity
 {
  invItem*item;
  RPGItemEnt(extentity &e):item(NULL)
   {
-   int itemid = e.attr1;yaw = e.attr2;pitch = e.attr3;roll = e.attr4;tag = e.attr5;o = e.o;
+   RPGitem*t = RPG::retrpgitem(e.attr1);
+   if(!t)
+    {
+     killed(this);
+     return;
+    }
+   yaw = e.attr2;pitch = e.attr3;roll = e.attr4;tag = e.attr5;o = e.o;
    type = E_INVITEM;
    state = CS_ALIVE;
-   if(RPG::itemexists(itemid))
-   {
-    setmodel(RPG::itemlist[itemid]->model);
-    item = new invItem(itemid);
-    movable = true;
-   }
+   setmodel(t->model);
+   item = new invItem(t);
+   movable = true;
   }
  ~RPGItemEnt(){delete item;}
  void playerused();
