@@ -5,13 +5,13 @@
 
 enum // for scripting - get/set invItem variables
 {
- inv_ivar1=0,
+ inv_itemid=EV_ITEMPTR,
+ inv_ivar1,
  inv_ivar2,
  inv_ivar3,
  inv_fvar1,
  inv_fvar2,
- inv_fvar3,
- inv_itemid
+ inv_fvar3
 };
 
 #define TYPE_WEAPON 1
@@ -92,6 +92,7 @@ struct RPGItemEnt:fpsEntity
    item = new invItem(t);
    movable = true;
   }
+ bool setev(int attr,char*val);
  ~RPGItemEnt(){delete item;}
  void playerused();
 };

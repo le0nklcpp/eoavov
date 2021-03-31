@@ -8,6 +8,15 @@ void RPGItemEnt::playerused()
   }
  killed(this);
 }
+bool RPGItemEnt::setev(int attr,char*val)
+{
+ if(!fpsEntity::setev(attr,val))
+  {
+   if(attr>=inv_itemid&&attr<=inv_fvar3)item->setproperty(attr,val);
+   else return false;
+  }
+ return true;
+}
 RPGitem::RPGitem(char* n,char * dn,char*vmdl,char*mdl,int w,int i,float v)
 {
  set(n,dn,vmdl,mdl,w,i,v);

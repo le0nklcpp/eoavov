@@ -1,13 +1,7 @@
 #ifndef __FPSENTITY__
 #define __FPSENTITY__
 #include "eoavov.h"
-enum { // for entities
-Hook_Think=0,
-Hook_Touch,
-Hook_Hit,
-Hook_Attacked,
-Hook_Reset
-};
+
 enum{
 EV_HEALTH=0,
 EV_MAXHEALTH,
@@ -22,8 +16,16 @@ EV_LASTANIM,
 EV_MASS,
 EV_STATE,
 EV_NEXTATTACKTIME,
-EV_NEXTINTERACTTIME
+EV_NEXTINTERACTTIME,
+EV_ITEMPTR,
+EV_IVAR1,
+EV_IVAR2,
+EV_IVAR3,
+EV_IFVAR1,
+EV_IFVAR2,
+EV_IFVAR3
 };
+
 struct fpsEntity;
 namespace game{
 extern vector<fpsEntity*>fpsents;
