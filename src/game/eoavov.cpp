@@ -44,7 +44,7 @@ namespace game{
     VAR(flash_colorb,0,255,255);
     void adddynlights()
     {
-        if(player1->light)adddynlight(vec(worldpos).sub(camdir.mul(2)),flash_radius,vec(flash_colorr,flash_colorg,flash_colorb));
+        if(player1->light)adddynlight(vec(worldpos).sub(camdir),flash_radius,vec(flash_colorr,flash_colorg,flash_colorb));
     }
     float clipconsole(float w, float h)
     {
