@@ -38,7 +38,8 @@ struct RPGWeapon:RPGitem
 int clip,clipitemid;
 float minrange,maxrange; // for AI
 bool onehanded;
-RPGWeapon(char *,char*,char*,char*,int,int,float,int,int,bool,float,float);
+int maxammo;
+RPGWeapon(char *,char*,char*,char*,int,int,float,int,int,bool,float,float,int);
 virtual void reload(fpsEntity*user,invItem*i){}
 virtual int getammo(fpsEntity*user,invItem*i){return 0;}
 virtual void setammo(invItem*i,int ammo){}

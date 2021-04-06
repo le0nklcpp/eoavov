@@ -37,7 +37,7 @@ void RPGitem::set(char* n,char * dn,char*vmdl,char*mdl,int w,int i,float v)
  type = i;
  vol = v;
 }
-RPGWeapon::RPGWeapon(char* n,char * dn,char*vmdl,char*mdl,int w,int i,float v,int c,int cid,bool oh,float minar,float maxar)
+RPGWeapon::RPGWeapon(char* n,char * dn,char*vmdl,char*mdl,int w,int i,float v,int c,int cid,bool oh,float minar,float maxar,int am)
 {
  set(n,dn,vmdl,mdl,w,i,v);
  clip = c;
@@ -45,6 +45,7 @@ RPGWeapon::RPGWeapon(char* n,char * dn,char*vmdl,char*mdl,int w,int i,float v,in
  onehanded = oh;
  minrange = minar;
  maxrange = maxar;
+ maxammo = am;
 }
 /*
 

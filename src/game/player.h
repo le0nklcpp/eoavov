@@ -7,10 +7,11 @@ extern int NEXT_USE_DELAY;
 struct playerEnt:fpsEntity,RPGObject{
  string vmodel; // HUD model
  fpsEntity*carries;
+ bool light; // toggle flashlight
  int lastvanimtime,lastattacktime,lastdamagetime,nextattacktime,nextinteracttime; // nextinteracttime is for "use" command
  int vanim; // HUD model animation sequence
  vec muzzle; // weapon muzzle for rendering
- playerEnt():vanim(0),vmodel(""),carries(NULL),lastvanimtime(0),lastdamagetime(0),nextattacktime(0),lastattacktime(-1),nextinteracttime(0),muzzle(-1,-1,-1),fpsEntity(100){type = E_PLAYER;inv.maxweight = 80;movable = true;}
+ playerEnt():light(false),vanim(0),vmodel(""),carries(NULL),lastvanimtime(0),lastdamagetime(0),nextattacktime(0),lastattacktime(-1),nextinteracttime(0),muzzle(-1,-1,-1),fpsEntity(100){type = E_PLAYER;inv.maxweight = 80;movable = true;}
  void reset();
  void setvmodel(char*path,int anim,int animtime);
  void moveitem();

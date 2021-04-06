@@ -10,6 +10,7 @@ FVAR(MAX_INTERACT_DIST,0.,24.,1000.);
 VAR(NEXT_USE_DELAY,0,200,32767);
 VAR(lock_movement,0,0,1);
 VAR(lock_control,0,0,1);
+ICOMMAND(flashlight,"",(),{player1->light = !player1->light;});
 void fixcarrydist()
 {
  max_carry_dist = max(min_carry_dist,max_carry_dist);

@@ -38,8 +38,13 @@ namespace game{
     {
 	return 1650.0f/1800.0f;
     }
+    FVAR(flash_radius,0.0,15.5,1000.0);
+    VAR(flash_colorr,0,255,255);
+    VAR(flash_colorg,0,255,255);
+    VAR(flash_colorb,0,255,255);
     void adddynlights()
     {
+        if(player1->light)adddynlight(vec(worldpos).sub(camdir.mul(2)),flash_radius,vec(flash_colorr,flash_colorg,flash_colorb));
     }
     float clipconsole(float w, float h)
     {
