@@ -49,15 +49,11 @@ namespace entities
     #endif
     void spawnitems(bool force)
     {
+        #define isFpsEnt(type) (type==ENT_CREATURE||type==ENT_ITEM||type==ENT_PROP)
 	loopv(ents)
 	 {
 	  extentity &e = *ents[i];
-	  switch(e.type)
-	  {
-	   case(ENT_PROP):fpsents.add(new propEnt(e));break;
-	   case(ENT_CREATURE):fpsents.add(new creatureEntity(e));break;
-	   case(ENT_ITEM):fpsents.add(new RPGItemEnt(e));break; 
-	  }
+          if(isFpsEnt(e.type))createfpsent(e.type,e.o,e.attr1,e.attr2,e.attr3,e.attr4,e.attr5);
 	 }
     }
     #ifdef __CUBE_LEGACY__

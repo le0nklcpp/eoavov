@@ -78,15 +78,15 @@ namespace RPG
 struct RPGItemEnt:fpsEntity
 {
  invItem*item;
- RPGItemEnt(extentity &e):item(NULL)
+ RPGItemEnt(vec pos,int attr1,int attr2,int attr3,int attr4,int attr5):item(NULL)
   {
-   RPGitem*t = RPG::retrpgitem(e.attr1);
+   RPGitem*t = RPG::retrpgitem(attr1);
    if(!t)
     {
      killed(this);
      return;
     }
-   yaw = e.attr2;pitch = e.attr3;roll = e.attr4;tag = e.attr5;o = e.o;
+   yaw = attr2;pitch = attr3;roll = attr4;tag = attr5;o = pos;
    type = E_INVITEM;
    state = CS_ALIVE;
    setmodel(t->model);

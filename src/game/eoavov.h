@@ -126,6 +126,7 @@ namespace game
  extern void rendergame();
  extern void renderfpsents();
  extern void renderplayer();
+ extern void createfpsent(int type,vec pos,int attr1,int attr2,int attr3,int attr4,int attr5);
  /*
 
  */

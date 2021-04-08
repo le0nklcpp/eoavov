@@ -2,6 +2,16 @@
 namespace game{
  ICOMMAND(deletedynent,"i",(int*tag),fpsremovebytag(*tag));
  vector<fpsEntity*>fpsents;
+ void createfpsent(int type,vec pos,int attr1,int attr2,int attr3,int attr4,int attr5)
+  {
+    #define fadd(e) fpsents.add(new e(pos,attr1,attr2,attr3,attr4,attr5))
+    switch(type)
+     {
+      case(ENT_PROP):fadd(propEnt);break;
+      case(ENT_CREATURE):fadd(creatureEntity);break;
+      case(ENT_ITEM):fadd(RPGItemEnt);break;
+     }
+  }
  int fpsfindent(int tag)
  {
   if(tag!=-1)loopv(fpsents)if(fpsents[i]->tag==tag)return i;
