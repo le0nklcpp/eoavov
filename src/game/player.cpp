@@ -10,7 +10,8 @@ FVAR(MAX_INTERACT_DIST,0.,24.,1000.);
 VAR(NEXT_USE_DELAY,0,200,32767);
 VAR(lock_movement,0,0,1);
 VAR(lock_control,0,0,1);
-ICOMMAND(flashlight,"",(),{player1->light = !player1->light;});
+VARF(flash_enabled,0,0,1,{if(!flash_enabled&&isconnected())player1->light = false;});
+GMCMD(flashlight,"",(),{if(flash_enabled)player1->light = !player1->light;});
 void fixcarrydist()
 {
  max_carry_dist = max(min_carry_dist,max_carry_dist);
@@ -22,6 +23,7 @@ void playerEnt::reset()
   RPGObject::reset();
   state = CS_ALIVE;
   maxspeed = PLAYER_DEFAULT_SPEED;
+  light = false;
   dropent();
  }
 void playerEnt::setvmodel(char*path,int anim,int animtime)
