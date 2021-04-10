@@ -40,7 +40,7 @@ uchar cclass,team,aistate;
 fpsEntity * target;
 inventory inv;
 vec lastknownenemypos[4];
-creatureEntity(vec pos,int attr1,int attr2,int attr3,int attr4,int attr5):crtype(attr2),controlled(false),vangles(0,0,0),muzzle(0,0,0),team(0),warned(false),lastattacktime(-1),lastdamagetime(0),lastsuccessattacktime(0),nextattacktime(0){o = pos;roll = attr1;type = E_CREATURE;}
+creatureEntity(vec pos,int attr1,int attr2,int attr3,int attr4,int attr5):crtype(attr2),controlled(false),vangles(0,0,0),muzzle(0,0,0),team(0),warned(false),lastattacktime(-1),lastdamagetime(0),lastsuccessattacktime(0),nextattacktime(0){setpos(pos);roll = attr1;type = E_CREATURE;}
 ~creatureEntity(){}
 };
 #endif

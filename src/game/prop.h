@@ -33,8 +33,8 @@ struct propEnt:fpsEntity
    mass = p.mass;
    movable = p.movable;
    setmodel(p.model);
+   setpos(pos);
    type = E_MOVABLE;
-   o=pos;
   }
  ~propEnt(){}
  void attacked(fpsEntity*attacker,float damage,uchar damagetype,vec hitpos);

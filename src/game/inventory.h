@@ -86,10 +86,11 @@ struct RPGItemEnt:fpsEntity
      killed(this);
      return;
     }
-   yaw = attr2;pitch = attr3;roll = attr4;tag = attr5;o = pos;
+   yaw = attr2;pitch = attr3;roll = attr4;tag = attr5;
    type = E_INVITEM;
    state = CS_ALIVE;
    setmodel(t->model);
+   setpos(pos);
    item = new invItem(t);
    movable = true;
   }
