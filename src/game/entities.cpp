@@ -32,7 +32,6 @@ namespace entities
 	switch(type)
 	 {
 	 case(ENT_MAPMODEL):etag = e.attr5;break;
-	 case(ENT_ZONE):etag = e.attr2;break;
 	 }
 	if(etag==tag)return i;
       }
@@ -79,68 +78,7 @@ namespace entities
       e.attr5 = attr5;
     }
     GMCMD(set_ent_args,"iiiiii",(int*index,int*attr1,int*attr2,int*attr3,int*attr4,int*attr5),set_ent_attr(*index,*attr1,*attr2,*attr3,*attr4,*attr5));
-   //#define validtrigger(flag) (flag&TRIG_TOUCH||flag&TRIG_USE||flag&TRIG_PICKUP||flag&TRIG_USEPROP||flag&TRIG_USEINVENTORY)
 
-    /*
-    void resettriggers()
-    {
-	loopv(ents)
-	 {
-	 extentity &e = *ents[i];
-	 if(e.type!=ENT_TRIGGER)continue;
-	 if(e.attr1 & TRIG_DISABLEDBYDEFAULT)e.attr1|=TRIG_DISABLED;
-	 else e.attr1&=~TRIG_DISABLED;
-	 }        
-    }
-    VARP(trigger_type,1,1,9);
-    VARP(trigger_ent_tag,-32767,0,32767);
-    void executetrigger(int triggertag,TriggeredType t,int tag)
-    {
-	#ifdef __CUBE_LEGACY__
-        defformatstring(aliasname)("level_trigger_%d",triggertag);
-	#else
-	defformatstring(aliasname,"level_trigger_%d",triggertag);
-	#endif
-	if(identexists(aliasname))
-	{
-	trigger_type = (int)t;
-	trigger_ent_tag = tag;
-	execute(aliasname);
-	}
-    }
-
-    void checktriggers()
-    {
-	loopv(ents)
-	{
-	extentity &e = *ents[i];
-	if(e.type != ENT_TRIGGER||e.attr1&TRIG_DISABLED)return;
-	int flags = e.attr1;
-	int tag1 = e.attr2,tag2 = e.attr3,tag3 = e.attr4,tag5 = e.attr5;
-	if(flags & TRIG_TOUCH)
-	 {
-	  int ent = find_ent_by_tag(ENT_MAPMODEL,tag2);
-	  if(ents.inrange(ent))
-	   {
-	   #ifdef __CUBE_LEGACY__
-	    vec p = player1->feetpos;
-	   #else
-	    vec p = player1->feetpos();
-	   #endif
-	    if(ents[ent]->o.dist(p)-player1->radius<modelradius(ents[ent]->attr1))executetrigger(tag1,TRIGGERED_TOUCH_MM,tag2);
-	   }
-	  //there should be collision check for prop entity
-	  ent = find_ent_by_tag(ENT_ZONE,tag5);
-	  if(ents.inrange(ent))
-	   {
-	    vec p = player1->o;
-	    if(ents[ent]->o.dist(p)<=ents[ent]->attr1)executetrigger(tag1,TRIGGERED_TOUCH_ZONE,tag5);
-	   }
- 	 }
-	}
-    }
-
-*/
     void animatemapmodel(const extentity &e, int &anim, int &basetime)
     {
 

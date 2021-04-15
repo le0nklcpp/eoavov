@@ -29,25 +29,8 @@ enum
  ENT_ITEM, // attr1 = id, attr2 = yaw, attr3 = pitch, attr4 = roll, attr5 = tag
  ENT_TELEPORT,
  ENT_TELEDEST,
- ENT_ZONE, // attr1 = radius, attr2 = tag
  ENT_CUSTOM
 };
-/*
-
-enum // trigger flags - attr1
-{
- TRIG_TOUCH = 1<<1, // player can use trigger by touching ENT_MAPMODEL with tag attr3 or ENT_PROP with tag attr4 or ENT_ZONE with tag attr5
- TRIG_USE = 1<<2, // player can use trigger by using ENT_PROP with tag attr3 or ENT_MAPMODEL with tag attr4
- TRIG_CREATURE = 1<<3, // Creatures can use the trigger(TRIG_TOUCH)
- TRIG_PICKUP = 1<<4, // Activates if player picked up ENT_ITEM or ENT_PROP with tag attr3
- TRIG_USEPROP = 1<<5, // Activates if player used ENT_PROP with tag attr4 by pressing button
- TRIG_USEINVENTORY = 1<<6, // Activates if player used inventory item with attr5
- TRIG_PROP = 1<<7, // may be activated by ENT_PROP(TRIG_TOUCH)
- TRIG_DISABLED = 1<<8,
- TRIG_DISABLEDBYDEFAULT = 1<<9
-};
-
-*/
 enum 
 {
  E_PLAYER = ENT_PLAYER,
@@ -56,33 +39,13 @@ enum
  E_CREATURE = 6,
  E_INVITEM = 7
 };
+
 #include "inventory.h"
 #include "rpgobject.h"
 #include "player.h"
 #include "creatures.h"
 #include "prop.h"
-/*
 
-enum TriggeredType
-{
- TRIGGERED_TOUCH_MM = 1,
- TRIGGERED_TOUCH_PROP = 2,
- TRIGGERED_TOUCH_ZONE = 3,
- TRIGGERED_USE_PROP = 4,
- TRIGGERED_USE_MM = 5,
- TRIGGERED_PICK_ITEM = 6,
- TRIGGERED_PICK_PROP = 7,
- TRIGGERED_USE_INV = 8
-};
-
-*/
-
-
-/*
-
-CubeScript Additions
-
-*/
 static const char * const animnames[] =
 {
     "mapmodel",
