@@ -15,12 +15,12 @@ void cleargamezones()
  }
 bool inzone(vec pos,int ztype)
  {
- loopzones(pos,ztype,return true,);
- return false;
+  loopzones(pos,ztype,return true,);
+  return false;
  }
 void zonetriggers(vec pos)
  {
- loopzones(pos,ZONE_TRIGGER,if(!z.active){z.active = true;cubeevent(z.arg);},z.active = false);
+  loopzones(pos,ZONE_TRIGGER,if(!z.active){z.active = true;cubeevent(z.arg);},z.active = false);
  }
 };
 ICOMMAND(set_envzone,"ffffis",(float*x,float*y,float*z,float*r,int*zt,char*arg),{game::gamezones.add(new envZone(vec(*x,*y,*z),*r,*zt,arg));});

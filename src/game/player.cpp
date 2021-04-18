@@ -11,7 +11,7 @@ VAR(NEXT_USE_DELAY,0,200,32767);
 VAR(lock_movement,0,0,1);
 VAR(lock_control,0,0,1);
 VARF(flash_enabled,0,0,1,{if(!flash_enabled&&isconnected())player1->light = false;});
-GMCMD(flashlight,"",(),{if(flash_enabled)player1->light = !player1->light;});
+GMCMD(flashlight,"i",(int*check),{if(!(*check)&&flash_enabled)player1->light = !player1->light;intret(player1->light);});
 void fixcarrydist()
 {
  max_carry_dist = max(min_carry_dist,max_carry_dist);
