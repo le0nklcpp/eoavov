@@ -175,10 +175,11 @@ namespace RPG
  {
   return itemexists(index)?itemlist[index]:NULL;
  }
-ICOMMAND(rpg_register_item,"ssssiif",(char*n,char*dn,char*vmdl,char*mdl,int*w,int*i,float*v),registeritem(n,dn,vmdl,mdl,*w,*i,*v))
-ICOMMAND(rpg_get_item_by_name,"s",(char*s),{intret(getitembyname(s));});
-ICOMMAND(player_inv_length,"",(),{intret(player1?player1->inv.items.length():0);});
-ICOMMAND(player_inv_operation,"iiis",(int*index,int*s,int*p,char*v),{Player1InvItemOperations(*index,(bool)*s,*p,v);});
-ICOMMAND(player_inv_remove,"i",(int*i),{if(player1)player1->inv.removeitem(*i);});
-ICOMMAND(player_add_item,"i",(int*i),{if(player1&&itemexists(*i))intret(player1->inv.additem(new invItem(itemlist[*i])));})
+GMCMD(rpg_register_item,"ssssiif",(char*n,char*dn,char*vmdl,char*mdl,int*w,int*i,float*v),registeritem(n,dn,vmdl,mdl,*w,*i,*v))
+GMCMD(rpg_get_item_by_name,"s",(char*s),{intret(getitembyname(s));});
+GMCMD(player_inv_length,"",(),{intret(player1->inv.items.length());});
+GMCMD(player_inv_operation,"iiis",(int*index,int*s,int*p,char*v),{Player1InvItemOperations(*index,(bool)*s,*p,v);});
+GMCMD(player_inv_pick,"ii",(int*item,int*clearholster),{if(*item==-1)player1->hands = NULL;else player1->draw(*item);if(*clearholster)player1->holster = NULL;});
+GMCMD(player_inv_remove,"i",(int*i),{player1->inv.removeitem(*i);});
+GMCMD(player_add_item,"i",(int*i),{if(itemexists(*i))intret(player1->inv.additem(new invItem(itemlist[*i])));});
 };
