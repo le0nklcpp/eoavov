@@ -81,12 +81,12 @@ namespace game
     }
     void startmap(const char *name)   // called just after a map load
     {
-	cubeevent("map_loaded");
 	player1->reset();
 	clearfpsents();
 	findplayerspawn(player1);
 	entities::resetspawns();
 	entities::spawnitems(true);
+	cubeevent("map_loaded");
 	copystring(clientmap, name ? name : "");
 	preparemovables();
     }
