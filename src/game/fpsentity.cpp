@@ -141,7 +141,7 @@ namespace game{
       }
       return result;
  }
- GMCMD(set_ev,"iis",(int*tag,int*attr,char*val),{returnfpsent(*tag,ent);ent->setev(*attr,val);});
+ GMCMD(set_ev,"iis",(int*tag,int*attr,const char*val),{returnfpsent(*tag,ent);ent->setev(*attr,val);});
 };
 void fpsEntity::revert(short axis)
 {
@@ -173,7 +173,7 @@ void fpsEntity::move()
   }
  else if(movable)moveplayer(this,1,true);
 }
-void fpsEntity::setmodel(char*modelname)
+void fpsEntity::setmodel(const char*modelname)
 {
  if(!modelname)return;
  copystring(model,modelname);
@@ -233,7 +233,7 @@ void fpsEntity::setangle(int y,int p,int r)
  if(p!=-1)pitch = p;
  if(r!=-1)roll = r;
 }
-bool fpsEntity::setev(int attr,char*val)
+bool fpsEntity::setev(int attr,const char*val)
 {
  if(!val)return false;
  #define v atoi(val);

@@ -13,7 +13,7 @@ struct playerEnt:fpsEntity,RPGObject{
  vec muzzle; // weapon muzzle for rendering
  playerEnt():light(false),vanim(0),vmodel(""),carries(NULL),lastvanimtime(0),lastdamagetime(0),nextattacktime(0),lastattacktime(-1),nextinteracttime(0),muzzle(-1,-1,-1),fpsEntity(100){type = E_PLAYER;inv.maxweight = 80;movable = true;}
  void reset();
- void setvmodel(char*path,int anim,int animtime);
+ void setvmodel(const char*path,int anim,int animtime);
  void moveitem();
  void move();
  void dropent();
@@ -22,7 +22,7 @@ struct playerEnt:fpsEntity,RPGObject{
  void quickswitch();
  void think();
  void attack(bool down);
- bool setev(int attr,char*val);
+ bool setev(int attr,const char*val);
  invItem* draw(int index);
 };
 void fixcarrydist();

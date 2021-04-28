@@ -26,7 +26,7 @@ void playerEnt::reset()
   light = false;
   dropent();
  }
-void playerEnt::setvmodel(char*path,int anim,int animtime)
+void playerEnt::setvmodel(const char*path,int anim,int animtime)
  {
   copystring(vmodel,path);
   vanim = (ANIM_GAMESPECIFIC + max(anim,0)) | ANIM_LOOP;
@@ -115,7 +115,7 @@ void playerEnt::attack(bool down)
     }
   }
 }
-bool playerEnt::setev(int attr,char*val)
+bool playerEnt::setev(int attr,const char*val)
 {
  if(!fpsEntity::setev(attr,val)&&val)
   {

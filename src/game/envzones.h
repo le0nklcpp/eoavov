@@ -13,7 +13,7 @@ float radius;
 uchar type;
 string arg; // command to execute
 bool active; // player already activated zone by being in it
-envZone(vec o,float r,uchar z,string a){pos = o;radius = r;type = z;copystring(arg,a);active = false;}
+envZone(vec o,float r,uchar z,const char*a){pos = o;radius = r;type = z;copystring(arg,a);active = false;}
 ~envZone(){}
 };
 namespace game{

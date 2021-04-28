@@ -26,8 +26,8 @@ string model,vmodel;
 int weight,type;
 float vol; // what part of the inventory capacity does this item take.Max 1.0
 RPGitem():weight(0),vol(0.0),name("empty"),model(""),vmodel(""){}
-RPGitem(char *,char*,char*,char*,int,int,float);
-void set(char *,char*,char*,char*,int,int,float);
+RPGitem(const char *,const char*,const char*,const char*,int,int,float);
+void set(const char *,const char*,const char*,const char*,int,int,float);
 virtual void draw(fpsEntity*user,invItem*i);
 virtual void use(fpsEntity*user,invItem*i,bool release){}
 virtual void alt(fpsEntity*user,invItem*i,bool release){}
@@ -39,7 +39,7 @@ int clip,clipitemid;
 float minrange,maxrange; // for AI
 bool onehanded;
 int maxammo;
-RPGWeapon(char *,char*,char*,char*,int,int,float,int,int,bool,float,float,int);
+RPGWeapon(const char*,const char*,const char*,const char*,int,int,float,int,int,bool,float,float,int);
 virtual void reload(fpsEntity*user,invItem*i){}
 virtual int getammo(fpsEntity*user,invItem*i){return 0;}
 virtual void setammo(invItem*i,int ammo){}
@@ -50,8 +50,8 @@ struct invItem{
  float fvar1,fvar2,fvar3;
  invItem(RPGitem*item):parent(item),ivar1(0),ivar2(0),ivar3(0),fvar1(0),fvar2(0),fvar3(0){}
  ~invItem(){parent = NULL;}
- void getproperty(int prop,char*value);
- void setproperty(int prop,char*value);
+ void getproperty(int prop,const char*value);
+ void setproperty(int prop,const char*value);
 };
 struct inventory
 {
@@ -69,8 +69,8 @@ struct inventory
 namespace RPG
 {
  extern vector <RPGitem*> itemlist;
- extern int registeritem(char * name,char*devname,char*vmodel,char*model,int weight,int type,float vol);
- extern int getitembyname(char * name);
+ extern int registeritem(const char*name,const char*devname,const char*vmodel,const char*model,int weight,int type,float vol);
+ extern int getitembyname(const char*name);
  extern int registerweapon(RPGWeapon*weapon);
  extern bool itemexists(int index);
  extern RPGitem *retrpgitem(int index);
@@ -94,7 +94,7 @@ struct RPGItemEnt:fpsEntity
    item = new invItem(t);
    movable = true;
   }
- bool setev(int attr,char*val);
+ bool setev(int attr,const char*val);
  ~RPGItemEnt(){delete item;}
  void playerused();
 };

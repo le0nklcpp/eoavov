@@ -23,4 +23,4 @@ void zonetriggers(vec pos)
   loopzones(pos,ZONE_TRIGGER,if(!z.active){z.active = true;cubeevent(z.arg);},z.active = false);
  }
 };
-ICOMMAND(set_envzone,"ffffis",(float*x,float*y,float*z,float*r,int*zt,char*arg),{game::gamezones.add(new envZone(vec(*x,*y,*z),*r,*zt,arg));});
+ICOMMAND(set_envzone,"ffffis",(float*x,float*y,float*z,float*r,int*zt,const char*arg),{game::gamezones.add(new envZone(vec(*x,*y,*z),*r,*zt,arg));});

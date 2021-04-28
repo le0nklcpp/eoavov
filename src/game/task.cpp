@@ -1,5 +1,5 @@
 #include "cube.h"
-int exectask(int fn(void*),char*name,void*args)
+int exectask(int fn(void*),const char*name,void*args)
 {
  SDL_Thread*thread = SDL_CreateThread(fn,name,args);
  if(!thread)return -1;

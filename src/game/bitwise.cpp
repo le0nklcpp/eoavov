@@ -3,7 +3,7 @@ const char* bwoperations[] =
  {
   ">>","<<","~","&","|","^"
  };
-void bitwise(unsigned int a,char*op,unsigned int b)
+void bitwise(unsigned int a,const char*op,unsigned int b)
 {
  if(!op)return;
  for(int i=0;i<6;i++)
@@ -23,4 +23,4 @@ void bitwise(unsigned int a,char*op,unsigned int b)
     }
   }
 }
-ICOMMAND(bitwise,"isi",(unsigned int *a,char*op,unsigned int *b),bitwise(*a,op,*b));
+ICOMMAND(bitwise,"isi",(unsigned int *a,const char*op,unsigned int *b),bitwise(*a,op,*b));

@@ -54,6 +54,6 @@ void set_hudmsgcolors(int r,int g,int b)
 }
 
 ICOMMAND(set_hudmessage_color,"iii",(int*r,int*g,int*b),set_hudmsgcolors(*r,*g,*b));
-ICOMMAND(set_hudmessage,"ffiisi",(float *posx,float *posy,int *startdelay,int *stopdelay,char*message,int *channel),set_hudmsg(*posx,*posy,*startdelay,*stopdelay,message,*channel));
+ICOMMAND(set_hudmessage,"ffiisi",(float *posx,float *posy,int *startdelay,int *stopdelay,const char*message,int *channel),set_hudmsg(*posx,*posy,*startdelay,*stopdelay,message,*channel));
 ICOMMAND(clearhudmessage,"i",(int*index),clearhudmessage(*index));
 ICOMMAND(clearhudmessages,"",(),clearhudmessages());

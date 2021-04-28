@@ -8,7 +8,7 @@ struct deferredsound
 string file;
 int vol;
 int timestamp;
-deferredsound(const char* f,int v,int t):vol(v),timestamp(t){copystring(file,f);}
+deferredsound(const char*f,int v,int t):vol(v),timestamp(t){copystring(file,f);}
 ~deferredsound(){}
 bool emit() 
  {

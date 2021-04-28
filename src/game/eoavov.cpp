@@ -133,6 +133,6 @@ namespace game{
     {
     }
     GMCMD(quickswitch,"",(),player1->quickswitch());
-    GMCMD(set_hudmodel,"sii",(char*s,int*anim,int*time),player1->setvmodel(s,*anim,*time));
-    ICOMMAND(precache_model,"s",(char*fpath),preloadmodel(fpath));
+    GMCMD(set_hudmodel,"sii",(const char*s,int*anim,int*time),player1->setvmodel(s,*anim,*time));
+    ICOMMAND(precache_model,"s",(const char*fpath),preloadmodel(fpath));
 };

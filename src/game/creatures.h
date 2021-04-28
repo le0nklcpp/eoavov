@@ -19,7 +19,7 @@ TEAM_ENEMY
 struct AIAvoidZone:envZone
 {
 fpsEntity*attached;
-AIAvoidZone(vec o,float rad,fpsEntity*ent):envZone(pos,rad,0,(char*)"\0"){attached = ent;} // zone will move with attached entity if any.
+AIAvoidZone(vec o,float rad,fpsEntity*ent):envZone(pos,rad,0,(const char*)"\0"){attached = ent;} // zone will move with attached entity if any.
 ~AIAvoidZone(){}
 };
 struct creatureType{

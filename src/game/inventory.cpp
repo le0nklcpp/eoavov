@@ -8,7 +8,7 @@ void RPGItemEnt::playerused()
   }
  killed(this);
 }
-bool RPGItemEnt::setev(int attr,char*val)
+bool RPGItemEnt::setev(int attr,const char*val)
 {
  if(!fpsEntity::setev(attr,val))
   {
@@ -17,7 +17,7 @@ bool RPGItemEnt::setev(int attr,char*val)
   }
  return true;
 }
-RPGitem::RPGitem(char* n,char * dn,char*vmdl,char*mdl,int w,int i,float v)
+RPGitem::RPGitem(const char*n,const char*dn,const char*vmdl,const char*mdl,int w,int i,float v)
 {
  set(n,dn,vmdl,mdl,w,i,v);
 }
@@ -25,19 +25,19 @@ void RPGitem::draw(fpsEntity*user,invItem*i)
 {
 if(user==player1)player1->setvmodel(vmodel,0,0);
 }
-void RPGitem::set(char* n,char * dn,char*vmdl,char*mdl,int w,int i,float v)
+void RPGitem::set(const char*n,const char*dn,const char*vmdl,const char*mdl,int w,int i,float v)
 {
  copystring(name,n);
  copystring(devname,dn);
  if(mdl)copystring(model,mdl);
- else mdl[0] = '\0';
+ else model[0] = '\0';
  if(vmdl)copystring(vmodel,vmdl);
  else vmodel[0]='\0';
  weight = w;
  type = i;
  vol = v;
 }
-RPGWeapon::RPGWeapon(char* n,char * dn,char*vmdl,char*mdl,int w,int i,float v,int c,int cid,bool oh,float minar,float maxar,int am)
+RPGWeapon::RPGWeapon(const char*n,const char*dn,const char*vmdl,const char*mdl,int w,int i,float v,int c,int cid,bool oh,float minar,float maxar,int am)
 {
  set(n,dn,vmdl,mdl,w,i,v);
  clip = c;
@@ -103,7 +103,7 @@ int inventory::additem(invItem *i)
 Id - item index in inventory
 
 */
-void invItem::setproperty(int prop,char*value) // there was mistake with variable names
+void invItem::setproperty(int prop,const char*value) // there was mistake with variable names
 {
  int n = atof(value);
  switch(prop)
@@ -117,7 +117,7 @@ void invItem::setproperty(int prop,char*value) // there was mistake with variabl
   case(inv_itemid):if(RPG::itemexists(n))parent = RPG::itemlist[n];break;
   }
 }
-void invItem::getproperty(int prop,char * var)
+void invItem::getproperty(int prop,const char * var)
 {
  switch(prop)
  {
@@ -141,7 +141,7 @@ void inventory::clear()
 namespace RPG
 {
  vector<RPGitem*>itemlist;
- int getitembyname(char * name)
+ int getitembyname(const char * name)
  {
   loopv(itemlist)
    {
@@ -149,7 +149,7 @@ namespace RPG
    }
   return -1;
  }
- int registeritem(char * name,char*devname,char*vmodel,char*model,int weight,int type,float vol)
+ int registeritem(const char*name,const char*devname,const char*vmodel,const char*model,int weight,int type,float vol)
  {
   itemlist.add(new RPGitem(name,devname,vmodel,model,weight,type,vol));
   return itemlist.length()-1;
@@ -159,7 +159,7 @@ namespace RPG
   itemlist.add((RPGitem*)weapon);
   return itemlist.length()-1;
  }
- void Player1InvItemOperations(int itemid,bool set,int prop,char* val)
+ void Player1InvItemOperations(int itemid,bool set,int prop,const char* val)
  {
    if(!player1)return;
    invItem*item = player1->inv.getitem(itemid);
@@ -176,9 +176,9 @@ namespace RPG
   return itemexists(index)?itemlist[index]:NULL;
  }
 GMCMD(rpg_register_item,"ssssiif",(char*n,char*dn,char*vmdl,char*mdl,int*w,int*i,float*v),registeritem(n,dn,vmdl,mdl,*w,*i,*v))
-GMCMD(rpg_get_item_by_name,"s",(char*s),{intret(getitembyname(s));});
+GMCMD(rpg_get_item_by_name,"s",(const char*s),{intret(getitembyname(s));});
 GMCMD(player_inv_length,"",(),{intret(player1->inv.items.length());});
-GMCMD(player_inv_operation,"iiis",(int*index,int*s,int*p,char*v),{Player1InvItemOperations(*index,(bool)*s,*p,v);});
+GMCMD(player_inv_operation,"iiis",(int*index,int*s,int*p,const char*v),{Player1InvItemOperations(*index,(bool)*s,*p,v);});
 GMCMD(player_inv_pick,"ii",(int*item,int*clearholster),{if(*item==-1)player1->hands = NULL;else player1->draw(*item);if(*clearholster)player1->holster = NULL;});
 GMCMD(player_inv_remove,"i",(int*i),{player1->inv.removeitem(*i);});
 GMCMD(player_add_item,"i",(int*i),{if(itemexists(*i))intret(player1->inv.additem(new invItem(itemlist[*i])));});

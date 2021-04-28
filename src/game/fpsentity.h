@@ -59,7 +59,7 @@ virtual void revert(short axis); // 1 - X, 2 - Y, 3 - Z
 virtual void bounce(short axis); // the same as revert
 virtual void think();
 virtual void move();
-virtual void setmodel(char*modelname);
+virtual void setmodel(const char*modelname);
 virtual void touched(fpsEntity*ent);
 virtual void hit(fpsEntity*attacker,float damage,uchar damagetype);
 virtual void attacked(fpsEntity*attacker,float damage,uchar damagetype,vec hitpos);
@@ -70,7 +70,7 @@ virtual void attach(fpsEntity*ent,vec pos);
 virtual void detach();
 virtual void setpos(vec o);
 virtual void setangle(int y=-1,int p=-1,int r=-1); // -1 = don't change
-virtual bool setev(int attr,char*val); // for scripting purposes.Returns false if it didnt find value to set.
+virtual bool setev(int attr,const char*val); // for scripting purposes.Returns false if it didnt find value to set.
 virtual void reset();
 };
 
