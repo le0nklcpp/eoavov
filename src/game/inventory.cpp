@@ -145,7 +145,7 @@ namespace RPG
  {
   loopv(itemlist)
    {
-    if(!strcmp(name,itemlist[i]->devname))return i;
+    if(!strncmp(itemlist[i]->devname,name,47))return i;
    }
   return -1;
  }

@@ -1,14 +1,14 @@
 #include "cube.h"
-const char* bwoperations[] = 
+const char bwoperations[] = 
  {
-  ">>","<<","~","&","|","^"
+  '>','<','~','&','|','^'
  };
 void bitwise(unsigned int a,const char*op,unsigned int b)
 {
- if(!op)return;
+ if(!op||op[0]=='\0')return;
  for(int i=0;i<6;i++)
   {
-   if(!strcmp(bwoperations[i],op))
+   if(bwoperations[i]==op[0])
     {
      switch(i)
       {
