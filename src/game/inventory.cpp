@@ -98,15 +98,16 @@ Id - item index in inventory
 */
 void invItem::setproperty(int prop,const char*value) // there was mistake with variable names
 {
- int n = atof(value);
+ #define sf atof(value);
+ #define si atoi(value);
  switch(prop)
   {
-  case(inv_ivar1):ivar1 = n;break;
-  case(inv_ivar2):ivar2 = n;break;
-  case(inv_ivar3):ivar3 = n;break;
-  case(inv_fvar1):fvar1 = n;break;
-  case(inv_fvar2):fvar2 = n;break;
-  case(inv_fvar3):fvar3 = n;break;
+  case(inv_ivar1):ivar1 = si;break;
+  case(inv_ivar2):ivar2 = si;break;
+  case(inv_ivar3):ivar3 = si;break;
+  case(inv_fvar1):fvar1 = sf;break;
+  case(inv_fvar2):fvar2 = sf;break;
+  case(inv_fvar3):fvar3 = sf;break;
   case(inv_itemid):if(RPG::itemexists(n))parent = RPG::itemlist[n];break;
   }
 }

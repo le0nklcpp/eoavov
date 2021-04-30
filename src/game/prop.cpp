@@ -46,7 +46,7 @@ void propEnt::attacked(fpsEntity*attacker,float damage,uchar damagetype,vec hitp
   prop_hk_arg3 = hitpos.x;
   prop_hk_arg4 = hitpos.y;
   prop_hk_arg5 = hitpos.z;
-  cubeevent(p.hithook);
+  game::cubeevent(p.hithook);
 }
 void propEnt::killed(fpsEntity*killer)
 {

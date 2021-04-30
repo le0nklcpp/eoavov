@@ -11,6 +11,7 @@
 #define GMCMD(a,b,c,d) ICOMMAND(a,b,c,{if(isconnected()){d;}})
 #define GMACMD(a,b,c,d) GMCMD(a,b,c,{if(!lock_control)d;})
 
+#define logerror(s) conoutf(CON_ERROR,s)
 enum
 {
 
@@ -79,13 +80,13 @@ enum{
 };
 extern playerEnt*player1;
 
-extern void cubeevent(const char*str);
 extern int lock_control;
 namespace game
 {
  /*
   render functions
  */
+ extern void cubeevent(const char*str);
  extern void rendergame();
  extern void renderfpsents();
  extern void renderplayer();

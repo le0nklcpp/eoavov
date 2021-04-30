@@ -1,9 +1,9 @@
 #include "eoavov.h"
-void cubeevent(const char * str)
- {
- if(identexists(str)) execute(str);
- }
 namespace game{
+    void cubeevent(const char * str)
+    {
+     if(identexists(str)) execute(str);
+    }
     void sound(const char *s, const vec *loc, int vol , int flags, int loops, int fade, int chanid, int radius, int expire)
     {
      if(loc&&inAcousticZone(*loc))playacoustic(s,loc);
