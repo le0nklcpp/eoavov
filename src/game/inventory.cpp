@@ -17,29 +17,22 @@ bool RPGItemEnt::setev(int attr,const char*val)
   }
  return true;
 }
-RPGitem::RPGitem(const char*n,const char*dn,const char*vmdl,const char*mdl,int w,int i,float v)
+RPGitem::RPGitem(const char*n,const char*dn,const char*vmdl,const char*mdl,int w,int t,float v)
 {
- set(n,dn,vmdl,mdl,w,i,v);
+ copystring(name,n);
+ copystring(devname,dn);
+ copystring(model,mdl);
+ copystring(vmodel,vmdl);
+ weight = w;
+ type = t;
+ vol = v;
 }
 void RPGitem::draw(fpsEntity*user,invItem*i)
 {
 if(user==player1)player1->setvmodel(vmodel,0,0);
 }
-void RPGitem::set(const char*n,const char*dn,const char*vmdl,const char*mdl,int w,int i,float v)
+RPGWeapon::RPGWeapon(const char*n,const char*dn,const char*vmdl,const char*mdl,int w,int i,float v,int c,int cid,bool oh,float minar,float maxar,int am):RPGitem(n,dn,vmdl,mdl,w,i,v)
 {
- copystring(name,n);
- copystring(devname,dn);
- if(mdl)copystring(model,mdl);
- else model[0] = '\0';
- if(vmdl)copystring(vmodel,vmdl);
- else vmodel[0]='\0';
- weight = w;
- type = i;
- vol = v;
-}
-RPGWeapon::RPGWeapon(const char*n,const char*dn,const char*vmdl,const char*mdl,int w,int i,float v,int c,int cid,bool oh,float minar,float maxar,int am)
-{
- set(n,dn,vmdl,mdl,w,i,v);
  clip = c;
  clipitemid = cid;
  onehanded = oh;

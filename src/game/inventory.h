@@ -22,12 +22,10 @@ struct invItem;
 struct RPGitem
 {
 char name[48],devname[48]; // devname used in scripts and for getitembyname
-string model,vmodel;
+string vmodel,model;
 int weight,type;
 float vol; // what part of the inventory capacity does this item take.Max 1.0
-RPGitem():weight(0),vol(0.0),name("empty"),model(""),vmodel(""){}
-RPGitem(const char *,const char*,const char*,const char*,int,int,float);
-void set(const char *,const char*,const char*,const char*,int,int,float);
+RPGitem(const char *n,const char*dn,const char*vmdl,const char*mdl,int w,int t,float v);
 virtual void draw(fpsEntity*user,invItem*i);
 virtual void use(fpsEntity*user,invItem*i,bool release){}
 virtual void alt(fpsEntity*user,invItem*i,bool release){}
@@ -36,10 +34,10 @@ virtual ~RPGitem(){}
 struct RPGWeapon:RPGitem
 {
 int clip,clipitemid;
-float minrange,maxrange; // for AI
 bool onehanded;
+float minrange,maxrange; // for AI
 int maxammo;
-RPGWeapon(const char*,const char*,const char*,const char*,int,int,float,int,int,bool,float,float,int);
+RPGWeapon(const char*n,const char*dn,const char*vmdl,const char*mdl,int w,int i,float v,int c,int cid,bool oh,float minar,float maxar,int am);
 virtual void reload(fpsEntity*user,invItem*i){}
 virtual int getammo(fpsEntity*user,invItem*i){return 0;}
 virtual void setammo(invItem*i,int ammo){}
