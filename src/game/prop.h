@@ -17,7 +17,7 @@ struct propEnt:fpsEntity
 {
  int propid;
  propEnt(vec pos,int attr1,int attr2,int attr3,int attr4,int attr5): propid(attr1)
-  {
+ {
    tag = attr5;
    if(!proptypes.inrange(propid))
     {
@@ -35,7 +35,7 @@ struct propEnt:fpsEntity
    setmodel(p.model);
    setpos(pos);
    type = E_MOVABLE;
-  }
+ }
  ~propEnt(){}
  void attacked(fpsEntity*attacker,float damage,uchar damagetype,vec hitpos);
  void killed(fpsEntity*killer);

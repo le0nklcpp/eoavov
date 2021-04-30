@@ -1,21 +1,21 @@
 #include "eoavov.h"
 namespace game
 {
- float swaydist = 2.0;
- vec swaydir(0, 0, 0);
- VAR(hudgun, 0, 1, 1);
- VAR(hudgunsway, 0, 1, 1);
- FVAR(swaystep, 1, 35.0f, 100);
- FVAR(swayside, 0, 0.10f, 1);
- FVAR(swayup, -1, 0.15f, 1);
- VAR(showhud,0,1,1);
- VAR(showhudmsg,0,1,1);
- void rendergame()
+  float swaydist = 2.0;
+  vec swaydir(0, 0, 0);
+  VAR(hudgun, 0, 1, 1);
+  VAR(hudgunsway, 0, 1, 1);
+  FVAR(swaystep, 1, 35.0f, 100);
+  FVAR(swayside, 0, 0.10f, 1);
+  FVAR(swayup, -1, 0.15f, 1);
+  VAR(showhud,0,1,1);
+  VAR(showhudmsg,0,1,1);
+  void rendergame()
   {
    renderfpsents();
    renderplayer();
   }
- void renderfpsents()
+  void renderfpsents()
   {
    loopv(fpsents)
     {

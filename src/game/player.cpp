@@ -17,87 +17,87 @@ void fixcarrydist()
  max_carry_dist = max(min_carry_dist,max_carry_dist);
 }
 void playerEnt::reset()
- {
-  vmodel[0]='\0';
-  fpsEntity::reset();
-  RPGObject::reset();
-  state = CS_ALIVE;
-  maxspeed = PLAYER_DEFAULT_SPEED;
-  light = false;
-  dropent();
- }
+{
+ vmodel[0]='\0';
+ fpsEntity::reset();
+ RPGObject::reset();
+ state = CS_ALIVE;
+ maxspeed = PLAYER_DEFAULT_SPEED;
+ light = false;
+ dropent();
+}
 void playerEnt::setvmodel(const char*path,int anim,int animtime)
- {
-  copystring(vmodel,path);
-  vanim = (ANIM_GAMESPECIFIC + max(anim,0)) | ANIM_LOOP;
-  lastvanimtime = lastmillis-animtime;
- }
+{
+ copystring(vmodel,path);
+ vanim = (ANIM_GAMESPECIFIC + max(anim,0)) | ANIM_LOOP;
+ lastvanimtime = lastmillis-animtime;
+}
 inline void playerEnt::moveitem()
- {
-  if(!carries)return;
-  vec oldpos = carries->o;
-  int i=max_carry_dist;
-  while(i>=min_carry_dist)
-   {
-    carries->o = vec(o).add(vec(camdir).mul(i));
-    if((!collide(carries)&&!collideinside))
-     {
-      carries->resetinterp();
-      return;
-     }
-    i--;
-   }
-  carries->o = oldpos;
-  dropent();
- }
-void playerEnt::move()
- {
-  if(!movable)return;
-  if(lock_movement)player1->stopmoving();
-  crouchplayer(this, 1, true);
-  moveplayer(this, 1, true);
-  moveitem();
- }
-void playerEnt::dropent()
- {
-  if(carries)
-   {
-   carries->resetinterp();
-   if(carries->type==E_MOVABLE)
+{
+ if(!carries)return;
+ vec oldpos = carries->o;
+ int i=max_carry_dist;
+ while(i>=min_carry_dist)
+  {
+   carries->o = vec(o).add(vec(camdir).mul(i));
+   if((!collide(carries)&&!collideinside))
     {
-    propEnt*cast = (propEnt*)carries;
-    cast->dropped();
+     carries->resetinterp();
+     return;
     }
-   }
-  carries = NULL;
- }
-void playerEnt::grabent(fpsEntity*e)
- {
-  carries = e;
- }
-void playerEnt::killed(fpsEntity*killer)
- {
-  dropent();
-  state = CS_DEAD;
-  roll = 0;
-  yaw = pitch = 90;
-  nextthink = lastmillis + LOSE_DELAY;
- }
-void playerEnt::quickswitch()
- {
-  if(!holster)return;
-  invItem*buf = hands;
-  hands = holster;
-  holster = buf;
- }
-void playerEnt::think()
- {
-  if(state!=CS_DEAD)move();
-  else if(nextthink<=lastmillis)
+   i--;
+  }
+ carries->o = oldpos;
+ dropent();
+}
+void playerEnt::move()
+{
+ if(!movable)return;
+ if(lock_movement)player1->stopmoving();
+ crouchplayer(this, 1, true);
+ moveplayer(this, 1, true);
+ moveitem();
+}
+void playerEnt::dropent()
+{
+ if(carries)
+  {
+  carries->resetinterp();
+  if(carries->type==E_MOVABLE)
    {
-    trydisconnect(true);
+   propEnt*cast = (propEnt*)carries;
+   cast->dropped();
    }
- }
+  }
+ carries = NULL;
+}
+void playerEnt::grabent(fpsEntity*e)
+{
+ carries = e;
+}
+void playerEnt::killed(fpsEntity*killer)
+{
+ dropent();
+ state = CS_DEAD;
+ roll = 0;
+ yaw = pitch = 90;
+ nextthink = lastmillis + LOSE_DELAY;
+}
+void playerEnt::quickswitch()
+{
+ if(!holster)return;
+ invItem*buf = hands;
+ hands = holster;
+ holster = buf;
+}
+void playerEnt::think()
+{
+ if(state!=CS_DEAD)move();
+ else if(nextthink<=lastmillis)
+  {
+   trydisconnect(true);
+  }
+}
 void playerEnt::attack(bool down)
 {
  if(nextattacktime<=lastmillis) // Yes, we throw the object we held before

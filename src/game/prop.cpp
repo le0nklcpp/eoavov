@@ -13,7 +13,7 @@ SVAR(prop_drophook,"");
 SVAR(prop_usehook,"");
 SVAR(prop_model, "");
 proptype::proptype()
- {
+{
   health = prop_health;
   id = prop_id;
   mass = prop_mass;
@@ -24,7 +24,7 @@ proptype::proptype()
   copystring(drophook,prop_drophook);
   copystring(usehook,prop_usehook);
   copystring(model, prop_model);
- }
+}
 ICOMMAND(push_prop,"",(),{proptypes.add(new proptype());});
 
 VARP(prop_hk_tag, -32767,0,32767);
@@ -55,7 +55,7 @@ void propEnt::killed(fpsEntity*killer)
   getpt;
   prop_hk_tag =  killer->tag;
   prop_hk_type = killer->type;
-  cubeevent(p.breakhook);
+  game::cubeevent(p.breakhook);
 }
 void propEnt::playerused()
 {
@@ -65,12 +65,12 @@ void propEnt::playerused()
    player1->grabent(this);
    movable = false; // setting movable to false to exclude unnecessary calculations
    }
-  cubeevent(p.usehook);
+  game::cubeevent(p.usehook);
 }
 void propEnt::dropped()
 {
  getpt;
- cubeevent(p.drophook);
+ game::cubeevent(p.drophook);
  movable = p.movable;
  falling = player1->falling;
  vel = player1->vel;

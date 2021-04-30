@@ -1,7 +1,7 @@
 #include "eoavov.h"
 namespace game{
 vector <envZone*>gamezones;
-void cleargamezones()
+ void cleargamezones()
  { 
   gamezones.deletecontents();
  }
@@ -13,12 +13,12 @@ void cleargamezones()
   if(z.pos.dist(p)<=z.radius){action;} \
   else {outsideaction;}\
  }
-bool inzone(vec pos,int ztype)
+ bool inzone(vec pos,int ztype)
  {
   loopzones(pos,ztype,return true,);
   return false;
  }
-void zonetriggers(vec pos)
+ void zonetriggers(vec pos)
  {
   loopzones(pos,ZONE_TRIGGER,if(!z.active){z.active = true;cubeevent(z.arg);},z.active = false);
  }

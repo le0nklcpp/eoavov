@@ -108,7 +108,7 @@ void invItem::setproperty(int prop,const char*value) // there was mistake with v
   case(inv_fvar1):fvar1 = sf;break;
   case(inv_fvar2):fvar2 = sf;break;
   case(inv_fvar3):fvar3 = sf;break;
-  case(inv_itemid):if(RPG::itemexists(n))parent = RPG::itemlist[n];break;
+  case(inv_itemid):int n = si;if(RPG::itemexists(n))parent = RPG::itemlist[n];break;
   }
 }
 void invItem::getproperty(int prop,const char * var)
