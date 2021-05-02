@@ -71,7 +71,8 @@ MOD_OBJS= \
 	game/render.o \
 	game/envzones.o \
 	game/task.o \
-	game/player.o
+	game/player.o \
+	game/dict.o
 CLIENT_OBJS= \
 	shared/crypto.o \
 	shared/geom.o \

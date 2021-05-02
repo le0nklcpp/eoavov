@@ -11,7 +11,6 @@
 #define GMCMD(a,b,c,d) ICOMMAND(a,b,c,{if(isconnected()){d;}})
 #define GMACMD(a,b,c,d) GMCMD(a,b,c,{if(!lock_control)d;})
 
-#define logerror(s) conoutf(CON_ERROR,s)
 enum
 {
 
