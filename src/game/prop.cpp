@@ -3,7 +3,7 @@
 vector<proptype*>proptypes;
 VAR(prop_health,0,0,32767);
 VAR(prop_id,0,0,32767);
-FVAR(prop_mass,0.,1.,1.);
+FVAR(prop_mass,0.,1.,32767.);
 VAR(prop_movable,0,1,1);
 VAR(prop_portable,0,1,1);
 SVAR(prop_movehook,"");

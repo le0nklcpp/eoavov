@@ -106,7 +106,7 @@ void playerEnt::attack(bool down)
     {
     fpsEntity* ent = carries;
     dropent();
-    ent->vel.add(vec(camdir).mul(THROW_FORCE));
+    ent->vel.add(vec(camdir).mul(THROW_FORCE).div(ent->mass));
     nextattacktime = lastmillis + NEXT_USE_DELAY;
     }
    else if(hands)
