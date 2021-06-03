@@ -72,17 +72,12 @@ namespace game{
  {
   return fpsents.length()+1;
  }
- bool intersect(dynent *d, const vec &from, const vec &to, float &dist)   // if lineseg hits entity bounding box
+ bool intersect(fpsEntity *d, const vec &from, const vec &to, float &dist)   // if lineseg hits entity bounding box
  {
   vec bottom(d->o), top(d->o);
   bottom.z -= d->eyeheight;
   top.z += d->aboveeye;
   return linecylinderintersect(from, to, bottom, top, d->radius, dist);
- }
- bool fpsintersect(fpsEntity &e, const vec &o, const vec &ray,float maxdist)
- {
-  float dist;
-  return intersect((dynent*)&e,o,ray,dist);
  }
  ICOMMAND(get_dynentsnum,"",(),{intret(fpsents.length());});
  #define PLAYER_ENT_TAG 1337
@@ -122,22 +117,22 @@ namespace game{
   ent->state = CS_DEAD;
   ent->nextthink = 0;
  });
-/* 
-
-  There was some stupid quick-fix code in following function, I don't remember how did I allow myself to write this
-  I wanted to use and return the list of caught objects, but then i refused this idea and forgot to rewrite code.But didn't forgot to remove that dumb comment.This one is dumb too.
-
-*/
  fpsEntity* rayent(const vec& from, const vec& to,float maxdist,bool thruwalls)
- { 
+ {
      float newmaxdist = maxdist?maxdist:130.0;
-     if(!thruwalls)newmaxdist = raycube(from,to,maxdist,RAY_CLIPMAT|RAY_ALPHAPOLY);
+     vec hitpos;
+     if(!thruwalls)newmaxdist = raycubepos(from,to,hitpos,maxdist,RAY_CLIPMAT|RAY_ALPHAPOLY);
      fpsEntity* result = NULL;
      loopv(fpsents)
       {
+       float dist;
        fpsEntity&e = *fpsents[i];
-       if(e.state!=CS_ALIVE||e.o.dist(from)>newmaxdist+e.radius||e.collidetype==COLLIDE_NONE||!fpsintersect(e,from,to,newmaxdist))continue;
-       if(!result||result->o.dist(from)>e.o.dist(from))result = &e;
+       if(e.state!=CS_ALIVE||!intersect(&e,from,(const vec&)hitpos,dist))continue;
+       if(!result||dist<newmaxdist)
+        {
+        result = &e;
+        newmaxdist = dist;
+        }
       }
       return result;
  }

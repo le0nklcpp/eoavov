@@ -23,6 +23,8 @@ void playerEnt::reset()
  RPGObject::reset();
  state = CS_ALIVE;
  maxspeed = PLAYER_DEFAULT_SPEED;
+ nextinteracttime = lastdamagetime = lastvanimtime = 0;
+ movable = true;
  light = false;
  dropent();
 }

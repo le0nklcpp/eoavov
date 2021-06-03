@@ -1,0 +1,856 @@
+# depslib dependency file v1.0
+1622031482 source:/home/steve/projects/crossplatform/eoavov/src/engine/engine.h
+	"cube.h"
+	"world.h"
+	"octa.h"
+	"light.h"
+	"texture.h"
+	"bih.h"
+	"model.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/shared/cube.h
+	<math.h>
+	<string.h>
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	<stdarg.h>
+	<limits.h>
+	<float.h>
+	<assert.h>
+	<time.h>
+	"windows.h"
+	<eh.h>
+	<dbghelp.h>
+	<intrin.h>
+	"SDL2/SDL.h"
+	<OpenGL/gl.h>
+	<SDL.h>
+	<SDL_opengl.h>
+	<enet/enet.h>
+	<zlib.h>
+	"tools.h"
+	"geom.h"
+	"ents.h"
+	"command.h"
+	"glexts.h"
+	"glemu.h"
+	"iengine.h"
+	"igame.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/include/SDL.h
+	"SDL_main.h"
+	"SDL_stdinc.h"
+	"SDL_assert.h"
+	"SDL_atomic.h"
+	"SDL_audio.h"
+	"SDL_clipboard.h"
+	"SDL_cpuinfo.h"
+	"SDL_endian.h"
+	"SDL_error.h"
+	"SDL_events.h"
+	"SDL_filesystem.h"
+	"SDL_gamecontroller.h"
+	"SDL_haptic.h"
+	"SDL_hints.h"
+	"SDL_joystick.h"
+	"SDL_loadso.h"
+	"SDL_log.h"
+	"SDL_messagebox.h"
+	"SDL_metal.h"
+	"SDL_mutex.h"
+	"SDL_power.h"
+	"SDL_render.h"
+	"SDL_rwops.h"
+	"SDL_sensor.h"
+	"SDL_shape.h"
+	"SDL_system.h"
+	"SDL_thread.h"
+	"SDL_timer.h"
+	"SDL_version.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/include/SDL_main.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/include/SDL_stdinc.h
+	"SDL_config.h"
+	<sys/types.h>
+	<stdio.h>
+	<stdlib.h>
+	<stddef.h>
+	<stdarg.h>
+	<stdlib.h>
+	<malloc.h>
+	<stddef.h>
+	<stdarg.h>
+	<memory.h>
+	<string.h>
+	<strings.h>
+	<wchar.h>
+	<inttypes.h>
+	<stdint.h>
+	<ctype.h>
+	<math.h>
+	<float.h>
+	<alloca.h>
+	<malloc.h>
+	<malloc.h>
+	<malloc.h>
+	<stdlib.h>
+	<sal.h>
+	"begin_code.h"
+	"close_code.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/include/SDL_config.h
+	"SDL_platform.h"
+	"SDL_config_windows.h"
+	"SDL_config_winrt.h"
+	"SDL_config_macosx.h"
+	"SDL_config_iphoneos.h"
+	"SDL_config_android.h"
+	"SDL_config_psp.h"
+	"SDL_config_os2.h"
+	"SDL_config_minimal.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/include/SDL_platform.h
+	"AvailabilityMacros.h"
+	"TargetConditionals.h"
+	<winapifamily.h>
+	"begin_code.h"
+	"close_code.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/include/begin_code.h
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/include/close_code.h
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/include/SDL_config_windows.h
+	"SDL_platform.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/include/SDL_config_winrt.h
+	"SDL_platform.h"
+	<sdkddkver.h>
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/include/SDL_config_macosx.h
+	"SDL_platform.h"
+	<AvailabilityMacros.h>
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/include/SDL_config_iphoneos.h
+	"SDL_platform.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/include/SDL_config_android.h
+	"SDL_platform.h"
+	<stdarg.h>
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/include/SDL_config_psp.h
+	"SDL_platform.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/include/SDL_config_os2.h
+	"SDL_platform.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/include/SDL_config_minimal.h
+	"SDL_platform.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/include/SDL_assert.h
+	"SDL_config.h"
+	"begin_code.h"
+	<signal.h>
+	"close_code.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/include/SDL_atomic.h
+	"SDL_stdinc.h"
+	"SDL_platform.h"
+	"begin_code.h"
+	<sys/cpuinline.h>
+	<mbarrier.h>
+	"close_code.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/include/SDL_audio.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_endian.h"
+	"SDL_mutex.h"
+	"SDL_thread.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/include/SDL_error.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/include/SDL_endian.h
+	"SDL_stdinc.h"
+	<endian.h>
+	<endian.h>
+	"begin_code.h"
+	"close_code.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/include/SDL_mutex.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/include/SDL_thread.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_atomic.h"
+	"SDL_mutex.h"
+	"begin_code.h"
+	<process.h>
+	<process.h>
+	<stdlib.h>
+	"close_code.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/include/SDL_rwops.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/include/SDL_clipboard.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/include/SDL_cpuinfo.h
+	"SDL_stdinc.h"
+	<intrin.h>
+	<intrin.h>
+	<altivec.h>
+	<arm_neon.h>
+	<armintr.h>
+	<arm_neon.h>
+	<arm64intr.h>
+	<arm64_neon.h>
+	<mm3dnow.h>
+	<immintrin.h>
+	<mmintrin.h>
+	<xmmintrin.h>
+	<emmintrin.h>
+	<pmmintrin.h>
+	"begin_code.h"
+	"close_code.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/include/SDL_events.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"SDL_keyboard.h"
+	"SDL_mouse.h"
+	"SDL_joystick.h"
+	"SDL_gamecontroller.h"
+	"SDL_quit.h"
+	"SDL_gesture.h"
+	"SDL_touch.h"
+	"begin_code.h"
+	"close_code.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/include/SDL_video.h
+	"SDL_stdinc.h"
+	"SDL_pixels.h"
+	"SDL_rect.h"
+	"SDL_surface.h"
+	"begin_code.h"
+	"close_code.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/include/SDL_pixels.h
+	"SDL_stdinc.h"
+	"SDL_endian.h"
+	"begin_code.h"
+	"close_code.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/include/SDL_rect.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_pixels.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/include/SDL_surface.h
+	"SDL_stdinc.h"
+	"SDL_pixels.h"
+	"SDL_rect.h"
+	"SDL_blendmode.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/include/SDL_blendmode.h
+	"begin_code.h"
+	"close_code.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/include/SDL_keyboard.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_keycode.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/include/SDL_keycode.h
+	"SDL_stdinc.h"
+	"SDL_scancode.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/include/SDL_scancode.h
+	"SDL_stdinc.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/include/SDL_mouse.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/include/SDL_joystick.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/include/SDL_gamecontroller.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_rwops.h"
+	"SDL_joystick.h"
+	"begin_code.h"
+	"close_code.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/include/SDL_quit.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/include/SDL_gesture.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"SDL_touch.h"
+	"begin_code.h"
+	"close_code.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/include/SDL_touch.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/include/SDL_filesystem.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/include/SDL_haptic.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_joystick.h"
+	"begin_code.h"
+	"close_code.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/include/SDL_hints.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/include/SDL_loadso.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/include/SDL_log.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/include/SDL_messagebox.h
+	"SDL_stdinc.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/include/SDL_metal.h
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/include/SDL_power.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/include/SDL_render.h
+	"SDL_stdinc.h"
+	"SDL_rect.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/include/SDL_sensor.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/include/SDL_shape.h
+	"SDL_stdinc.h"
+	"SDL_pixels.h"
+	"SDL_rect.h"
+	"SDL_surface.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/include/SDL_system.h
+	"SDL_stdinc.h"
+	"SDL_keyboard.h"
+	"SDL_render.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/include/SDL_timer.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/include/SDL_version.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/include/SDL_opengl.h
+	"SDL_config.h"
+	"gl_mangle.h"
+	<windows.h>
+	"SDL_opengl_glext.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/include/SDL_opengl_glext.h
+	<windows.h>
+	<stddef.h>
+	<inttypes.h>
+	<inttypes.h>
+	<inttypes.h>
+	<stdint.h>
+	<stdint.h>
+	<inttypes.h>
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/enet/include/enet/enet.h
+	<stdlib.h>
+	"enet/win32.h"
+	"enet/unix.h"
+	"enet/types.h"
+	"enet/protocol.h"
+	"enet/list.h"
+	"enet/callbacks.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/enet/include/enet/win32.h
+	<stdlib.h>
+	<winsock2.h>
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/enet/include/enet/unix.h
+	<stdlib.h>
+	<sys/time.h>
+	<sys/types.h>
+	<sys/socket.h>
+	<arpa/inet.h>
+	<netinet/in.h>
+	<unistd.h>
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/enet/include/enet/types.h
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/enet/include/enet/protocol.h
+	"enet/types.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/enet/include/enet/list.h
+	<stdlib.h>
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/enet/include/enet/callbacks.h
+	<stdlib.h>
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/include/zlib.h
+	"zconf.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/include/zconf.h
+	<windows.h>
+	<sys/types.h>
+	<unistd.h>
+	<unixio.h>
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/shared/tools.h
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/shared/geom.h
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/shared/ents.h
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/shared/command.h
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/shared/glexts.h
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/shared/glemu.h
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/shared/iengine.h
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/shared/igame.h
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/engine/world.h
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/engine/octa.h
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/engine/light.h
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/engine/texture.h
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/engine/bih.h
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/engine/model.h
+
+1619810549 source:/home/steve/projects/crossplatform/eoavov/src/shared/cube.h
+	<math.h>
+	<string.h>
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	<stdarg.h>
+	<limits.h>
+	<float.h>
+	<assert.h>
+	<time.h>
+	"windows.h"
+	<eh.h>
+	<dbghelp.h>
+	<intrin.h>
+	"SDL2/SDL.h"
+	<OpenGL/gl.h>
+	<SDL.h>
+	<SDL_opengl.h>
+	<enet/enet.h>
+	<zlib.h>
+	"tools.h"
+	"geom.h"
+	"ents.h"
+	"command.h"
+	"glexts.h"
+	"glemu.h"
+	"iengine.h"
+	"igame.h"
+
+1619810549 source:/home/steve/projects/crossplatform/eoavov/src/engine/aa.cpp
+	"engine.h"
+
+1622031482 /home/steve/projects/crossplatform/eoavov/src/engine/engine.h
+	"cube.h"
+	"world.h"
+	"octa.h"
+	"light.h"
+	"texture.h"
+	"bih.h"
+	"model.h"
+
+1619810549 source:/home/steve/projects/crossplatform/eoavov/src/engine/bih.cpp
+	"engine.h"
+
+1619810549 source:/home/steve/projects/crossplatform/eoavov/src/engine/blend.cpp
+	"engine.h"
+
+1619810549 source:/home/steve/projects/crossplatform/eoavov/src/engine/client.cpp
+	"engine.h"
+
+1619810549 source:/home/steve/projects/crossplatform/eoavov/src/engine/console.cpp
+	"engine.h"
+
+1619810549 source:/home/steve/projects/crossplatform/eoavov/src/engine/dynlight.cpp
+	"engine.h"
+
+1619810549 source:/home/steve/projects/crossplatform/eoavov/src/engine/grass.cpp
+	"engine.h"
+
+1619810549 source:/home/steve/projects/crossplatform/eoavov/src/engine/light.cpp
+	"engine.h"
+
+1619810549 source:/home/steve/projects/crossplatform/eoavov/src/engine/menus.cpp
+	"engine.h"
+
+1619810549 source:/home/steve/projects/crossplatform/eoavov/src/engine/command.cpp
+	"engine.h"
+
+1619810549 source:/home/steve/projects/crossplatform/eoavov/src/engine/main.cpp
+	"engine.h"
+	"SDL_syswm.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/include/SDL_syswm.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"SDL_version.h"
+	<windows.h>
+	<Inspectable.h>
+	<X11/Xlib.h>
+	<X11/Xatom.h>
+	<directfb.h>
+	<UIKit/UIKit.h>
+	"SDL_egl.h"
+	"begin_code.h"
+	"close_code.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/include/SDL_egl.h
+	<EGL/egl.h>
+	<EGL/eglext.h>
+	<stdint.h>
+	<inttypes.h>
+	<stdint.h>
+	<windows.h>
+	<Unknwn.h>
+	<mir_toolkit/mir_client_library.h>
+	<X11/Xlib.h>
+	<X11/Xutil.h>
+
+1619810549 source:/home/steve/projects/crossplatform/eoavov/src/engine/material.cpp
+	"engine.h"
+
+1619810549 source:/home/steve/projects/crossplatform/eoavov/src/engine/movie.cpp
+	"engine.h"
+	"SDL2_mixer/SDL_mixer.h"
+	"SDL_mixer.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/include/SDL_mixer.h
+	"SDL_stdinc.h"
+	"SDL_rwops.h"
+	"SDL_audio.h"
+	"SDL_endian.h"
+	"SDL_version.h"
+	"begin_code.h"
+	"close_code.h"
+
+1619810549 source:/home/steve/projects/crossplatform/eoavov/src/engine/normal.cpp
+	"engine.h"
+
+1619810549 source:/home/steve/projects/crossplatform/eoavov/src/engine/octa.cpp
+	"engine.h"
+
+1619810549 source:/home/steve/projects/crossplatform/eoavov/src/engine/octaedit.cpp
+	"engine.h"
+
+1619810549 source:/home/steve/projects/crossplatform/eoavov/src/engine/octarender.cpp
+	"engine.h"
+
+1619810549 source:/home/steve/projects/crossplatform/eoavov/src/engine/physics.cpp
+	"engine.h"
+	"mpr.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/engine/mpr.h
+
+1619810549 source:/home/steve/projects/crossplatform/eoavov/src/engine/pvs.cpp
+	"engine.h"
+
+1619810549 source:/home/steve/projects/crossplatform/eoavov/src/engine/rendergl.cpp
+	"engine.h"
+
+1619810549 source:/home/steve/projects/crossplatform/eoavov/src/engine/renderlights.cpp
+	"engine.h"
+
+1619810549 source:/home/steve/projects/crossplatform/eoavov/src/engine/rendermodel.cpp
+	"engine.h"
+	"ragdoll.h"
+	"animmodel.h"
+	"vertmodel.h"
+	"skelmodel.h"
+	"hitzone.h"
+	"md2.h"
+	"md3.h"
+	"md5.h"
+	"obj.h"
+	"smd.h"
+	"iqm.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/engine/ragdoll.h
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/engine/animmodel.h
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/engine/vertmodel.h
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/engine/skelmodel.h
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/engine/hitzone.h
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/engine/md2.h
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/engine/md3.h
+
+1622031248 /home/steve/projects/crossplatform/eoavov/src/engine/md5.h
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/engine/obj.h
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/engine/smd.h
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/engine/iqm.h
+
+1619810549 source:/home/steve/projects/crossplatform/eoavov/src/engine/renderparticles.cpp
+	"engine.h"
+	"explosion.h"
+	"lensflare.h"
+	"lightning.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/engine/explosion.h
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/engine/lensflare.h
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/engine/lightning.h
+
+1619810549 source:/home/steve/projects/crossplatform/eoavov/src/engine/rendersky.cpp
+	"engine.h"
+
+1619810549 source:/home/steve/projects/crossplatform/eoavov/src/engine/rendertext.cpp
+	"engine.h"
+
+1619810549 source:/home/steve/projects/crossplatform/eoavov/src/engine/renderva.cpp
+	"engine.h"
+
+1619810549 source:/home/steve/projects/crossplatform/eoavov/src/engine/server.cpp
+	"engine.h"
+	"shellapi.h"
+
+1619810549 source:/home/steve/projects/crossplatform/eoavov/src/engine/serverbrowser.cpp
+	"engine.h"
+
+1619810549 source:/home/steve/projects/crossplatform/eoavov/src/engine/shader.cpp
+	"engine.h"
+
+1619810549 source:/home/steve/projects/crossplatform/eoavov/src/engine/sound.cpp
+	"engine.h"
+	"SDL2_mixer/SDL_mixer.h"
+	"SDL_mixer.h"
+	<wchar.h>
+	<unistd.h>
+	<sys/types.h>
+	<sys/stat.h>
+	<sys/mman.h>
+	<fcntl.h>
+	<wchar.h>
+
+1619810549 source:/home/steve/projects/crossplatform/eoavov/src/engine/stain.cpp
+	"engine.h"
+
+1619810549 source:/home/steve/projects/crossplatform/eoavov/src/engine/texture.cpp
+	"engine.h"
+	"SDL_image.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/include/SDL_image.h
+	"SDL.h"
+	"SDL_version.h"
+	"begin_code.h"
+	"close_code.h"
+
+1619810549 source:/home/steve/projects/crossplatform/eoavov/src/engine/ui.cpp
+	"engine.h"
+	"textedit.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/engine/textedit.h
+
+1619810549 source:/home/steve/projects/crossplatform/eoavov/src/engine/water.cpp
+	"engine.h"
+
+1619810549 source:/home/steve/projects/crossplatform/eoavov/src/engine/world.cpp
+	"engine.h"
+
+1619810549 source:/home/steve/projects/crossplatform/eoavov/src/engine/worldio.cpp
+	"engine.h"
+
+1619810549 source:/home/steve/projects/crossplatform/eoavov/src/game/acoustic.cpp
+	"eoavov.h"
+
+1622709636 /home/steve/projects/crossplatform/eoavov/src/game/eoavov.h
+	"cube.h"
+	"fpsentity.h"
+	"hudmessage.h"
+	"acoustic.h"
+	"envzones.h"
+	"task.h"
+	"inventory.h"
+	"rpgobject.h"
+	"player.h"
+	"creatures.h"
+	"prop.h"
+
+1622708432 /home/steve/projects/crossplatform/eoavov/src/game/fpsentity.h
+	"eoavov.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/game/hudmessage.h
+	"eoavov.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/game/acoustic.h
+	"cube.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/game/envzones.h
+	"eoavov.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/game/task.h
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/game/inventory.h
+	"eoavov.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/game/rpgobject.h
+	"eoavov.h"
+
+1622658212 /home/steve/projects/crossplatform/eoavov/src/game/player.h
+	"eoavov.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/game/creatures.h
+	"eoavov.h"
+
+1619810549 /home/steve/projects/crossplatform/eoavov/src/game/prop.h
+	"eoavov.h"
+
+1619810549 source:/home/steve/projects/crossplatform/eoavov/src/game/bitwise.cpp
+	"cube.h"
+
+1619810549 source:/home/steve/projects/crossplatform/eoavov/src/game/client.cpp
+	"eoavov.h"
+
+1619810549 source:/home/steve/projects/crossplatform/eoavov/src/game/creatures.cpp
+	"eoavov.h"
+
+1619952924 source:/home/steve/projects/crossplatform/eoavov/src/game/dict.cpp
+	"dict.h"
+
+1619952924 /home/steve/projects/crossplatform/eoavov/src/game/dict.h
+	"eoavov.h"
+
+1619810549 source:/home/steve/projects/crossplatform/eoavov/src/game/entities.cpp
+	"eoavov.h"
+
+1619810549 source:/home/steve/projects/crossplatform/eoavov/src/game/envzones.cpp
+	"eoavov.h"
+
+1622660912 source:/home/steve/projects/crossplatform/eoavov/src/game/eoavov.cpp
+	"eoavov.h"
+
+1622708951 source:/home/steve/projects/crossplatform/eoavov/src/game/fpsentity.cpp
+	"eoavov.h"
+
+1619810549 source:/home/steve/projects/crossplatform/eoavov/src/game/hudmessage.cpp
+	"hudmessage.h"
+
+1619810549 source:/home/steve/projects/crossplatform/eoavov/src/game/inventory.cpp
+	"eoavov.h"
+
+1622658180 source:/home/steve/projects/crossplatform/eoavov/src/game/player.cpp
+	"eoavov.h"
+
+1619810549 source:/home/steve/projects/crossplatform/eoavov/src/game/render.cpp
+	"eoavov.h"
+
+1619810549 source:/home/steve/projects/crossplatform/eoavov/src/game/task.cpp
+	"cube.h"
+
+1619810549 source:/home/steve/projects/crossplatform/eoavov/src/shared/crypto.cpp
+	"cube.h"
+
