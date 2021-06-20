@@ -94,7 +94,6 @@ namespace game
 
  */
  extern void recountspeed(bool togglewalk);
- extern fpsEntity* rayent(const vec& from, const vec& to,float maxdist,bool thruwalls);
 };
 namespace entities
 {

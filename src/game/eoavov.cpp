@@ -16,7 +16,7 @@ namespace game{
        player1->dropent();
        return;
       }
-     fpsEntity*ent = rayent(player1->o,camdir,MAX_INTERACT_DIST,false);
+     fpsEntity*ent = rayfpsent(player1->o,camdir,MAX_INTERACT_DIST,false);
      if(!ent)return;
      ent->playerused();
     }

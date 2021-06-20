@@ -117,7 +117,7 @@ namespace game{
   ent->state = CS_DEAD;
   ent->nextthink = 0;
  });
- fpsEntity* rayent(const vec& from, const vec& to,float maxdist,bool thruwalls)
+ fpsEntity* rayfpsent(const vec& from, const vec& to,float maxdist,bool thruwalls)
  {
      float newmaxdist = maxdist?maxdist:130.0;
      vec hitpos;
