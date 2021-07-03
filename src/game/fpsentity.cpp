@@ -13,14 +13,14 @@ namespace game{
     }
  }
  GMCMD(spawn_dynent,"ifffiiiii",(int*t,float*x,float*y,float*z,int*a1,int*a2,int*a3,int*a4,int*a5),createfpsent(*t,vec(*x,*y,*z),*a1,*a2,*a3,*a4,*a5));
- int fpsfindent(int tag)
+ int fpsfindent(int tag,int type)
  {
-  if(tag!=-1)loopv(fpsents)if(fpsents[i]->tag==tag)return i;
+  if(tag!=-1)loopv(fpsents)if(fpsents[i]->tag==tag&&(type==-1||fpsents[i]->type==type))return i;
   return -1;
  }
- fpsEntity*getfpsent(int tag)
+ fpsEntity*getfpsent(int tag,int type)
  {
-  int result = fpsfindent(tag);
+  int result = fpsfindent(tag,type);
   return fpsents.inrange(result)?fpsents[result]:NULL;
  }
  void fpsremove(int index)

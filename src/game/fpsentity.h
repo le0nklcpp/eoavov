@@ -32,8 +32,8 @@ extern vector<fpsEntity*>fpsents;
 extern void fpsthink();
 extern void clearfpsents();
 extern void preparemovables();
-extern int fpsfindent(int tag);
-extern fpsEntity* getfpsent(int tag);
+extern int fpsfindent(int tag,int type=-1);
+extern fpsEntity* getfpsent(int tag,int type=-1); // don't specify type to search through all entities
 extern void fpsremove(int index);
 extern void fpsremovebytag(int tag);
 extern bool fpsintersect(fpsEntity &e, const vec &o, const vec &ray,float maxdist);
