@@ -29,6 +29,7 @@ enum
  ENT_ITEM, // attr1 = id, attr2 = yaw, attr3 = pitch, attr4 = roll, attr5 = tag
  ENT_TELEPORT,
  ENT_TELEDEST,
+ ENT_RAIL,
  ENT_CUSTOM
 };
 enum 

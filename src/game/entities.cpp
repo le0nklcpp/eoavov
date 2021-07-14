@@ -145,7 +145,7 @@ namespace entities
     {
         static const char *entnames[] =
         {
-             "none?", "light", "mapmodel", "playerstart", "envmap", "particles", "sound", "spotlight", "decal","prop",/*"trigger",*/"vehicle","creature","rpgitem","teleport","teledest","zone","custom"
+             "none?", "light", "mapmodel", "playerstart", "envmap", "particles", "sound", "spotlight", "decal","prop",/*"trigger",*/"vehicle","creature","rpgitem","teleport","teledest","rail","custom"
         };
         return i>=0 && size_t(i)<sizeof(entnames)/sizeof(entnames[0]) ? entnames[i] : "";
     }
