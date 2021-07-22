@@ -56,8 +56,7 @@ vec atpos; // attachedpos - relative
 fpsEntity(int hp):movable(false),mass(0.),maxhealth(hp),health(hp),tag(-1),animsequence(-1),framerate(0),lastanim(0),team(0),nextthink(0),visible(true),model(""){state = CS_DEAD;type=-1;}
 fpsEntity():fpsEntity(100){attached = NULL;}
 virtual ~fpsEntity(){detach();}
-virtual void revert(short axis); // 1 - X, 2 - Y, 3 - Z
-virtual void bounce(short axis); // the same as revert
+virtual void mirror(short axis); // 1 - X, 2 - Y, 3 - Z
 virtual void think();
 virtual void move();
 virtual void setmodel(const char*modelname);

@@ -138,23 +138,13 @@ namespace game{
  }
  GMCMD(set_ev,"iis",(int*tag,int*attr,const char*val),{returnfpsent(*tag,ent);ent->setev(*attr,val);});
 };
-void fpsEntity::revert(short axis)
+void fpsEntity::mirror(short axis)
 {
  switch(axis)
  {
   case(1):pitch = 360 - pitch;break; //X-axis
   case(2):roll = 360 - roll;break; //Y-axis
   case(3):yaw = 360 - yaw;break; //Z-axis
- }
-}
-void fpsEntity::bounce(short axis)
-{
- const vec2 &rot = sincos360[180];
- switch(axis)
- {
-  case(1):vel.rotate_around_x(rot);break;
-  case(2):vel.rotate_around_y(rot);break;
-  case(3):vel.rotate_around_z(rot);break;
  }
 }
 void fpsEntity::think()
