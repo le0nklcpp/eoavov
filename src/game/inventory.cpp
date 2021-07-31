@@ -40,6 +40,27 @@ RPGWeapon::RPGWeapon(const char*n,const char*dn,const char*vmdl,const char*mdl,i
  maxrange = maxar;
  maxammo = am;
 }
+void RPGscriptedItem::event(char*name,fpsEntity*user)
+{
+ string funcname;
+ formatstring(funcname,"%s_%s",devname,name);
+ setvar("item_owner_tag",user->tag,false);
+ game::cubeevent(funcname);
+}
+void RPGscriptedItem::draw(fpsEntity*user,invItem*i)
+{
+ event("draw",user);
+}
+void RPGscriptedItem::use(fpsEntity*user,invItem*i,bool release)
+{
+ setvar("item_release",release,false);
+ event("use",user);
+}
+void RPGscriptedItem::alt(fpsEntity*user,invItem*i,bool release)
+{
+ setvar("item_release",release,false);
+ event("alt",user);
+}
 /*
 
 
