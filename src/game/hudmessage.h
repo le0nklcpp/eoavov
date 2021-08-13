@@ -9,7 +9,7 @@ float x,y;
 string text;
 int r,g,b;
 hudmessage();
- // posx,posy - position,(start/stop)delay - delay before message shown and message will disappear after being shown in milliseconds
+ // posx,posy - position,(start/stop)delay - delay before the message shown and  the message will disappear after being shown in milliseconds
 };
 extern int hudmessagecolors[3];
 extern hudmessage hmessages[MAXHUDCHANNELS];
