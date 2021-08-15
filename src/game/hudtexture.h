@@ -1,14 +1,25 @@
+#ifndef __HUDTEXTURES__H_
+#define __HUDTEXTURES__H_
+
 #include "eoavov.h"
 #define MAXHUDTEXTURES 12
 struct hudtexture{
 string image;
 float endtime;
 float x,y;
-float xs,ys; // scale X, scale Y
-hudtexture(){}
+float xs,ys; // width and height
+hudtexture():endtime(0),image(""){}
 ~hudtexture(){}
 };
 namespace game{
+ extern hudtexture hudtextures[MAXHUDTEXTURES];
+ extern void clearhudtextures();
+ extern void renderhudtextures(int w,int h);
+ /* x,y - coordinates on the screen (from 0 to 1)
+    sw,sh - screen width and screen height
+    imw,imh - width and height on the screen(from 0 to 1)
+    srcx,srcy,srcw,srch - coordinates of the displayed texture fragment (from 0 to 1)
+ */
  static inline void renderhudtexture(const char*img,float x,float y,int sw,int sh,float imw,float imh,float srcx=0.0,float srcy=0.0,float srcw=1.0,float srch=1.0)
   {
    #define kx sw*1800/sh
@@ -26,10 +37,6 @@ namespace game{
    gle::attribf(ix2,iy2); gle::attribf(srcw,srch);
    gle::end();
   }
- /* x,y - coordinates on the screen (from 0 to 1)
-    sw,sh - screen width and screen height
-    imw,imh - width and height on the screen(from 0 to 1)
-    srcx,srcy,srcw,srch - coordinates of the displayed texture fragment (from 0 to 1)
- */
- void clearhudtextures();
 };
+
+#endif

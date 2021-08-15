@@ -72,7 +72,8 @@ MOD_OBJS= \
 	game/envzones.o \
 	game/task.o \
 	game/player.o \
-	game/dict.o
+	game/dict.o \
+	game/hudtexture.o
 CLIENT_OBJS= \
 	shared/crypto.o \
 	shared/geom.o \
