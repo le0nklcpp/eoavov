@@ -5,16 +5,25 @@
 #define MAXHUDTEXTURES 12
 struct hudtexture{
 string image;
-float endtime;
+int endtime;
 float x,y;
 float xs,ys; // width and height
 hudtexture():endtime(0),image(""){}
 ~hudtexture(){}
+void set(const char*file,int time,float x1,float y1,float w,float h)
+ {
+  copystring(image,file);
+  endtime = time;
+  x = x1;
+  y = y1;
+  xs = w;
+  ys = h;
+ }
 };
 namespace game{
  extern hudtexture hudtextures[MAXHUDTEXTURES];
  extern void clearhudtextures();
- extern void renderhudtextures(int w,int h);
+
  /* x,y - coordinates on the screen (from 0 to 1)
     sw,sh - screen width and screen height
     imw,imh - width and height on the screen(from 0 to 1)
@@ -37,6 +46,15 @@ namespace game{
    gle::attribf(ix2,iy2); gle::attribf(srcw,srch);
    gle::end();
   }
+ static inline void renderhudtextures(int w,int h)
+ {
+  loopi(MAXHUDTEXTURES)
+   {
+    if(hudtextures[i].endtime<=lastmillis)continue;
+    hudtexture &t = hudtextures[i];
+    renderhudtexture(t.image,t.x,t.y,w,h,t.xs,t.ys);
+   }
+ }
 };
 
 #endif
