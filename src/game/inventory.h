@@ -33,7 +33,7 @@ struct RPGitem
 };
 struct RPGscriptedItem:RPGitem
 {
- void event(char*name,fpsEntity*user);
+ void event(const char*name,fpsEntity*user);
  void draw(fpsEntity*user,invItem*i);
  void use(fpsEntity*user,invItem*i,bool release);
  void alt(fpsEntity*user,invItem*i,bool release);

@@ -40,7 +40,7 @@ RPGWeapon::RPGWeapon(const char*n,const char*dn,const char*vmdl,const char*mdl,i
  maxrange = maxar;
  maxammo = am;
 }
-void RPGscriptedItem::event(char*name,fpsEntity*user)
+void RPGscriptedItem::event(const char*name,fpsEntity*user)
 {
  string funcname;
  formatstring(funcname,"%s_%s",devname,name);
