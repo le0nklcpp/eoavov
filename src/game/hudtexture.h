@@ -13,7 +13,7 @@ hudtexture():endtime(0),image(""){}
 void set(const char*file,int time,float x1,float y1,float w,float h)
  {
   copystring(image,file);
-  endtime = time;
+  endtime = lastmillis + time;
   x = x1;
   y = y1;
   xs = w;
