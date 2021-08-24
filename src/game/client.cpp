@@ -97,6 +97,7 @@ namespace game
     {
 	pushhudscale(h/1800.0f);
 	renderhudmsg(w,h);
+	renderhudtextures(w,h);
 	pophudmatrix();
     }
     const char *getscreenshotinfo()
