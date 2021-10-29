@@ -24,7 +24,6 @@ namespace game{
   {
    prev = getfpsent(e.attr2,E_RAIL);
    next = getfpsent(e.attr3,E_RAIL);
-   next = getfpsent(); 
    tag = e.attr1;
    revert = e.attr4;
    arrivetime = e.attr5;
@@ -39,14 +38,20 @@ namespace game{
   rroute(fpsEntity*e,rail*c,bool r=false):revert(r),ent(e),cur(c),timestamp(lastmillis)
    {
     next = revert?c->prev:c->next;
+    e->movable = false;
     e->setpos(c->o);
     dir = vec(next->o).sub(c->o);
+   }
+  bool finished()
+   {
+    return ent->o == next->o;
    }
   void move()
    {
     int deltatime = lastmillis - timestamp;
     float step = cur->o.dist(next->o)/next->arrivetime;
     ent->setpos(vec(cur->o).add(vec(dir).mul(step*deltatime)));
+    if(finished()&&next->next)next = next->next;
    }
  };
  void cleanroutes();
