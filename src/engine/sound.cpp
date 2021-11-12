@@ -1,12 +1,7 @@
 // sound.cpp: basic positional sound using sdl_mixer
 
 #include "engine.h"
-
-#ifdef __APPLE__
-  #include "SDL2_mixer/SDL_mixer.h"
-#else
-  #include "SDL_mixer.h"
-#endif
+#include "SDL_mixer.h"
 
 bool nosound = true;
 
@@ -177,6 +172,7 @@ bool initaudio()
 {
     static string fallback = "";
     static bool initfallback = true;
+    static bool restorefallback = false;
     if(initfallback)
     {
         initfallback = false;
@@ -188,6 +184,7 @@ bool initaudio()
         explodelist(audiodriver, drivers);
         loopv(drivers)
         {
+            restorefallback = true;
             SDL_setenv("SDL_AUDIODRIVER", drivers[i], 1);
             if(SDL_InitSubSystem(SDL_INIT_AUDIO) >= 0)
             {
@@ -197,7 +194,15 @@ bool initaudio()
         }
         drivers.deletearrays();
     }
-    SDL_setenv("SDL_AUDIODRIVER", fallback, 1);
+    if(restorefallback)
+    {
+        restorefallback = false;
+    #ifdef WIN32
+        SDL_setenv("SDL_AUDIODRIVER", fallback, 1);
+    #else
+        unsetenv("SDL_AUDIODRIVER");
+    #endif
+    }
     if(SDL_InitSubSystem(SDL_INIT_AUDIO) >= 0) return true;
     conoutf(CON_ERROR, "sound init failed: %s", SDL_GetError());
     return false;
