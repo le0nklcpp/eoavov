@@ -132,17 +132,17 @@ void invItem::setproperty(int prop,const char*value) // there was mistake with v
   case(inv_itemid):int n = si;if(RPG::itemexists(n))parent = RPG::itemlist[n];break;
   }
 }
-void invItem::getproperty(int prop,const char * var)
+void invItem::getproperty(int prop)
 {
  switch(prop)
  {
- case(inv_ivar1):setvar(var,ivar1,false);break;
- case(inv_ivar2):setvar(var,ivar2,false);break;
- case(inv_ivar3):setvar(var,ivar3,false);break;
- case(inv_fvar1):setfvar(var,fvar1,false);break;
- case(inv_fvar2):setfvar(var,fvar2,false);break;
- case(inv_fvar3):setfvar(var,fvar3,false);break;
- case(inv_itemid):setsvar(var,parent->devname,false);break;
+ case(inv_ivar1):intret(ivar1);break;
+ case(inv_ivar2):intret(ivar2);break;
+ case(inv_ivar3):intret(ivar3);break;
+ case(inv_fvar1):floatret(fvar1);break;
+ case(inv_fvar2):floatret(fvar2);break;
+ case(inv_fvar3):floatret(fvar3);break;
+ case(inv_itemid):result(parent->devname);break;
  }
 }
 void inventory::removeitem(int id)
@@ -180,7 +180,7 @@ namespace RPG
    invItem*item = player1->inv.getitem(itemid);
    if(!item)return;
    if(set)item->setproperty(prop,val);
-   else item->getproperty(prop,val);
+   else item->getproperty(prop);
  }
  bool itemexists(int index)
  {

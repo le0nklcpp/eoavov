@@ -57,8 +57,8 @@ struct invItem{
  int ivar1,ivar2,ivar3; // custom variables for some scripts
  float fvar1,fvar2,fvar3;
  invItem(RPGitem*item):parent(item),ivar1(0),ivar2(0),ivar3(0),fvar1(0),fvar2(0),fvar3(0){}
- ~invItem(){parent = NULL;}
- void getproperty(int prop,const char*value);
+ ~invItem(){}
+ void getproperty(int prop);
  void setproperty(int prop,const char*value);
 };
 struct inventory
