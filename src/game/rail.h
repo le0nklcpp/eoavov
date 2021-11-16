@@ -58,7 +58,7 @@ namespace game{
     int deltatime = lastmillis - timestamp;
     float step = cur->o.dist(next->o)/next->arrivetime;
     ent->setpos(vec(cur->o).add(vec(dir).mul(step*deltatime)));
-    if(finished()&&cur->next)
+    if(finished()&&next)
      {
      cur = next;
      if(next->next)next = next->next;
