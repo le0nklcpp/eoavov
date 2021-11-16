@@ -1,3 +1,6 @@
+#ifndef __GAME_RAIL_H_
+#define __GAME_RAIL_H_
+
 #include <eoavov>
 /* This is entity for creating paths
    tag - entity tag
@@ -32,19 +35,20 @@ namespace game{
    o = e.o;
   }
  };
- struct rroute{
+ struct routemanager{
   bool revert;
   int timestamp;
   vec dir;
   fpsEntity*ent;
   rail*cur,*next;
-  rroute(fpsEntity*e,rail*c,bool r=false):revert(r),ent(e),cur(c),timestamp(lastmillis)
+  routemanager(fpsEntity*e,rail*c,bool r=false):revert(r),ent(e),cur(c),timestamp(lastmillis)
    {
     next = revert?c->prev:c->next;
     e->movable = false;
     e->setpos(c->o);
     dir = vec(next->o).sub(c->o);
    }
+  ~routemanager(){}
   bool finished()
    {
     return ent->o == next->o;
@@ -54,10 +58,15 @@ namespace game{
     int deltatime = lastmillis - timestamp;
     float step = cur->o.dist(next->o)/next->arrivetime;
     ent->setpos(vec(cur->o).add(vec(dir).mul(step*deltatime)));
-    if(finished()&&next->next)next = next->next;
+    if(finished()&&next->next)
+     {
+     cur = next;
+     next = next->next;
+     }
    }
  };
- vector<rroute*>routes;
+ vector<routemanager*>routes;
  void cleanroutes();
  void setroute(fpsEntity*e,rail*route);
 };
+#endif
