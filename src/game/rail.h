@@ -61,7 +61,7 @@ namespace game{
     if(finished()&&next)
      {
      cur = next;
-     if(next->next)next = next->next;
+     next = next->next;
      }
    }
  };
