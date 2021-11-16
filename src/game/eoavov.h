@@ -36,10 +36,10 @@ enum
 enum 
 {
  E_PLAYER = ENT_PLAYER,
- E_MOVABLE = 4,
- E_VEHICLE = 5,
- E_CREATURE = 6,
- E_INVITEM = 7
+ E_MOVABLE,
+ E_VEHICLE,
+ E_CREATURE,
+ E_INVITEM
 };
 
 #include "inventory.h"
@@ -47,6 +47,7 @@ enum
 #include "player.h"
 #include "creatures.h"
 #include "prop.h"
+#include "rail.h"
 
 static const char * const animnames[] =
 {

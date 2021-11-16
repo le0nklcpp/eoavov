@@ -1,7 +1,7 @@
 #ifndef __GAME_RAIL_H_
 #define __GAME_RAIL_H_
 
-#include <eoavov>
+#include "eoavov.h"
 /* This is entity for creating paths
    tag - entity tag
    fromtag - previous rail entity tag
@@ -19,21 +19,14 @@
 namespace game{
  #define validrail(a) (a->arrivetime>0&&(a->revert?a->prev:a->next))
  struct rail;
- vector<rail*>rails;
+ extern vector<rail*>rails;
  struct rail{
  vec o;
  rail*prev,*next;
  int arrivetime,tag;
  bool revert;
- rail(extentity&e)
-  {
-   prev = getfpsent(e.attr2,E_RAIL);
-   next = getfpsent(e.attr3,E_RAIL);
-   tag = e.attr1;
-   revert = e.attr4;
-   arrivetime = e.attr5;
-   o = e.o;
-  }
+ rail(extentity&e);
+ ~rail(){}
  };
  struct routemanager{
   bool revert;
@@ -49,21 +42,8 @@ namespace game{
     dir = vec(next->o).sub(c->o);
    }
   ~routemanager(){}
-  bool finished()
-   {
-    return ent->o == next->o;
-   }
-  void move()
-   {
-    int deltatime = lastmillis - timestamp;
-    float step = cur->o.dist(next->o)/next->arrivetime;
-    ent->setpos(vec(cur->o).add(vec(dir).mul(step*deltatime)));
-    if(finished()&&next)
-     {
-     cur = next;
-     next = revert?next->prev:next->next;
-     }
-   }
+  bool finished();
+  void move();
  };
  void cleanroutes();
 };
