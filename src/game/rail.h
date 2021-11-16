@@ -16,7 +16,9 @@
 namespace game{
  #define validrail(a) (a->arrivetime>0&&(a->revert?a->prev:a->next))
  struct rail;
+ vector<rail*>rails;
  struct rail{
+ vec o;
  rail*prev,*next;
  int arrivetime,tag;
  bool revert;
@@ -27,6 +29,7 @@ namespace game{
    tag = e.attr1;
    revert = e.attr4;
    arrivetime = e.attr5;
+   o = e.o;
   }
  };
  struct rroute{
@@ -54,6 +57,7 @@ namespace game{
     if(finished()&&next->next)next = next->next;
    }
  };
+ vector<rroute*>routes;
  void cleanroutes();
  void setroute(fpsEntity*e,rail*route);
 };
