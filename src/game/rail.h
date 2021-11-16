@@ -58,15 +58,13 @@ namespace game{
     int deltatime = lastmillis - timestamp;
     float step = cur->o.dist(next->o)/next->arrivetime;
     ent->setpos(vec(cur->o).add(vec(dir).mul(step*deltatime)));
-    if(finished()&&next->next)
+    if(finished()&&cur->next)
      {
      cur = next;
-     next = next->next;
+     if(next->next)next = next->next;
      }
    }
  };
- vector<routemanager*>routes;
  void cleanroutes();
- void setroute(fpsEntity*e,rail*route);
 };
 #endif
