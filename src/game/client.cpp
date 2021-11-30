@@ -22,6 +22,7 @@ namespace game
      cleargamezones();
      clearfpsents();
      clearmodels();
+     clearroutes();
     }
     void changemap(const char *name)
     {
@@ -82,6 +83,7 @@ namespace game
     void startmap(const char *name)   // called just after a map load
     {
 	player1->reset();
+	clearroutes();
 	clearfpsents();
 	findplayerspawn(player1);
 	entities::resetspawns();

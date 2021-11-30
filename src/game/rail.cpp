@@ -4,6 +4,7 @@ namespace game
  vector<rail*>rails;
  rail*getrailent(int tag)
  {
+  if(tag==-1)return NULL;
   loopv(rails)
   {
    if(rails[i]->tag==tag)return rails[i];
@@ -19,6 +20,10 @@ namespace game
   arrivetime = e.attr5;
   o = e.o;
  }
+ bool routemanager::end()
+  {
+   return !next;
+  }
  bool routemanager::finished()
   {
    return ent->o == next->o;
@@ -34,7 +39,7 @@ namespace game
     next = revert?next->prev:next->next;
     }
   }
- void cleanroutes()
+ void clearroutes()
   {
   rails.deletecontents();
   }

@@ -42,9 +42,10 @@ namespace game{
     dir = vec(next->o).sub(c->o);
    }
   ~routemanager(){}
+  bool end();
   bool finished();
   void move();
  };
- void cleanroutes();
+ void clearroutes();
 };
 #endif
