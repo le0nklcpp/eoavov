@@ -53,8 +53,9 @@ int lastanim;
 float mass;
 fpsEntity*attached;
 vec atpos; // attachedpos - relative
-fpsEntity(int hp):movable(false),mass(0.),maxhealth(hp),health(hp),tag(-1),animsequence(-1),framerate(0),lastanim(0),team(0),nextthink(0),visible(true),model(""){state = CS_DEAD;type=-1;}
-fpsEntity():fpsEntity(100){attached = NULL;}
+routeManager route;
+fpsEntity(int hp):attached(NULL),movable(false),mass(0.),maxhealth(hp),health(hp),tag(-1),animsequence(-1),framerate(0),lastanim(0),team(0),nextthink(0),visible(true),model(""){state = CS_DEAD;type=-1;}
+fpsEntity():fpsEntity(100){}
 virtual ~fpsEntity(){detach();}
 virtual void mirror(short axis); // 1 - X, 2 - Y, 3 - Z
 virtual void think();
@@ -71,6 +72,8 @@ virtual void detach();
 virtual void setpos(vec o);
 virtual void setangle(int y=-1,int p=-1,int r=-1); // -1 = don't change
 virtual bool setev(int attr,const char*val); // for scripting purposes.Returns false if it didnt find value to set.
+virtual void setroute(rail*r,bool revert=false);
+virtual void stoproute();
 virtual void reset();
 };
 

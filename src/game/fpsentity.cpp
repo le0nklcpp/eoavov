@@ -241,3 +241,11 @@ bool fpsEntity::setev(int attr,const char*val)
   }
  return true;
 }
+void fpsEntity::setroute(rail*r,bool revert)
+{
+ route.set(r,revert);
+}
+void fpsEntity::stoproute()
+{
+ route.next = NULL;
+}

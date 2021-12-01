@@ -1,7 +1,7 @@
 #ifndef __EOAMAIN_H
 #define __EOAMAIN_H
-
 #include "cube.h"
+#include "rail.h"
 #include "fpsentity.h"
 #include "hudmessage.h"
 #include "acoustic.h"
@@ -47,7 +47,6 @@ enum
 #include "player.h"
 #include "creatures.h"
 #include "prop.h"
-#include "rail.h"
 
 static const char * const animnames[] =
 {
