@@ -1244,12 +1244,16 @@ ICOMMAND(getcampos, "", (),
 });
 
 vec worldpos, camdir, camright, camup;
-
+int tiltcam = 0;
+void setcamtilt(int tilt)
+{
+ tiltcam = tilt;
+}
 void setcammatrix()
 {
     // move from RH to Z-up LH quake style worldspace
     cammatrix = viewmatrix;
-    cammatrix.rotate_around_y(camera1->roll*RAD);
+    cammatrix.rotate_around_y((camera1->roll+tiltcam)*RAD);
     cammatrix.rotate_around_x(camera1->pitch*-RAD);
     cammatrix.rotate_around_z(camera1->yaw*-RAD);
     cammatrix.translate(vec(camera1->o).neg());
