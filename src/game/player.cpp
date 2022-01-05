@@ -12,7 +12,7 @@ VAR(lock_movement,0,0,1);
 VAR(lock_control,0,0,1);
 VARF(flash_enabled,0,0,1,{if(!flash_enabled&&isconnected())player1->light = false;});
 GMCMD(flashlight,"i",(int*check),{if(!(*check)&&flash_enabled)player1->light = !player1->light;intret(player1->light);});
-VAR(cameratilt,0,1,90);
+VAR(cameratilt,-90,1,90);
 void fixcarrydist()
 {
  max_carry_dist = max(min_carry_dist,max_carry_dist);
