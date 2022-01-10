@@ -108,9 +108,12 @@ namespace game
     }
     void edittoggled(bool on) 
     {
-	if(on)clearfpsents();
+	if(on)
+         {
+         clearfpsents();
+         clearroutes();
+         }
 	else entities::spawnitems(true);
-	player1->reset();	
     }
     const char *gameconfig() { return "config/game.cfg"; }
     const char *savedconfig() { return "config/saved.cfg"; }
