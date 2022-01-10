@@ -105,6 +105,8 @@ int horient  = 0;
 
 extern int entmoving;
 
+ICOMMAND(iseditmode,"",(),{intret(editmode);});
+
 VARF(dragging, 0, 0, 1,
     if(!dragging || cor[0]<0) return;
     lastcur = cur;
