@@ -106,6 +106,12 @@ namespace game
     {
 	return "eoavov_";
     }
+    void edittoggled(bool on) 
+    {
+	if(on)clearfpsents();
+	else entities::spawnitems(true);
+	player1->reset();	
+    }
     const char *gameconfig() { return "config/game.cfg"; }
     const char *savedconfig() { return "config/saved.cfg"; }
     const char *restoreconfig() { return "config/restore.cfg"; }
@@ -126,7 +132,6 @@ namespace game
     const char *getmapinfo() { return NULL; }
     void preload() {}
     void parsepacketclient(int chan, packetbuf &p) {}
-    void edittoggled(bool on) {}
     bool allowmouselook() { return !lock_control; }
     void writeclientinfo(stream *f) {}
     bool ispaused() { return false; }
