@@ -51,6 +51,7 @@ vec routeManager::move()
   {
   cur = next;
   next = revert?next->prev:next->next;
+  timestamp = lastmillis;
   }
  return result;
 }
