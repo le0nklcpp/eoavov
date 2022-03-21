@@ -52,8 +52,12 @@ namespace entities
 	loopv(ents)
 	 {
 	  extentity &e = *ents[i];
-          if(isFpsEnt(e.type))createfpsent(e.type,e.o,e.attr1,e.attr2,e.attr3,e.attr4,e.attr5);
+	  if(isFpsEnt(e.type))createfpsent(e.type,e.o,e.attr1,e.attr2,e.attr3,e.attr4,e.attr5);
 	  else if(e.type==ENT_RAIL)rails.add(new rail(e));
+	 }
+	loopv(rails)
+	 {
+	  rails[i]->update(); // Quickfix
 	 }
     }
     #ifdef __CUBE_LEGACY__

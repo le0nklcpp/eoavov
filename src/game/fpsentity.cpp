@@ -52,6 +52,13 @@ namespace game{
  {
   fpsents.deletecontents();
  }
+ void clearfpsroutes()
+ {
+  loopv(fpsents)
+  {
+   fpsents[i]->setroute(NULL);
+  }
+ }
  void preparemovables()
  {
 /*
@@ -137,6 +144,7 @@ namespace game{
       return result;
  }
  GMCMD(set_ev,"iis",(int*tag,int*attr,const char*val),{returnfpsent(*tag,ent);ent->setev(*attr,val);});
+ GMCMD(set_dynent_route,"iii",(int*tag,int*rtag,int*revert),{returnfpsent(*tag,ent);ent->setroute(getrailent(*rtag),*revert);});
 };
 void fpsEntity::mirror(short axis)
 {
@@ -156,7 +164,14 @@ void fpsEntity::move()
   {
    setpos(vec(attached->o).add(atpos));
   }
- else if(movable)moveplayer(this,1,true);
+ else if(route.end())
+  {
+   if(movable)moveplayer(this,1,true);
+  }
+ else
+  {
+   setpos(route.move());
+  }
 }
 void fpsEntity::setmodel(const char*modelname)
 {
@@ -197,6 +212,8 @@ void fpsEntity::playerused()
 void fpsEntity::reset()
 {
  health = maxhealth;
+ detach();
+ setroute(NULL,0);
 }
 void fpsEntity::attach(fpsEntity*ent,vec pos)
 {

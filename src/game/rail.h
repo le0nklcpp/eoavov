@@ -7,7 +7,7 @@
    fromtag - previous rail entity tag
    totag - next rail entity tag 
    revert - if set to 1, then the entity moving along this route will be sent back after reaching this entity, also it marks entity route as reverted
-   arrivaltime - time(in millis) moving from this rail to next rail takes
+   arrivaltime - time(in millis) moving from the previous rail to this rail takes
    /newent rail tag fromtag totag revert arrivaltime
 
    It works like that:
@@ -21,12 +21,15 @@ namespace game{
  #define validrail(a) (a->arrivetime>0&&(a->revert?a->prev:a->next))
  extern vector<rail*>rails;
  void clearroutes();
+ rail*getrailent(int tag);
 };
 struct rail{
  vec o;
  rail*prev,*next;
+ int prevtag,nexttag;
  int arrivetime,tag;
  bool revert;
+ void update();
  rail(extentity&e);
  ~rail(){}
 };

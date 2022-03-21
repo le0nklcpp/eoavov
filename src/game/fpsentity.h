@@ -31,6 +31,7 @@ namespace game{
 extern vector<fpsEntity*>fpsents;
 extern void fpsthink();
 extern void clearfpsents();
+extern void clearfpsroutes();
 extern void preparemovables();
 extern int fpsfindent(int tag,int type=-1);
 extern fpsEntity* getfpsent(int tag,int type=-1); // don't specify type to search through all entities

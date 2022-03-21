@@ -5,6 +5,7 @@ namespace game
  void clearroutes()
  {
   rails.deletecontents();
+  clearfpsroutes();
  }
  rail*getrailent(int tag)
  {
@@ -18,21 +19,38 @@ namespace game
 }
 rail::rail(extentity&e)
 {
- using namespace game;
- prev = getrailent(e.attr2);
- next = getrailent(e.attr3);
+ prevtag = e.attr2;
+ nexttag = e.attr3;
  tag = e.attr1;
  revert = e.attr4;
  arrivetime = e.attr5;
  o = e.o;
 }
+void rail::update()
+{
+ using namespace game;
+ prev = getrailent(prevtag);
+ next = getrailent(nexttag);
+}
 void routeManager::set(rail*c,bool r)
 {
- cur = c;
- revert = r;
- timestamp = lastmillis;
- next = revert?c->prev:c->next;
- dir = vec(next->o).sub(c->o);
+ if(c)
+  {
+  cur = c;
+  revert = r;
+  timestamp = lastmillis;
+  next = revert?c->prev:c->next;
+  if(next)
+   {
+   if(!next->arrivetime)
+    {
+     next = NULL;
+     return;
+    }
+   dir = vec(next->o).sub(c->o);
+   }
+  }
+ else next = NULL;
 }
 bool routeManager::end()
 {
@@ -45,13 +63,11 @@ bool routeManager::finished(const vec o)
 vec routeManager::move()
 {
  int deltatime = lastmillis - timestamp;
- float step = cur->o.dist(next->o)/next->arrivetime;
- vec result = vec(cur->o).add(vec(dir).mul(step*deltatime));
+ if(deltatime>next->arrivetime)deltatime = next->arrivetime;
+ vec result = vec(cur->o).add(vec(dir).mul(float(deltatime)/next->arrivetime));
  if(finished(result)&&next)
   {
-  cur = next;
-  next = revert?next->prev:next->next;
-  timestamp = lastmillis;
+  set(next,revert);
   }
  return result;
 }
