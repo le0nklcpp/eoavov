@@ -106,8 +106,13 @@ namespace game
     {
 	return "eoavov_";
     }
-    void edittoggled(bool on) 
+    void edittoggled(bool on,bool post) 
     {
+	if(!post)
+	 {
+	 player1->reset();
+	 return;
+	 }
 	if(on)
          {
          clearfpsents();

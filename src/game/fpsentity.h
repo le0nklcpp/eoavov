@@ -36,8 +36,10 @@ extern void preparemovables();
 extern int fpsfindent(int tag,int type=-1);
 extern fpsEntity* getfpsent(int tag,int type=-1); // don't specify type to search through all entities
 extern void fpsremove(int index);
+extern void fpsremove(fpsEntity*e);
 extern void fpsremovebytag(int tag);
 extern bool fpsintersect(fpsEntity &e, const vec &o, const vec &ray,float maxdist);
+extern void fpsdetach(fpsEntity *e);
 extern fpsEntity* rayfpsent(const vec& from, const vec& to,float maxdist,bool thruwalls);
 };
 

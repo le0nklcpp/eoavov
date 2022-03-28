@@ -165,7 +165,9 @@ void toggleedit(bool force)
         if(player->state!=CS_ALIVE && player->state!=CS_DEAD && player->state!=CS_EDITING) return; // do not allow dead players to edit to avoid state confusion
         if(!game::allowedittoggle()) return;         // not in most multiplayer modes
     }
-    if(!(editmode = !editmode))
+    editmode = !editmode;
+    game::edittoggled(editmode,false);
+    if(!editmode)
     {
         player->state = player->editstate;
         player->o.z -= player->eyeheight;       // entinmap wants feet pos
@@ -181,7 +183,7 @@ void toggleedit(bool force)
     stoppaintblendmap();
     keyrepeat(editmode, KR_EDITMODE);
     editing = entediting = editmode;
-    if(!force) game::edittoggled(editmode);
+    game::edittoggled(editmode);
     execident("edittoggled");
 }
 

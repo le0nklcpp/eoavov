@@ -27,7 +27,7 @@ void playerEnt::reset()
  nextinteracttime = lastdamagetime = lastvanimtime = 0;
  movable = true;
  light = false;
- dropent();
+ carries = NULL;
 }
 void playerEnt::setvmodel(const char*path,int anim,int animtime)
 {

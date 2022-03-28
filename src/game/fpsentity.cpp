@@ -23,16 +23,30 @@ namespace game{
   int result = fpsfindent(tag,type);
   return fpsents.inrange(result)?fpsents[result]:NULL;
  }
+ void fpsdetach(fpsEntity*e)
+ {
+  loopv(fpsents)
+   {
+    if(fpsents[i]->attached==e)fpsents[i]->detach();
+   }
+  if(player1->carries == e)player1->carries = NULL;
+ }
  void fpsremove(int index)
  {
-  if(!fpsents.inrange(index))return;
+  fpsdetach(fpsents[index]);
   delete fpsents.remove(index);
+ }
+ void fpsremove(fpsEntity*e)
+ {
+  fpsdetach(e);
+  fpsents.removeobj(e);
+  delete e;
  }
  void fpsremovebytag(int tag)
  {
   int found = fpsfindent(tag);
   if(!fpsents.inrange(found))return;
-  delete fpsents.remove(found);
+  fpsremove(fpsents[found]);
  }
  void fpsthink()
  {
@@ -43,7 +57,8 @@ namespace game{
    if(e.nextthink<lastmillis)continue;
    if(e.state==CS_DEAD)
     {
-    delete fpsents.remove(i--);
+    fpsremove(i);
+    i--;
     }
    else e.think();
   }
