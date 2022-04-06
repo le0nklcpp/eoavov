@@ -108,19 +108,17 @@ void playerEnt::think()
 }
 void playerEnt::attack(bool down)
 {
- if(nextattacktime<=lastmillis) // Yes, we throw the object we held before
+ if(nextattacktime>lastmillis)return;
+ if(carries)
   {
-   if(carries)
-    {
-    fpsEntity* ent = carries;
-    dropent();
-    ent->vel.add(vec(camdir).mul(THROW_FORCE).div(ent->mass));
-    nextattacktime = lastmillis + NEXT_USE_DELAY;
-    }
-   else if(hands)
-    {
-     hands->parent->use(this,hands,down);
-    }
+  fpsEntity* ent = carries;
+  dropent();
+  ent->vel.add(vec(camdir).mul(THROW_FORCE).div(ent->mass));
+  nextattacktime = lastmillis + NEXT_USE_DELAY;
+  }
+ else if(hands)
+  {
+   hands->parent->use(this,hands,down);
   }
 }
 bool playerEnt::setev(int attr,const char*val)
