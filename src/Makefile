@@ -59,7 +59,6 @@ endif
 endif
 MOD_OBJS= \
 	game/acoustic.o \
-        game/bitwise.o \
 	game/client.o \
 	game/creatures.o \
 	game/entities.o \
