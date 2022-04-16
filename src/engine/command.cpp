@@ -703,6 +703,13 @@ ICOMMAND(identexists, "s", (char *s), intret(identexists(s) ? 1 : 0));
 
 ident *getident(const char *name) { return idents.access(name); }
 
+ident *retrident(const char *name)
+{
+ ident*i = getident(name);
+ if(!i)i = newident(name);
+ return i;
+}
+
 void touchvar(const char *name)
 {
     ident *id = idents.access(name);

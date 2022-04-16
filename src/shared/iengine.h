@@ -128,6 +128,7 @@ extern int getvarmin(const char *name);
 extern int getvarmax(const char *name);
 extern bool identexists(const char *name);
 extern ident *getident(const char *name);
+extern ident *retrident(const char*name); // Will find or create new ident
 extern ident *newident(const char *name, int flags = 0);
 extern ident *readident(const char *name);
 extern ident *writeident(const char *name, int flags = 0);
