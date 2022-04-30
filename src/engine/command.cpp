@@ -4120,7 +4120,6 @@ MATHICMD(&~, 0, );
 MATHICMD(|~, 0, );
 MATHCMD("<<", i, int, val = val2 < 32 ? val << max(val2, 0) : 0, 0, );
 MATHCMD(">>", i, int, val >>= clamp(val2, 0, 31), 0, );
-
 MATHFCMD(+, 0, );
 MATHFCMD(*, 1, );
 MATHFCMD(-, 0, val = -val);
@@ -4383,7 +4382,61 @@ void strsplice(const char *s, const char *vals, int *skip, int *count)
     commandret->setstr(p);
 }
 COMMAND(strsplice, "ssii");
-
+namespace cmathinterp // Well, write-only
+{
+   const char* specsyms="*/+-&|><=+^?![()]%$ ";
+   const char* letters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz.123456789_";
+   inline void split(const char*s,vector<void*>&symbols)
+   {
+      string operand;
+      #define pushstr { \
+      char * str = new string; \
+      operand[len]=0; \
+      copystring(str,(char*)operand,len+1); \
+      symbols.add(static_cast<void*>(str)); \
+      len = 0; \
+      }
+      int len = 0;
+      while(char c = *s++)
+      {
+       if(strchr(specsyms,c))
+        {
+         if(len)
+          {
+          pushstr;
+          }
+         if(c!=' ')
+          {
+          operand[0] = c;
+          len = 1;
+          pushstr;
+          }
+         continue;
+        }
+       if(!strchr(letters,c))
+        {
+        conoutf(CON_ERROR,"cmathinterp::split failed: symbol %c is not valid",c);
+        return;
+        }
+       if(len+1>=MAXSTRLEN)
+        {
+        conoutf(CON_ERROR,"cmathinterp::split failed:line is too long!");
+        return;
+        }
+       operand[len] = c;
+       len++;
+     }
+   if(len)
+    pushstr;
+  }
+  inline void domath(const char*s)
+  {
+  vector<void*>a;// ...with classes
+  split(s,a);
+  // add stuff later
+  }
+ICOMMAND(cmath,"s",(const char*s),domath(s));
+};
 #ifndef STANDALONE
 ICOMMAND(getmillis, "i", (int *total), intret(*total ? totalmillis : lastmillis));
 
