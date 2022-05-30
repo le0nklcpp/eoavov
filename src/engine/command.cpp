@@ -4384,9 +4384,9 @@ void strsplice(const char *s, const char *vals, int *skip, int *count)
 COMMAND(strsplice, "ssii");
 namespace cmathinterp // Well, write-only
 {
-   const char* specsyms="*/+-&|><=+^?![()]%$ ";
-   const char* letters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz.123456789_";
-   inline void split(const char*s,vector<void*>&symbols)
+   const char* specsyms="*/+-&|><=+^?![()]%$~ ";
+   const char* letters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz.1234567890_";
+   inline int split(const char*s,vector<void*>&symbols)
    {
       string operand;
       #define pushstr { \
@@ -4416,24 +4416,203 @@ namespace cmathinterp // Well, write-only
        if(!strchr(letters,c))
         {
         conoutf(CON_ERROR,"cmathinterp::split failed: symbol %c is not valid",c);
-        return;
+        return 1;
         }
        if(len+1>=MAXSTRLEN)
         {
         conoutf(CON_ERROR,"cmathinterp::split failed:line is too long!");
-        return;
+        return 1;
         }
        operand[len] = c;
        len++;
-     }
-   if(len)
-    pushstr;
+      }
+      if(len)
+       pushstr;
+      return 0;
   }
+  /*
+  
+  */
+  inline bool isnum(const char*str)
+  {
+   const char digits[12]="0123456789.";
+   for(int i=0;str[i]&&i<MAXSTRLEN;i++)
+   {
+    int j;
+    for(j=0;j<11;j++)
+    {
+     if(digits[j]==str[i])
+      {
+      break;
+      }
+    }
+    if(j==11)return false;// '\0'
+   }
+   return true;
+  }
+  typedef enum{
+   CM_NOT,
+   CM_NEQ,
+   CM_MUL,
+   CM_DIV,
+   CM_DIVR,
+   CM_ADD,
+   CM_SUB,
+   CM_MOTHAN,
+   CM_LESSTHAN,
+   CM_EQ,
+   CM_AND,
+   CM_BWAND,
+   CM_BWOR,
+   CM_XOR,
+   CM_OR,
+   CM_BRANCH
+  }cm_func;
+  inline bool iscmathfunc(const char*str,cm_func &result)
+  {
+   return false;
+  }
+  /*
+
+   Returns the result of expression
+
+  */
+  inline char*cast(void*a)
+  {
+   return static_cast<char*>(a);
+  }
+  inline double decode(void*a)
+  {
+   const char*statement = cast(a);
+   if(isnum(statement))return parsenumber(statement);
+   return 0;
+  }
+  inline bool mathop(vector<void*>&a,int from,int action)
+  {
+   double result=0;
+   int before=0,after=0;
+   #define reserve(as,bs) \
+   after = as; \
+   before = bs; \
+   if(a.length()<=(from+after)) \
+   { \
+    a.deletearrays(); \
+    return false; \
+   } \
+   if(from-before<0) \
+   { \
+    a.deletearrays(); \
+    return false; \
+   }
+   #define cmprev decode(a[from-1])
+   #define cmnext decode(a[from+1])
+   #define cmnext2 decode(a[from+2])
+   #define cmcase(func,action) case(func):reserve(1,1);result = cmprev action cmnext;break
+   #define icmcase(func,action) case(func):reserve(1,1);result = (int)cmprev action (int)cmnext;break
+   #define cmcasenext(func,action) case(func):reserve(2,1);result = cmprev action cmnext2;break
+   switch(action)
+    {
+     case(CM_NOT):reserve(1,0);result = !cmnext;break;
+     cmcasenext(CM_NEQ,!=);
+     cmcase(CM_MUL,*);
+     cmcase(CM_DIV,/);
+     icmcase(CM_DIVR,%);
+     cmcase(CM_ADD,+);
+     cmcase(CM_SUB,-);
+     cmcase(CM_MOTHAN,>);
+     cmcase(CM_LESSTHAN,<);
+     cmcasenext(CM_EQ,==);
+     cmcasenext(CM_AND,&&);
+     icmcase(CM_XOR,^);
+     cmcasenext(CM_OR,||);
+     icmcase(CM_BWOR,|);
+     icmcase(CM_BWAND,&);
+    }
+   #undef cmnext
+   #undef cmnext2
+   #undef cmcase
+   #undef cmcasenext
+   #undef reserve
+  }
+  inline double decodeexpression(vector<void*>&a)
+  {
+   double intres = 0;
+   int priority,index = 0,func = 0;
+   loopv(a)
+   {
+    priority = 0;
+    const char*c = cast(a[i]);
+    switch(c[0])
+     {
+      #define cmcase(sign,prio,func)case(sign):cmsetprio(prio,func);break
+      #define cmsetprio(a,f) if(a>priority)priority = a;index = i;
+      #define cmifnext(c,action) if(i+1<a.length()&&cast(a[i+1])[0]==c){action;i++;}
+      case('!'):cmifnext('=',cmsetprio(4,CM_NEQ))else {mathop(a,i,CM_NOT);continue;}break; // We can do highest priority operation right now
+      cmcase('*',2,CM_MUL);
+      cmcase('/',2,CM_DIV);
+      cmcase('%',2,CM_RDIV);
+      cmcase('+',3,CM_ADD);
+      cmcase('-',3,CM_SUB);
+      cmcase('>',4,CM_MOTHAN);
+      cmcase('<',4,CM_LESSTHAN);
+      cmcase('=',4,CM_EQ);break;
+      case('&'):cmifnext('&',cmsetprio(8,CM_AND))else cmsetprio(5,CM_BWAND);break;
+      cmcase('^',6,CM_XOR);
+      case('|'):cmifnext('|',cmsetprio(9,CM_OR))else cmsetprio(7,CM_BWOR);break;
+      cmcase('?',10,CM_BRANCH);
+      #undef cmsetprio
+      #undef cmcase
+      #undef cmifnext
+     }
+   }
+  }
+  /*
+
+   This function replaces highest-priority bracket with final number.
+
+  */
+  inline void decodebracket(vector<void*>&a)
+  {
+  vector<void*>result;
+  int from=0,brks=0,brtop=0; // top priority bracket index, current bracket level, top bracket level
+  loopv(a)
+  {
+   char * c = cast(a[i]);
+   if(c[0]=='('||c[0]=='[')
+   {
+    brks++;
+    if(brks>brtop)
+    {
+     brtop = brks;
+     from = i;
+    }
+   }
+   if(c[0]==')'||c[0]==']')
+    brks--;
+  }
+  result[0]=0;
+  if(brtop)
+   for(int i=from;i<a.length();i++)
+   {
+    char * c = static_cast<char*>(a[i]);
+    result.add(a.remove(i));
+    if(c[0]==')'||c[0]==']')break;
+   }
+  }
+  /*
+
+  Final function to call  
+
+  */
   inline void domath(const char*s)
   {
   vector<void*>a;// ...with classes
-  split(s,a);
-  // add stuff later
+  if(split(s,a))
+   {
+    intret(0);
+   }
+  else{}
+  loopv(a)delete[] (char*)a.remove(i);
   }
 ICOMMAND(cmath,"s",(const char*s),domath(s));
 };
