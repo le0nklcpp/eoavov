@@ -4384,7 +4384,7 @@ void strsplice(const char *s, const char *vals, int *skip, int *count)
 COMMAND(strsplice, "ssii");
 namespace cmathinterp // Well, write-only
 {
-   const char* specsyms="*/+-&|><=+^?![()]%$~ ";
+   const char* specsyms="*/+-&|><=+^?![()]%~ ";
    const char* letters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz.1234567890_";
    inline int split(const char*s,vector<void*>&symbols)
    {
@@ -4483,8 +4483,14 @@ namespace cmathinterp // Well, write-only
   }
   inline double decode(void*a)
   {
-   const char*statement = cast(a);
-   if(isnum(statement))return parsenumber(statement);
+   const char*str = cast(a);
+   ident*id;
+   if(isnum(str))return parsenumber(str);
+   else if((id = getident(str)))
+    {
+     return id->getnumber();
+    }
+   else conoutf(CON_ERROR,"cmathinterp::decode failed: invalid string %s",str);
    return 0;
   }
   inline bool mathop(vector<void*>&a,int from,int action)
@@ -4515,7 +4521,8 @@ namespace cmathinterp // Well, write-only
      case(CM_NOT):reserve(1,0);result = !cmnext;break;
      cmcasenext(CM_NEQ,!=);
      cmcase(CM_MUL,*);
-     cmcase(CM_DIV,/);
+     case(CM_DIV):reserve(1,1);if(!cmnext)conoutf(CON_ERROR,"cmathinterp::mathop failed: division by zero");
+     else result = cmprev / cmnext;break;
      icmcase(CM_DIVR,%);
      cmcase(CM_ADD,+);
      cmcase(CM_SUB,-);
@@ -4533,11 +4540,17 @@ namespace cmathinterp // Well, write-only
    #undef cmcase
    #undef cmcasenext
    #undef reserve
+   for(int i=from-before;i<from+after;i++)
+    {
+     delete a.remove(from-before);
+    }
+   a.insert(from-before,(void*)newstring(numberstr(result)));
+   return true;
   }
   inline double decodeexpression(vector<void*>&a)
   {
    double intres = 0;
-   int priority,index = 0,func = 0;
+   int priority,index = -1,func = 0;
    loopv(a)
    {
     priority = 0;
@@ -4545,12 +4558,12 @@ namespace cmathinterp // Well, write-only
     switch(c[0])
      {
       #define cmcase(sign,prio,func)case(sign):cmsetprio(prio,func);break
-      #define cmsetprio(a,f) if(a>priority)priority = a;index = i;
+      #define cmsetprio(a,f) if(a>priority){priority = a;index = i;func = f;}
       #define cmifnext(c,action) if(i+1<a.length()&&cast(a[i+1])[0]==c){action;i++;}
       case('!'):cmifnext('=',cmsetprio(4,CM_NEQ))else {mathop(a,i,CM_NOT);continue;}break; // We can do highest priority operation right now
       cmcase('*',2,CM_MUL);
       cmcase('/',2,CM_DIV);
-      cmcase('%',2,CM_RDIV);
+      cmcase('%',2,CM_DIVR);
       cmcase('+',3,CM_ADD);
       cmcase('-',3,CM_SUB);
       cmcase('>',4,CM_MOTHAN);
@@ -4564,6 +4577,7 @@ namespace cmathinterp // Well, write-only
       #undef cmcase
       #undef cmifnext
      }
+    if(index!=-1)mathop(a,index,func);
    }
   }
   /*
