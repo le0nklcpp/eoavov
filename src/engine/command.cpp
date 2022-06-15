@@ -4502,12 +4502,12 @@ namespace cmathinterp // Well, write-only
    before = bs; \
    if(a.length()<=(from+after)) \
    { \
-    a.deletearrays(); \
+    conoutf(CON_ERROR,"cmathinterp::mathop failed: nothing after %s",a[from]); \
     return false; \
    } \
    if(from-before<0) \
    { \
-    a.deletearrays(); \
+    conoutf(CON_ERROR,"cmathinterp::mathop failed: nothing before %s",a[from]); \
     return false; \
    }
    #define cmprev decode(a[from-1])
@@ -4550,9 +4550,10 @@ namespace cmathinterp // Well, write-only
   inline double decodeexpression(vector<void*>&a)
   {
    double intres = 0;
-   int priority,index = -1,func = 0;
+   int priority,index,func = 0;
    loopv(a)
    {
+    index = -1;
     priority = 0;
     const char*c = cast(a[i]);
     switch(c[0])
@@ -4604,13 +4605,13 @@ namespace cmathinterp // Well, write-only
    if(c[0]==')'||c[0]==']')
     brks--;
   }
-  result[0]=0;
+  delete[] (char*) a.remove(from);
   if(brtop)
    for(int i=from;i<a.length();i++)
    {
-    char * c = static_cast<char*>(a[i]);
-    result.add(a.remove(i));
-    if(c[0]==')'||c[0]==']')break;
+    char * c = cast(a[i]);
+    if(c[0]==')'||c[0]==']'){delete[] (char*) a.remove(i);break;}
+    result.add(a.remove(i--));
    }
   }
   /*
