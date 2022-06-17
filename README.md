@@ -22,6 +22,21 @@ I am working on it hoping to build something good.I know I won't finish it.
 - Visual Studio build files(MinGW is fine yet)
 
 So I am making a game engine to create a cool game using scripts.Just for fun.It is single player only.
+## Current tasks:
+- cmath command
+- save/load entities
+- weapons
+- inventory system enchancement: add containers(or adapt inventory entity)
+- weapons scripting enchancement
+- physics - physicstrigger must check the water level
+- projectile entity
+- scripted particles
+- breakable material
+- camera entity
+- acoustic system
+- light beams
+- hitscan
+- hitboxes
 
 # LICENSING INFO
 This project is licensed under zlib license.See LICENSE.
