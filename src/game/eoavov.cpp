@@ -33,7 +33,7 @@ namespace game{
     FVAR(crosshairhidevel,0.,60.,9000.);
     int selectcrosshair(vec &col)
     {
-        return player1->vel.magnitude()<crosshairhidevel?0:-1;
+	return player1->vel.magnitude()<crosshairhidevel?0:-1;
     }
     float abovegameplayhud(int w, int h)
     {
