@@ -30,9 +30,10 @@ namespace game{
     {	    
 	return "media/interface/crosshair/default.png";
     }
+    FVAR(mvcrosshairhidevel,0.,60.,120.);
     int selectcrosshair(vec &col)
     {
-	return 0;
+        return player1->vel.magnitude()<60.?0:-1;
     } 
     float abovegameplayhud(int w, int h)
     {
