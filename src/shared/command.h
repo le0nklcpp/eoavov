@@ -85,7 +85,17 @@ struct tagval : identval
 
     void cleanup();
 };
-
+#define rtval(name,type) \
+static inline tagval name##val(type val) \
+{ \
+tagval t; \
+t.set##name(val); \
+return t; \
+}
+rtval(int,int);
+rtval(float,float);
+rtval(str,char*);
+rtval(cstr,const char*);
 struct identstack
 {
     identval val;

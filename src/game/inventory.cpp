@@ -44,7 +44,7 @@ void RPGscriptedItem::event(const char*name,fpsEntity*user)
 {
  string funcname;
  formatstring(funcname,"%s_%s",devname,name);
- setvar("item_owner_tag",user->tag,false);
+ retrident("item_owner_tag")->setval(intval(user->tag));
  game::cubeevent(funcname);
 }
 void RPGscriptedItem::draw(fpsEntity*user,invItem*i)
@@ -53,12 +53,12 @@ void RPGscriptedItem::draw(fpsEntity*user,invItem*i)
 }
 void RPGscriptedItem::use(fpsEntity*user,invItem*i,bool release)
 {
- setvar("item_release",release,false);
+ retrident("item_release")->setval(intval(release));
  event("use",user);
 }
 void RPGscriptedItem::alt(fpsEntity*user,invItem*i,bool release)
 {
- setvar("item_release",release,false);
+ retrident("item_release")->setval(intval(release));
  event("alt",user);
 }
 /*
