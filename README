@@ -30,7 +30,6 @@ CURRENT TASKS:
 -save/load entities
 -weapons
 -inventory system enchancement: add containers(or adapt inventory entity)
--weapons scripting enchancement
 -physics - physicstrigger must check the water level
 -projectile entity
 -scripted particles

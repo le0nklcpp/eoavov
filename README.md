@@ -27,7 +27,6 @@ So I am making a game engine to create a cool game using scripts.Just for fun.It
 - save/load entities
 - weapons
 - inventory system enchancement: add containers(or adapt inventory entity)
-- weapons scripting enchancement
 - physics - physicstrigger must check the water level
 - projectile entity
 - scripted particles
