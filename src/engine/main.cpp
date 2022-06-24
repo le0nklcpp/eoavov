@@ -110,8 +110,9 @@ void writeinitcfg()
     stream *f = openutf8file("config/init.cfg", "w");
     if(!f) return;
     f->printf("// automatically written on exit, DO NOT MODIFY\n// modify settings in game\n");
-    extern int fullscreen;
+    extern int fullscreen,noborder;
     f->printf("fullscreen %d\n", fullscreen);
+    f->printf("noborder %d\n", noborder);
     f->printf("screenw %d\n", scr_w);
     f->printf("screenh %d\n", scr_h);
     extern int sound, soundchans, soundfreq, soundbufferlen;
@@ -453,12 +454,16 @@ void setfullscreen(bool enable)
         }
     }
 }
-
 #ifdef _DEBUG
 VARF(fullscreen, 0, 0, 1, setfullscreen(fullscreen!=0));
 #else
 VARF(fullscreen, 0, 1, 1, setfullscreen(fullscreen!=0));
 #endif
+void setbordered(bool enable)
+{
+    if(screen&&!fullscreen)SDL_SetWindowBordered(screen, enable==true?SDL_TRUE:SDL_FALSE);
+}
+VARF(noborder, 0,0,1, setbordered(!noborder));
 
 void screenres(int w, int h)
 {
@@ -559,7 +564,7 @@ void setupscreen()
         flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
         initwindowpos = true;
     }
-
+    else if(noborder)flags |= SDL_WINDOW_BORDERLESS;
     SDL_GL_ResetAttributes();
     SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 #if !defined(WIN32) && !defined(__APPLE__)
