@@ -4502,12 +4502,12 @@ namespace cmathinterp // Well, write-only
    before = bs; \
    if(a.length()<=(from+after)) \
    { \
-    conoutf(CON_ERROR,"cmathinterp::mathop failed: nothing after %s",a[from]); \
+    conoutf(CON_ERROR,"cmathinterp::mathop failed: nothing after %s",cast(a[from])); \
     return false; \
    } \
    if(from-before<0) \
    { \
-    conoutf(CON_ERROR,"cmathinterp::mathop failed: nothing before %s",a[from]); \
+    conoutf(CON_ERROR,"cmathinterp::mathop failed: nothing before %s",cast(a[from])); \
     return false; \
    }
    #define cmprev decode(a[from-1])
@@ -4521,8 +4521,12 @@ namespace cmathinterp // Well, write-only
      case(CM_NOT):reserve(1,0);result = !cmnext;break;
      cmcasenext(CM_NEQ,!=);
      cmcase(CM_MUL,*);
-     case(CM_DIV):reserve(1,1);if(!cmnext)conoutf(CON_ERROR,"cmathinterp::mathop failed: division by zero");
-     else result = cmprev / cmnext;break;
+     case(CM_DIV):
+      {
+      reserve(1,1);if(!cmnext)conoutf(CON_ERROR,"cmathinterp::mathop failed: division by zero");
+      else result = cmprev / cmnext;
+      }
+     break;
      icmcase(CM_DIVR,%);
      cmcase(CM_ADD,+);
      cmcase(CM_SUB,-);
@@ -4540,45 +4544,47 @@ namespace cmathinterp // Well, write-only
    #undef cmcase
    #undef cmcasenext
    #undef reserve
-   for(int i=from-before;i<from+after;i++)
+   for(int i=from-before;i<from+after+1;i++)
     {
-     delete a.remove(from-before);
+     delete [](char*)a.remove(from-before);
     }
    a.insert(from-before,(void*)newstring(numberstr(result)));
    return true;
   }
-  inline double decodeexpression(vector<void*>&a)
+  inline void decodeexpression(vector<void*>&a)
   {
-   double intres = 0;
-   int priority,index,func = 0;
-   loopv(a)
-   {
-    index = -1;
-    priority = 0;
-    const char*c = cast(a[i]);
-    switch(c[0])
+   int priority,index=0,func = 0;
+   while(index!=-1)
+    {
+     loopv(a)
      {
-      #define cmcase(sign,prio,func)case(sign):cmsetprio(prio,func);break
-      #define cmsetprio(a,f) if(a>priority){priority = a;index = i;func = f;}
-      #define cmifnext(c,action) if(i+1<a.length()&&cast(a[i+1])[0]==c){action;i++;}
-      case('!'):cmifnext('=',cmsetprio(4,CM_NEQ))else {mathop(a,i,CM_NOT);continue;}break; // We can do highest priority operation right now
-      cmcase('*',2,CM_MUL);
-      cmcase('/',2,CM_DIV);
-      cmcase('%',2,CM_DIVR);
-      cmcase('+',3,CM_ADD);
-      cmcase('-',3,CM_SUB);
-      cmcase('>',4,CM_MOTHAN);
-      cmcase('<',4,CM_LESSTHAN);
-      cmcase('=',4,CM_EQ);break;
-      case('&'):cmifnext('&',cmsetprio(8,CM_AND))else cmsetprio(5,CM_BWAND);break;
-      cmcase('^',6,CM_XOR);
-      case('|'):cmifnext('|',cmsetprio(9,CM_OR))else cmsetprio(7,CM_BWOR);break;
-      cmcase('?',10,CM_BRANCH);
-      #undef cmsetprio
-      #undef cmcase
-      #undef cmifnext
+      index = -1;
+      priority = 0;
+      const char*c = cast(a[i]);
+      switch(c[0])
+       {
+        #define cmcase(sign,prio,func)case(sign):cmsetprio(prio,func);break
+        #define cmsetprio(a,f) if(a>priority){priority = a;index = i;func = f;}
+        #define cmifnext(c,action) if(i+1<a.length()&&cast(a[i+1])[0]==c){action;i++;}
+        case('!'):cmifnext('=',cmsetprio(4,CM_NEQ))else {mathop(a,i,CM_NOT);continue;}break; // We can do highest priority operation right now
+        cmcase('*',2,CM_MUL);
+        cmcase('/',2,CM_DIV);
+        cmcase('%',2,CM_DIVR);
+        cmcase('+',3,CM_ADD);
+        cmcase('-',3,CM_SUB);
+        cmcase('>',4,CM_MOTHAN);
+        cmcase('<',4,CM_LESSTHAN);
+        cmcase('=',4,CM_EQ);break;
+        case('&'):cmifnext('&',cmsetprio(8,CM_AND))else cmsetprio(5,CM_BWAND);break;
+        cmcase('^',6,CM_XOR);
+        case('|'):cmifnext('|',cmsetprio(9,CM_OR))else cmsetprio(7,CM_BWOR);break;
+        cmcase('?',10,CM_BRANCH);
+        #undef cmsetprio
+        #undef cmcase
+        #undef cmifnext
+       }
+      if(index!=-1)mathop(a,index,func);
      }
-    if(index!=-1)mathop(a,index,func);
    }
   }
   /*
@@ -4586,33 +4592,47 @@ namespace cmathinterp // Well, write-only
    This function replaces highest-priority bracket with final number.
 
   */
-  inline void decodebracket(vector<void*>&a)
+  inline bool decodebrackets(vector<void*>&a,bool &failed)
   {
   vector<void*>result;
+  failed = false;
   int from=0,brks=0,brtop=0; // top priority bracket index, current bracket level, top bracket level
   loopv(a)
-  {
-   char * c = cast(a[i]);
-   if(c[0]=='('||c[0]=='[')
-   {
-    brks++;
-    if(brks>brtop)
-    {
-     brtop = brks;
-     from = i;
-    }
-   }
-   if(c[0]==')'||c[0]==']')
-    brks--;
-  }
-  delete[] (char*) a.remove(from);
-  if(brtop)
-   for(int i=from;i<a.length();i++)
    {
     char * c = cast(a[i]);
-    if(c[0]==')'||c[0]==']'){delete[] (char*) a.remove(i);break;}
-    result.add(a.remove(i--));
+    if(c[0]=='('||c[0]=='[')
+     {
+      brks++;
+      if(brks>brtop)
+       {
+        brtop = brks;
+        from = i;
+       }
+     }
+    if(c[0]==')'||c[0]==']')
+     brks--;
    }
+  if(brtop)
+   {
+    delete[] (char*) a.remove(from);
+    for(int i=from;i<a.length();i++)
+     {
+      char * c = cast(a[i]);
+      if(c[0]==')'||c[0]==']'){delete[] (char*) a.remove(i);break;}
+      result.add(a.remove(i--));
+     }
+    decodeexpression(result);
+    if(result.length()!=1)
+     {
+      conoutf(CON_ERROR,"cmathinterp::decodebracket failed: wrong statement");
+      failed = true;
+      return true;
+     }
+    char * str = cast(result.remove(0));
+    a.insert(from<a.length()?from:a.length(),str);
+    return false;
+   }
+  return true;
   }
   /*
 
@@ -4624,9 +4644,24 @@ namespace cmathinterp // Well, write-only
   vector<void*>a;// ...with classes
   if(split(s,a))
    {
+    conoutf("cmathinterp::domath failed: split failed");
     intret(0);
    }
-  else{}
+  else
+   {
+    bool failed;
+    while(!decodebrackets(a,failed));
+    if(!failed)
+     {
+      decodeexpression(a);
+      if(a.length()==1)intret(parsenumber(cast(a[0])));
+      else 
+       {
+       conoutf("cmathinterp::domath failed: bad statement. Resulting items are:");
+       loopv(a)conoutf("%s",cast(a[i]));
+       }
+     }
+   }
   loopv(a)delete[] (char*)a.remove(i);
   }
 ICOMMAND(cmath,"s",(const char*s),domath(s));
