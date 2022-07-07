@@ -4436,7 +4436,7 @@ namespace cmathinterp // Well, write-only
   inline bool isnum(const char*str)
   {
    const char digits[12]="0123456789.";
-   for(int i=0;str[i]&&i<MAXSTRLEN;i++)
+   for(int i=(str[0]=='-'&&str[1])?1:0;str[i]&&i<MAXSTRLEN;i++) // skipping first symbol if it is -
    {
     int j;
     for(j=0;j<11;j++)
@@ -4523,7 +4523,11 @@ namespace cmathinterp // Well, write-only
      cmcase(CM_MUL,*);
      case(CM_DIV):
       {
-      reserve(1,1);if(!cmnext)conoutf(CON_ERROR,"cmathinterp::mathop failed: division by zero");
+      reserve(1,1);if(!cmnext)
+       {
+        conoutf(CON_ERROR,"cmathinterp::mathop failed: division by zero");
+        return false;
+       }
       else result = cmprev / cmnext;
       }
      break;
@@ -4571,7 +4575,7 @@ namespace cmathinterp // Well, write-only
         cmcase('/',2,CM_DIV);
         cmcase('%',2,CM_DIVR);
         cmcase('+',3,CM_ADD);
-        cmcase('-',3,CM_SUB);
+        case('-'):if(isnum(c))continue;else cmsetprio(3,CM_SUB);break;
         cmcase('>',4,CM_MOTHAN);
         cmcase('<',4,CM_LESSTHAN);
         cmcase('=',4,CM_EQ);break;
@@ -4584,7 +4588,7 @@ namespace cmathinterp // Well, write-only
         #undef cmifnext
        }
      }
-     if(index!=-1)mathop(a,index,func);
+     if(index!=-1&&!mathop(a,index,func))break;
    }
   }
   /*
