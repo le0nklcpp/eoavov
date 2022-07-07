@@ -4556,15 +4556,15 @@ namespace cmathinterp // Well, write-only
    int priority,index=0,func = 0;
    while(index!=-1)
     {
+     index = -1;
+     priority = 0;
      loopv(a)
      {
-      index = -1;
-      priority = 0;
       const char*c = cast(a[i]);
       switch(c[0])
        {
         #define cmcase(sign,prio,func)case(sign):cmsetprio(prio,func);break
-        #define cmsetprio(a,f) if(a>priority){priority = a;index = i;func = f;}
+        #define cmsetprio(c,f) if(c>priority){priority = c;index = i;func = f;}
         #define cmifnext(c,action) if(i+1<a.length()&&cast(a[i+1])[0]==c){action;i++;}
         case('!'):cmifnext('=',cmsetprio(4,CM_NEQ))else {mathop(a,i,CM_NOT);continue;}break; // We can do highest priority operation right now
         cmcase('*',2,CM_MUL);
@@ -4583,8 +4583,8 @@ namespace cmathinterp // Well, write-only
         #undef cmcase
         #undef cmifnext
        }
-      if(index!=-1)mathop(a,index,func);
      }
+     if(index!=-1)mathop(a,index,func);
    }
   }
   /*
@@ -4654,7 +4654,7 @@ namespace cmathinterp // Well, write-only
     if(!failed)
      {
       decodeexpression(a);
-      if(a.length()==1)intret(parsenumber(cast(a[0])));
+      if(a.length()==1)floatret(parsenumber(cast(a[0])));
       else 
        {
        conoutf("cmathinterp::domath failed: bad statement. Resulting items are:");
