@@ -4658,8 +4658,8 @@ namespace cmathinterp // Well, write-only
     if(!failed)
      {
       decodeexpression(a);
-      if(a.length()==1)floatret(parsenumber(cast(a[0])));
-      else 
+      if(a.length()==1)numberret(parsenumber(cast(a[0])));
+      else
        {
        conoutf("cmathinterp::domath failed: bad statement. Resulting items are:");
        loopv(a)conoutf("%s",cast(a[i]));
