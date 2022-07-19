@@ -23,7 +23,6 @@ I am working on it hoping to build something good.I know I won't finish it.
 
 So I am making a game engine to create a cool game using scripts.Just for fun.It is single player only.
 ## Current tasks:
-- cmath command
 - save/load entities
 - weapons
 - inventory system enchancement: add containers(or adapt inventory entity)

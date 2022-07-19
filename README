@@ -26,7 +26,6 @@ So I am making a game engine to create a cool game using scripts.Just for fun.It
 
 CURRENT TASKS:
 ==============
--cmath command
 -save/load entities
 -weapons
 -inventory system enchancement: add containers(or adapt inventory entity)
