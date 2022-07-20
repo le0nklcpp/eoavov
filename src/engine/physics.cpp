@@ -1818,7 +1818,7 @@ bool moveplayer(physent *pl, int moveres, bool local, int curtime)
 
         d.mul(f);
         loopi(moveres) if(!move(pl, d) && ++collisions<5) i--; // discrete steps collision detection & sliding
-        if(timeinair > 800 && !pl->timeinair && !water) // if we land after long time must have been a high jump, make thud sound
+        if(timeinair && !pl->timeinair && !water) // if we land after long time must have been a high jump, make thud sound
         {
             game::physicstrigger(pl, local, -1, 0,0, timeinair);
         }
