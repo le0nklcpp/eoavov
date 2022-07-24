@@ -53,7 +53,7 @@ namespace game{
     }
     void dynentcollide(physent *d, physent *o, const vec &dir)
     {
-
+     ((fpsEntity*)(d))->touched((fpsEntity*)o);
     }
     bool canjump()
     {
