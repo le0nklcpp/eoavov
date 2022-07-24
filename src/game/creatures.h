@@ -11,11 +11,6 @@ CR_PROTECT,
 CR_RUNAWAY,
 CR_RETREAT
 };
-enum {
-TEAM_PLAYER=0,
-TEAM_NEUTRAL,
-TEAM_ENEMY
-};
 struct AIAvoidZone:envZone
 {
 fpsEntity*attached;
@@ -29,18 +24,18 @@ creatureType(int mh,int mind,int maxd,int mins,int maxs,int t):maxhealth(mh),min
 };
 
 extern vector<creatureType*>creatureClasses;
-struct creatureEntity:fpsEntity{
+struct creatureEntity:playerEnt{
 int crtype;
 bool warned; // knows that player is somewhere here
 bool controlled; // by scripts
 vec vangles; // view angles for entity
-vec muzzle;
-int lastattacktime,lastdamagetime,lastsuccessattacktime,nextattacktime;
-uchar cclass,team,aistate;
+int goodattacktime;
+uchar cclass,aistate;
+int team; // flags
 fpsEntity * target;
 inventory inv;
 vec lastknownenemypos[4];
-creatureEntity(vec pos,int attr1,int attr2,int attr3,int attr4,int attr5):crtype(attr2),controlled(false),vangles(0,0,0),muzzle(0,0,0),team(0),warned(false),lastattacktime(-1),lastdamagetime(0),lastsuccessattacktime(0),nextattacktime(0){setpos(pos);roll = attr1;type = E_CREATURE;}
+creatureEntity(vec pos,int attr1,int attr2,int attr3,int attr4,int attr5):playerEnt(),crtype(attr2),controlled(false),vangles(0,0,0),team(0),warned(false),goodattacktime(-1){setpos(pos);roll = attr1;type = E_CREATURE;}
 ~creatureEntity(){}
 };
 #endif

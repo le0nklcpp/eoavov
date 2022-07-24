@@ -53,7 +53,7 @@ namespace game{
     }
     void dynentcollide(physent *d, physent *o, const vec &dir)
     {
- 
+
     }
     bool canjump()
     {
@@ -92,21 +92,8 @@ namespace game{
 	if(owner->type==E_CREATURE)lightfire_creature((creatureEntity*)owner,o,hud);
 	
     }
-    void particletrack_player(vec &o,vec &d)
-    {   
-        if(player1->muzzle.x < 0 || player1->lastattacktime < 0) return;
-        float dist = o.dist(d);
-        o = player1->muzzle;
-        if(dist <= 0) d = o;
-        else
-        {
-            vecfromyawpitch(player1->yaw, player1->pitch, 1, 0, d);
-            float newdist = raycube(player1->o, d, dist, RAY_CLIPMAT|RAY_ALPHAPOLY);
-            d.mul(min(newdist, dist)).add(player1->o);
-        }
-    }
-    void particletrack_creature(creatureEntity*owner,vec &o,vec &d)
-    {   
+    void particletrack_creature(playerEnt*owner,vec &o,vec &d)
+    {
         if(owner->muzzle.x < 0 || owner->lastattacktime < 0) return;
         float dist = o.dist(d);
         o = owner->muzzle;
@@ -120,8 +107,7 @@ namespace game{
     }
     void particletrack(physent *owner, vec &o, vec &d)
     {
-	if(owner->type==E_PLAYER)particletrack_player(o,d);
-	if(owner->type==E_CREATURE)particletrack_creature((creatureEntity*)owner,o,d);
+	if(owner->type==E_PLAYER||owner->type==E_CREATURE)particletrack_creature((playerEnt*)owner,o,d);
     }
     void bounced(physent *d, const vec &surface)
     {
