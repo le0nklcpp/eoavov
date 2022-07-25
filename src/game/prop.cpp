@@ -29,6 +29,7 @@ proptype::proptype()
 }
 ICOMMAND(push_prop,"",(),{proptypes.add(new proptype());});
 
+VARP(prop_hk_this, -32767,0,32767);
 VARP(prop_hk_tag, -32767,0,32767);
 VARP(prop_hk_type,-32767,0,32767);
 FVARP(prop_hk_arg1,-32767.,0.,32767.);
@@ -36,7 +37,7 @@ FVARP(prop_hk_arg2,-32767.,0.,32767.);
 FVARP(prop_hk_arg3,-32767.,0.,32767.);
 FVARP(prop_hk_arg4,-32767.,0.,32767.);
 FVARP(prop_hk_arg5,-32767.,0.,32767.);
-#define getpt if(!proptypes.inrange(propid))return;proptype &p = *proptypes[propid];
+#define getpt if(!proptypes.inrange(propid))return;proptype &p = *proptypes[propid];prop_hk_this = this->tag;
 void propEnt::attacked(fpsEntity*attacker,float damage,uchar damagetype,vec hitpos)
 {
   if(!attacker)return;
