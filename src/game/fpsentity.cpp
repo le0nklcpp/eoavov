@@ -102,7 +102,6 @@ namespace game{
   return linecylinderintersect(from, to, bottom, top, d->radius, dist);
  }
  ICOMMAND(get_dynentsnum,"",(),{intret(fpsents.length());});
- #define PLAYER_ENT_TAG 1337
  #define returnfpsent(id,entname) \
  fpsEntity* entname;\
  if(id==PLAYER_ENT_TAG)entname = player1; \
