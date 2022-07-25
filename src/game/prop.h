@@ -7,7 +7,7 @@ struct proptype
  int id;
  float mass;
  bool movable,portable; // portable - player can take prop
- char movehook[48],breakhook[48],hithook[48],drophook[48],usehook[48];
+ char movehook[48],breakhook[48],hithook[48],drophook[48],usehook[48],touchhook[48];
  string model;
  proptype();
  ~proptype() {}
@@ -39,6 +39,7 @@ struct propEnt:fpsEntity
  ~propEnt(){}
  void attacked(fpsEntity*attacker,float damage,uchar damagetype,vec hitpos);
  void killed(fpsEntity*killer);
+ void touched(fpsEntity*ent);
  void playerused();
  void dropped(); // specific function
  void falldamage(int ftime);

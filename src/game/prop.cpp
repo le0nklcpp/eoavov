@@ -11,6 +11,7 @@ SVAR(prop_breakhook,"");
 SVAR(prop_hithook,"");
 SVAR(prop_drophook,"");
 SVAR(prop_usehook,"");
+SVAR(prop_touchhook,"");
 SVAR(prop_model, "");
 proptype::proptype()
 {
@@ -23,6 +24,7 @@ proptype::proptype()
   copystring(breakhook,prop_breakhook);
   copystring(drophook,prop_drophook);
   copystring(usehook,prop_usehook);
+  copystring(touchhook,prop_touchhook);
   copystring(model, prop_model);
 }
 ICOMMAND(push_prop,"",(),{proptypes.add(new proptype());});
@@ -56,6 +58,14 @@ void propEnt::killed(fpsEntity*killer)
   prop_hk_tag =  killer->tag;
   prop_hk_type = killer->type;
   game::cubeevent(p.breakhook);
+}
+void propEnt::touched(fpsEntity*ent)
+{
+  getpt;
+  if(!p.touchhook[0])return;
+  prop_hk_tag = ent->tag;
+  prop_hk_type = ent->type;
+  game::cubeevent(p.touchhook);
 }
 void propEnt::playerused()
 {
