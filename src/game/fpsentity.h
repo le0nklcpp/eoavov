@@ -23,7 +23,9 @@ EV_IVAR2,
 EV_IVAR3,
 EV_IFVAR1,
 EV_IFVAR2,
-EV_IFVAR3
+EV_IFVAR3,
+EV_VEL,
+EV_ATPOS
 };
 
 struct fpsEntity;
@@ -75,6 +77,7 @@ virtual void detach();
 virtual void setpos(vec o);
 virtual void setangle(int y=-1,int p=-1,int r=-1); // -1 = don't change
 virtual bool setev(int attr,const char*val); // for scripting purposes.Returns false if it didnt find value to set.
+virtual bool getev(int attr);
 virtual void setroute(rail*r,bool revert=false);
 virtual void stoproute();
 virtual void reset();

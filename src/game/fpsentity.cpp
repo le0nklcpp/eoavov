@@ -159,6 +159,7 @@ namespace game{
  }
  GMCMD(set_ev,"iis",(int*tag,int*attr,const char*val),{returnfpsent(*tag,ent);ent->setev(*attr,val);});
  GMCMD(set_dynent_route,"iii",(int*tag,int*rtag,int*revert),{returnfpsent(*tag,ent);ent->setroute(getrailent(*rtag),*revert);});
+ GMCMD(get_ev,"ii",(int*tag,int*attr),{returnfpsent(*tag,ent);ent->getev(*attr);});
 };
 void fpsEntity::mirror(short axis)
 {
@@ -268,6 +269,32 @@ bool fpsEntity::setev(int attr,const char*val)
    case(EV_LASTANIM):lastanim = v;break;
    case(EV_MASS):mass = fv;break;
    case(EV_STATE):state = v;break;
+   default:return false;break;
+  }
+ return true;
+}
+bool fpsEntity::getev(int attr)
+{
+ #define rei(val) gmsetvar("ent_int",intval(val))
+ #define ref(val) gmsetvar("ent_float",floatval(val))
+ #define res(val) gmsetvar("ent_str",strval(val))
+ #define rev(val) gmsetvar("ent_vec1",floatval(val.x));gmsetvar("ent_vec2",floatval(val.y));gmsetvar("ent_vec3",floatval(val.z))
+ switch(attr)
+  {
+   case(EV_HEALTH):ref(health);break;
+   case(EV_MAXHEALTH):ref(maxhealth);break;
+   case(EV_VISIBLE):rei(visible);break;
+   case(EV_MOVABLE):rei(movable);break;
+   case(EV_NEXTTHINK):rei(nextthink);break;
+   case(EV_MODEL):res(model);break;
+   case(EV_TEAM):rei(team);break;
+   case(EV_ANIMSEQUENCE):rei(animsequence);break;
+   case(EV_FRAMERATE):rei(framerate);break;
+   case(EV_LASTANIM):rei(lastanim);break;
+   case(EV_MASS):ref(mass);break;
+   case(EV_STATE):rei(state);break;
+   case(EV_VEL):rev(vel);break;
+   case(EV_ATPOS):rev(atpos);break;
    default:return false;break;
   }
  return true;
