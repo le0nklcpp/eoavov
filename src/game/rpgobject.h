@@ -8,7 +8,7 @@ struct healthSystem
  int numparts;
  float pain; // 0..1
  healthSystem(int n):pain(0.){bodyparts = new float[n];numparts = n;reset();}
- ~healthSystem(){delete(bodyparts);}
+ ~healthSystem(){delete[](bodyparts);}
  float getpartdamage(int index)
  {
   if(index<0||index>=numparts)return 0.;
