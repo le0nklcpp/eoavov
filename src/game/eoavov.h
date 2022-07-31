@@ -14,6 +14,8 @@
 
 #define PLAYER_ENT_TAG 1337
 
+#define gmsetvar(name,value) retrident(name)->setval(value)
+
 enum
 {
 
