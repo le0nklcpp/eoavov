@@ -75,22 +75,15 @@ namespace game{
     {
 	return false;
     }
-    void lightfire_player(vec &o,vec &hud)
-    {
-        if(player1->muzzle.x < 0 || player1->lastattacktime < 0) return;
-        o = player1->muzzle;
-        hud = vec(player1->o).add(vec(0, 0, 2));
-    }
-    void lightfire_creature(creatureEntity*owner, vec &o, vec &hud)
+    void lightfire_creature(playerEnt*owner, vec &o, vec &hud)
     {
       if(owner->muzzle.x<0||owner->lastattacktime < 0)return;
-      o = hud = owner->muzzle;
+      o = owner->muzzle;
+      hud = vec(owner->o).add(vec(0,0,2));
     }
     void dynlighttrack(physent *owner, vec &o, vec &hud)
     {
-        if(owner->type==E_PLAYER)lightfire_player(o,hud);
-	if(owner->type==E_CREATURE)lightfire_creature((creatureEntity*)owner,o,hud);
-	
+        if(owner->type==E_PLAYER||owner->type==E_CREATURE)lightfire_creature((playerEnt*)owner,o,hud);	
     }
     void particletrack_creature(playerEnt*owner,vec &o,vec &d)
     {
