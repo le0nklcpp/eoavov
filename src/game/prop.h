@@ -39,7 +39,7 @@ struct propEnt:fpsEntity
  ~propEnt(){}
  void attacked(fpsEntity*attacker,float damage,uchar damagetype,vec hitpos);
  void killed(fpsEntity*killer);
- void touched(fpsEntity*ent);
+ void touched(fpsEntity*ent,vec side);
  void playerused();
  void dropped(); // specific function
  void falldamage(int ftime);

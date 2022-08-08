@@ -195,7 +195,7 @@ void fpsEntity::setmodel(const char*modelname)
  setbbfrommodel(this,model);
  updatedynentcache(this);
 }
-void fpsEntity::touched(fpsEntity*ent)
+void fpsEntity::touched(fpsEntity*ent,vec side)
 {
 }
 void fpsEntity::hit(fpsEntity*attacker,float damage,uchar damagetype)

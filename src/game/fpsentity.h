@@ -66,7 +66,7 @@ virtual void mirror(short axis); // 1 - X, 2 - Y, 3 - Z
 virtual void think();
 virtual void move();
 virtual void setmodel(const char*modelname);
-virtual void touched(fpsEntity*ent);
+virtual void touched(fpsEntity*ent,vec side);
 virtual void hit(fpsEntity*attacker,float damage,uchar damagetype);
 virtual void attacked(fpsEntity*attacker,float damage,uchar damagetype,vec hitpos);
 virtual void falldamage(int ftime);

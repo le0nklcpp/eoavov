@@ -60,12 +60,15 @@ void propEnt::killed(fpsEntity*killer)
   prop_hk_type = killer->type;
   game::cubeevent(p.breakhook);
 }
-void propEnt::touched(fpsEntity*ent)
+void propEnt::touched(fpsEntity*ent,vec side)
 {
   getpt;
   if(!p.touchhook[0])return;
   prop_hk_tag = ent->tag;
   prop_hk_type = ent->type;
+  prop_hk_arg1 = side.x;
+  prop_hk_arg2 = side.y;
+  prop_hk_arg3 = side.z;
   game::cubeevent(p.touchhook);
 }
 void propEnt::playerused()
