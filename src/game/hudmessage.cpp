@@ -46,7 +46,7 @@ namespace game
   if(msgid<0||msgid>=MAXHUDCHANNELS)return;
   hmessages[msgid].enabled = false;
  }
- int hudmessagecolors[3]={255,255,255};
+ Uint8 hudmessagecolors[3]={255,255,255};
  void set_hudmsgcolors(int r,int g,int b)
  {
   if(r>255||r<0||g>255||g<0||b>255||b<0)return;
