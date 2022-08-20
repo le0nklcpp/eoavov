@@ -77,7 +77,7 @@ namespace game
 	   continue;
 	   }
 	  if(hmessages[i].starttime>lastmillis)continue;
-	  draw_textf(hmessages[i].text,w*1800/h*hmessages[i].x,1650*hmessages[i].y,hmessages[i].r,hmessages[i].g,hmessages[i].b);
+	  draw_text(hmessages[i].text,w*1800/h*hmessages[i].x,1650*hmessages[i].y,hmessages[i].r,hmessages[i].g,hmessages[i].b);
 	 }
     }
     void startmap(const char *name)   // called just after a map load
