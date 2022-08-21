@@ -3,7 +3,6 @@
 #include "eoavov.h"
 #define MAXHUDCHANNELS 12
 struct hudmessage{
-bool enabled;
 int starttime,endtime;
 float x,y;
 string text;

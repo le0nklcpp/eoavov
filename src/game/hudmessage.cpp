@@ -3,7 +3,6 @@ hudmessage::hudmessage()
 {
  text[0]='\0';
  x=y=0.0;
- enabled = false;
  r=g=b=255;
 }
 namespace game
@@ -17,14 +16,13 @@ namespace game
    {
     for(int i=0;i<MAXHUDCHANNELS;i++)
      {
-      if(hmessages[i].enabled)continue;
+      if(hmessages[i].endtime>lastmillis)continue;
       m = &hmessages[i];
       break;
      }
      if(!m)m = &hmessages[0]; // There's no free channels left,so we will use this one
    }
   else m = &hmessages[channel];
-  m->enabled = true;
   m->x = posx;
   m->y = posy;
   m->starttime = lastmillis + startdelay;
@@ -38,13 +36,13 @@ namespace game
  {
   for(int i=0;i<MAXHUDCHANNELS;i++)
   {
-  hmessages[i].enabled = false;
+  hmessages[i].endtime = 0;
   }
  }
  void clearhudmessage(int msgid)
  {
   if(msgid<0||msgid>=MAXHUDCHANNELS)return;
-  hmessages[msgid].enabled = false;
+  hmessages[msgid].endtime = 0;
  }
  Uint8 hudmessagecolors[3]={255,255,255};
  void set_hudmsgcolors(int r,int g,int b)
@@ -58,13 +56,7 @@ namespace game
  {
   for(int i=0;i<MAXHUDCHANNELS;i++)
   {
-   if(!hmessages[i].enabled)continue;
-   if(hmessages[i].endtime<lastmillis)
-    {
-    hmessages[i].enabled = false;
-    continue;
-    }
-   if(hmessages[i].starttime>lastmillis)continue;
+   if(hmessages[i].endtime<lastmillis||hmessages[i].starttime>lastmillis)continue;
    draw_text(hmessages[i].text,w*1800/h*hmessages[i].x,1650*hmessages[i].y,hmessages[i].r,hmessages[i].g,hmessages[i].b);
   }
  }
