@@ -66,20 +66,6 @@ namespace game
         if(editmode) return true;
         return execidentbool("allowedittoggle", true);
     }
-    void renderhudmsg(int w,int h)
-    {
-	for(int i=0;i<MAXHUDCHANNELS;i++)
-	 {
-	  if(!hmessages[i].enabled)continue;
-	  if(hmessages[i].endtime<lastmillis)
-	   {
-	   hmessages[i].enabled = false;
-	   continue;
-	   }
-	  if(hmessages[i].starttime>lastmillis)continue;
-	  draw_text(hmessages[i].text,w*1800/h*hmessages[i].x,1650*hmessages[i].y,hmessages[i].r,hmessages[i].g,hmessages[i].b);
-	 }
-    }
     void startmap(const char *name)   // called just after a map load
     {
 	player1->reset();

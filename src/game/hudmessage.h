@@ -15,7 +15,7 @@ namespace game
 {
 extern Uint8 hudmessagecolors[3];
 extern hudmessage hmessages[MAXHUDCHANNELS];
-
+extern void renderhudmsg(int w,int h);
 extern void clearhudmessages();
 extern void disableoldhudmessages();
 };

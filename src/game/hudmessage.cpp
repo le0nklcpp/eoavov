@@ -54,7 +54,20 @@ namespace game
   hudmessagecolors[1] = g;
   hudmessagecolors[2] = b;
  }
-
+ void renderhudmsg(int w,int h)
+ {
+  for(int i=0;i<MAXHUDCHANNELS;i++)
+  {
+   if(!hmessages[i].enabled)continue;
+   if(hmessages[i].endtime<lastmillis)
+    {
+    hmessages[i].enabled = false;
+    continue;
+    }
+   if(hmessages[i].starttime>lastmillis)continue;
+   draw_text(hmessages[i].text,w*1800/h*hmessages[i].x,1650*hmessages[i].y,hmessages[i].r,hmessages[i].g,hmessages[i].b);
+  }
+ }
  ICOMMAND(set_hudmessage_color,"iii",(int*r,int*g,int*b),set_hudmsgcolors(*r,*g,*b));
  ICOMMAND(set_hudmessage,"ffiisi",(float *posx,float *posy,int *startdelay,int *stopdelay,const char*message,int *channel),set_hudmsg(*posx,*posy,*startdelay,*stopdelay,message,*channel));
  ICOMMAND(clearhudmessage,"i",(int*index),clearhudmessage(*index));
