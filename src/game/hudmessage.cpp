@@ -4,9 +4,11 @@ hudmessage::hudmessage()
  text[0]='\0';
  x=y=0.0;
  r=g=b=255;
+ alpha = 255;
 }
 namespace game
 {
+ VAR(hudmessage_alpha,0,255,255);
  hudmessage hmessages[MAXHUDCHANNELS];
  void set_hudmsg(float posx,float posy,int startdelay,int stopdelay,const char*message,int channel=-1)
  {
@@ -30,6 +32,7 @@ namespace game
   m->r = hudmessagecolors[0];
   m->g = hudmessagecolors[1];
   m->b = hudmessagecolors[2];
+  m->alpha = hudmessage_alpha;
   copystring(m->text,message);
  }
  void clearhudmessages()
@@ -57,7 +60,7 @@ namespace game
   for(int i=0;i<MAXHUDCHANNELS;i++)
   {
    if(hmessages[i].endtime<lastmillis||hmessages[i].starttime>lastmillis)continue;
-   draw_text(hmessages[i].text,w*1800/h*hmessages[i].x,1650*hmessages[i].y,hmessages[i].r,hmessages[i].g,hmessages[i].b);
+   draw_text(hmessages[i].text,w*1800/h*hmessages[i].x,1650*hmessages[i].y,hmessages[i].r,hmessages[i].g,hmessages[i].b,hmessages[i].alpha);
   }
  }
  ICOMMAND(set_hudmessage_color,"iii",(int*r,int*g,int*b),set_hudmsgcolors(*r,*g,*b));

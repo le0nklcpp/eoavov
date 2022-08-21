@@ -6,7 +6,7 @@ struct hudmessage{
 int starttime,endtime;
 float x,y;
 string text;
-Uint8 r,g,b;
+Uint8 r,g,b,alpha;
 hudmessage();
  // posx,posy - position,(start/stop)delay - delay before the message shown and  the message will disappear after being shown in milliseconds
 };
