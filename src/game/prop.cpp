@@ -84,12 +84,13 @@ void propEnt::playerused()
 void propEnt::dropped()
 {
  getpt;
- game::cubeevent(p.drophook);
  movable = p.movable;
  falling = player1->falling;
  vel = player1->vel;
  timeinair = player1->timeinair;
  physstate = PHYS_FALL;
+ prop_hk_this = tag;
+ game::cubeevent(p.drophook);
 }
 void propEnt::falldamage(int ftime)
 {
