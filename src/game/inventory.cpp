@@ -174,10 +174,10 @@ namespace RPG
   itemlist.add((RPGitem*)weapon);
   return itemlist.length()-1;
  }
- void Player1InvItemOperations(int itemid,bool set,int prop,const char* val)
+ void Player1InvItemOperations(playerEnt*ent,int itemid,bool set,int prop,const char* val)
  {
-   if(!player1)return;
-   invItem*item = player1->inv.getitem(itemid);
+   if(!ent)return;
+   invItem*item = ent->inv.getitem(itemid);
    if(!item)return;
    if(set)item->setproperty(prop,val);
    else item->getproperty(prop);
@@ -190,11 +190,12 @@ namespace RPG
  {
   return itemexists(index)?itemlist[index]:NULL;
  }
+#define retplent playerEnt*ent = *tag==PLAYER_ENT_TAG?player1:(playerEnt*)game::getfpsent(*tag,E_CREATURE);if(!ent)return;
 GMCMD(rpg_register_item,"ssssiif",(char*n,char*dn,char*vmdl,char*mdl,int*w,int*i,float*v),registeritem(n,dn,vmdl,mdl,*w,*i,*v))
 GMCMD(rpg_get_item_by_name,"s",(const char*s),{intret(getitembyname(s));});
-GMCMD(player_inv_length,"",(),{intret(player1->inv.items.length());});
-GMCMD(player_inv_operation,"iiis",(int*index,int*s,int*p,const char*v),{Player1InvItemOperations(*index,(bool)*s,*p,v);});
-GMCMD(player_inv_pick,"i",(int*item),{player1->draw(*item);});
-GMCMD(player_inv_remove,"i",(int*i),{player1->removeitem(*i);});
-GMCMD(player_add_item,"i",(int*i),{if(itemexists(*i))intret(player1->inv.additem(new invItem(itemlist[*i])));});
+GMCMD(player_inv_length,"i",(int*tag),{retplent;intret(ent->inv.items.length());});
+GMCMD(player_inv_operation,"iiiis",(int*tag,int*index,int*s,int*p,const char*v),{retplent;Player1InvItemOperations(ent,*index,(bool)*s,*p,v);});
+GMCMD(player_inv_pick,"ii",(int*tag,int*item),{retplent;ent->draw(*item);});
+GMCMD(player_inv_remove,"ii",(int*tag,int*i),{retplent;ent->removeitem(*i);});
+GMCMD(player_add_item,"ii",(int*tag,int*i),{retplent;if(itemexists(*i))intret(ent->inv.additem(new invItem(itemlist[*i])));});
 };
