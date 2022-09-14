@@ -14,6 +14,7 @@ struct playerEnt:fpsEntity,RPGObject{
  playerEnt():light(false),vanim(0),vmodel(""),carries(NULL),lastvanimtime(0),lastdamagetime(0),nextattacktime(0),lastattacktime(0),nextinteracttime(0),muzzle(-1,-1,-1),fpsEntity(100){tag = PLAYER_ENT_TAG;type = E_PLAYER;inv.maxweight = 80;movable = true;}
  void reset();
  void setvmodel(const char*path,int anim,int animtime);
+ void removeitem(int index);
  void moveitem();
  void move();
  void dropent();

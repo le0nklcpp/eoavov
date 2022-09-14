@@ -29,7 +29,7 @@ RPGitem::RPGitem(const char*n,const char*dn,const char*vmdl,const char*mdl,int w
 }
 void RPGitem::draw(fpsEntity*user,invItem*i)
 {
-if(user==player1)player1->setvmodel(vmodel,0,0);
+ if(user==player1)player1->setvmodel(vmodel,0,0);
 }
 RPGWeapon::RPGWeapon(const char*n,const char*dn,const char*vmdl,const char*mdl,int w,int i,float v,int c,int cid,bool oh,float minar,float maxar,int am):RPGitem(n,dn,vmdl,mdl,w,i,v)
 {
@@ -194,7 +194,7 @@ GMCMD(rpg_register_item,"ssssiif",(char*n,char*dn,char*vmdl,char*mdl,int*w,int*i
 GMCMD(rpg_get_item_by_name,"s",(const char*s),{intret(getitembyname(s));});
 GMCMD(player_inv_length,"",(),{intret(player1->inv.items.length());});
 GMCMD(player_inv_operation,"iiis",(int*index,int*s,int*p,const char*v),{Player1InvItemOperations(*index,(bool)*s,*p,v);});
-GMCMD(player_inv_pick,"ii",(int*item,int*clearholster),{if(*item==-1)player1->hands = NULL;else player1->draw(*item);if(*clearholster)player1->holster = NULL;});
-GMCMD(player_inv_remove,"i",(int*i),{player1->inv.removeitem(*i);});
+GMCMD(player_inv_pick,"i",(int*item),{player1->draw(*item);});
+GMCMD(player_inv_remove,"i",(int*i),{player1->removeitem(*i);});
 GMCMD(player_add_item,"i",(int*i),{if(itemexists(*i))intret(player1->inv.additem(new invItem(itemlist[*i])));});
 };

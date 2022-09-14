@@ -32,6 +32,16 @@ struct RPGObject
  RPGObject():hands(NULL){organism = NULL;} // head, legs,hands, body
  virtual ~RPGObject() {delete organism;inv.clear();}
  void reset(){inv.clear();if(organism)organism->reset();holster = hands = NULL;}
- virtual invItem* draw(int index){invItem *item = inv.getitem(index);if(item){holster = hands;hands = item;}return item;} // returns true if the equipment was successful
+ virtual invItem* draw(int index){invItem *item = inv.getitem(index);if(item){holster = hands;hands = item;}return item;}
+ virtual void removeitem(int index)
+ {
+  invItem*item = inv.getitem(index);
+  if(item==hands)
+  {
+   hands=NULL;
+  }
+  if(item==holster)holster=NULL;
+  inv.removeitem(index);
+ }
 };
 #endif

@@ -35,6 +35,23 @@ void playerEnt::setvmodel(const char*path,int anim,int animtime)
  vanim = (ANIM_GAMESPECIFIC + max(anim,0)) | ANIM_LOOP;
  lastvanimtime = lastmillis-animtime;
 }
+void playerEnt::removeitem(int index)
+{
+  RPGObject::removeitem(index);
+  if(hands==NULL)setvmodel("\0",0,0); // 1 excess operation
+  /*
+  invItem*item = inv.getitem(index);
+  if(item==hands)
+  {
+   hands=NULL;
+   setvmodel("\0",0,0);
+  }
+  if(item==holster)holster=NULL;
+  inv.removeitem(index);
+  
+  Maybe it is worth moving RPGObject structure to playerEnt
+  */
+}
 inline void playerEnt::moveitem()
 {
  if(!carries)return;
@@ -137,6 +154,12 @@ bool playerEnt::setev(int attr,const char*val)
 }
 invItem* playerEnt::draw(int index)
 {
+ if(index==-1)
+  {
+  hands = NULL;
+  setvmodel("\0",0,0);
+  return NULL;
+  }
  invItem*item = RPGObject::draw(index);
  if(item)
   {
@@ -144,4 +167,3 @@ invItem* playerEnt::draw(int index)
   }
  return item;
 }
-GMCMD(drawitem,"i",(int*i),player1->draw(*i));
