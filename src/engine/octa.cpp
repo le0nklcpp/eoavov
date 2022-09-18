@@ -257,7 +257,26 @@ cube &lookupcube(const ivec &to, int tsize, ivec &ro, int &rsize)
     rsize = 1<<scale;
     return *c;
 }
-
+int getcubeside(const cube &c, const vec &v)
+{
+ #define istris(a,b,d) ((b.squaredist(d)+a.squaredist(d))==a.squaredist(b))
+ #define quatintersect(a,b,c,d,e) (istris(a,b,e)&&istris(b,c,e)&&istris(c,d,e)&&istris(a,d,e))
+ #define isintr(a,b,c,d) if(quatintersect(verts[a],verts[b],verts[c],verts[d],pos))
+ vec verts[8];
+ vec pos(v);
+ pos.sub(vec(lu));
+ loopi(8)calcvert(c,ivec(0,0,0),lusize,verts[i],i);
+ isintr(2,3,4,5)return 5;
+ isintr(0,1,2,3)return 3;
+ isintr(4,5,6,7)return 2;
+ return 0;
+}
+int lookuptexture(const vec &to)
+{
+ ivec o(to);
+ cube &c = lookupcube(o);
+ return c.texture[getcubeside(c,to)];
+}
 int lookupmaterial(const vec &v)
 {
     ivec o(v);
