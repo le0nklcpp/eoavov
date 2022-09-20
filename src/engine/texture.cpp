@@ -2746,7 +2746,12 @@ DecalSlot &lookupdecalslot(int index, bool load)
     }
     return s;
 }
-
+char* texturename(int id)
+{
+ Slot &s = lookupslot(id,false);
+ if(s.sts.empty())return NULL;
+ return s.sts[0].name; 
+}
 void linkslotshaders()
 {
     loopv(slots) if(slots[i]->loaded) linkslotshader(*slots[i]);
