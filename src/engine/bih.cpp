@@ -347,9 +347,9 @@ bool mmintersect(const extentity &e, const vec &o, const vec &ray, float maxdist
     }
     return false;
 }
-bool mmintersect(int index,const vec &pos,int yaw,int pitch,int roll,const vec &o, const vec &ray, float maxdist, int mode, float &dist,float scale)
+bool mmintersect(string path,const vec &pos,int yaw,int pitch,int roll,const vec &o, const vec &ray, float maxdist, int mode, float &dist,float scale)
 {
-    model *m = loadmapmodel(index);
+    model *m = loadmodel(path);
     if(!m) return false;
     if(!m->bih && !m->setBIH()) return false;
     vec mo = vec(o).sub(pos).mul(scale), mray(ray);

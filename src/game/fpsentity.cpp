@@ -94,12 +94,13 @@ namespace game{
  {
   return fpsents.length()+1;
  }
- bool intersect(fpsEntity *d, const vec &from, const vec &to, float &dist)   // if lineseg hits entity bounding box
+ bool intersect(fpsEntity *d, const vec &from, const vec &to, float &dist,float maxdist)   // if lineseg hits entity bounding box
  {
-  vec bottom(d->o), top(d->o);
+/*  vec bottom(d->o), top(d->o);
   bottom.z -= d->eyeheight;
   top.z += d->aboveeye;
-  return linecylinderintersect(from, to, bottom, top, d->radius, dist);
+  return linecylinderintersect(from, to, bottom, top, d->radius, dist);*/
+  return mmintersect(d->model,d->o,d->yaw,d->pitch,d->roll,from,to,maxdist,RAY_ALPHAPOLY,dist);
  }
  ICOMMAND(get_dynentsnum,"",(),{intret(fpsents.length());});
  #define returnfpsent(id,entname) \
@@ -148,7 +149,7 @@ namespace game{
       {
        float dist;
        fpsEntity&e = *fpsents[i];
-       if(e.state!=CS_ALIVE||!intersect(&e,from,(const vec&)hitpos,dist))continue;
+       if(e.state!=CS_ALIVE||!intersect(&e,from,to,dist,maxdist))continue;
        if(!result||dist<newmaxdist)
         {
         result = &e;
