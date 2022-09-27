@@ -149,7 +149,7 @@ namespace game{
       {
        float dist;
        fpsEntity&e = *fpsents[i];
-       if(e.state!=CS_ALIVE||!intersect(&e,from,to,dist,maxdist))continue;
+       if(e.state!=CS_ALIVE||!intersect(&e,from,to,dist,newmaxdist))continue;
        if(!result||dist<newmaxdist)
         {
         result = &e;
