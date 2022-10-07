@@ -15,6 +15,7 @@ struct playerEnt:fpsEntity,RPGObject{
  void reset();
  void setvmodel(const char*path,int anim,int animtime);
  void removeitem(int index);
+ void dropitem(int index);
  void moveitem();
  void move();
  void dropent();

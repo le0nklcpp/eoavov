@@ -197,5 +197,6 @@ GMCMD(player_inv_length,"i",(int*tag),{retplent;intret(ent->inv.items.length());
 GMCMD(player_inv_operation,"iiiis",(int*tag,int*index,int*s,int*p,const char*v),{retplent;Player1InvItemOperations(ent,*index,(bool)*s,*p,v);});
 GMCMD(player_inv_pick,"ii",(int*tag,int*item),{retplent;ent->draw(*item);});
 GMCMD(player_inv_remove,"ii",(int*tag,int*i),{retplent;ent->removeitem(*i);});
+GMCMD(player_inv_drop,"ii",(int*tag,int*i),{retplent;ent->dropitem(*i);});
 GMCMD(player_add_item,"ii",(int*tag,int*i),{retplent;if(itemexists(*i))intret(ent->inv.additem(new invItem(itemlist[*i])));});
 };

@@ -52,6 +52,35 @@ void playerEnt::removeitem(int index)
   Maybe it is worth moving RPGObject structure to playerEnt
   */
 }
+void playerEnt::dropitem(int index) // well, it could've been worse
+{
+ invItem*item = inv.getitem(index);
+ int i;
+ if(!item)return;
+ RPGItemEnt * e = (RPGItemEnt*)game::fpsents.add(new RPGItemEnt(item));
+ for(i=min_carry_dist;i<max_carry_dist;i++)
+  {
+   e->setpos(vec(o).add(vec(camdir).mul(i)));
+   if(!collide(e)&&!collideinside)break;
+  }
+ if(i==max_carry_dist) // throw it under player feet
+  {
+  vec oldpos = o;
+  e->setpos(feetpos().add(vec(0,0,e->eyeheight+e->aboveeye)));
+  setpos(vec(o).add(vec(0,0,e->eyeheight+e->aboveeye+1.f)));
+  if((collide(this)||collideinside)||(collide(e)||collideinside)) // collideinside resets
+   {
+    setpos(oldpos);
+    game::fpsremove(e);
+    gmsetvar("ent_int",intval(tag));
+    game::cubeevent("drop_failed");
+    return;
+   }
+  }
+ else e->vel = vec(camdir).mul(THROW_FORCE).add(vel);
+ e->physstate = PHYS_FALL;
+ removeitem(index);
+}
 inline void playerEnt::moveitem()
 {
  if(!carries)return;

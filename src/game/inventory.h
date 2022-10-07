@@ -56,7 +56,7 @@ struct invItem{
  RPGitem*parent;
  int ivar1,ivar2,ivar3; // custom variables for some scripts
  float fvar1,fvar2,fvar3;
- invItem(RPGitem*item):parent(item),ivar1(0),ivar2(0),ivar3(0),fvar1(0),fvar2(0),fvar3(0){}
+ invItem(RPGitem*item,int i1=0,int i2=0,int i3=0,int f1=0,int f2=0,int f3=0):parent(item),ivar1(i1),ivar2(i2),ivar3(i3),fvar1(f1),fvar2(f2),fvar3(f3){}
  ~invItem(){}
  void getproperty(int prop);
  void setproperty(int prop,const char*value);
@@ -101,6 +101,14 @@ struct RPGItemEnt:fpsEntity
    setpos(pos);
    item = new invItem(t);
    movable = true;
+  }
+ RPGItemEnt(invItem*i)
+  {
+   type = E_INVITEM;
+   state = CS_ALIVE;
+   movable = true;
+   item = new invItem(i->parent,i->ivar1,i->ivar2,i->ivar3,i->fvar1,i->fvar2,i->fvar3);
+   setmodel(item->parent->model);
   }
  bool setev(int attr,const char*val);
  ~RPGItemEnt(){delete item;}
