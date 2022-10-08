@@ -4700,7 +4700,7 @@ void removesleep(int taskid)
 ICOMMAND(sleep, "is", (int*msec,char*cmd), addsleep(*msec,cmd));
 ICOMMAND(set_task, "iis", (int*msec,int*id,char*cmd), addsleep(*msec,cmd,*id));
 ICOMMAND(delete_task, "i", (int*id), removesleep(*id)); 
-
+VAR(sleep_id,0,0,65535);
 
 void checksleep(int millis)
 {
@@ -4713,6 +4713,7 @@ void checksleep(int millis)
             s.command = NULL;
             int oldflags = identflags;
             identflags = s.flags;
+            sleep_id = s.id;
             execute(cmd);
             identflags = oldflags;
             delete[] cmd;
