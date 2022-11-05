@@ -4386,7 +4386,7 @@ namespace cmathinterp // Well, write-only
 {
    const char* specsyms="*/+-&|><=+^?![()]%~ ";
    const char* letters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz.1234567890_";
-   inline int split(const char*s,vector<void*>&symbols)
+   inline int split(const char*s,vector<void*>&symbols) // the only function that works as expected in this namespace
    {
       string operand;
       #define pushstr { \
@@ -4433,7 +4433,7 @@ namespace cmathinterp // Well, write-only
   /*
   
   */
-  inline bool isnum(const char*str)
+  inline bool isnum(const char*str) // it can handle negative numbers as well
   {
    const char digits[12]="0123456789.";
    for(int i=(str[0]=='-'&&str[1])?1:0;str[i]&&i<MAXSTRLEN;i++) // skipping first symbol if it is -
@@ -4468,7 +4468,7 @@ namespace cmathinterp // Well, write-only
    CM_OR,
    CM_BRANCH
   }cm_func;
-  inline bool iscmathfunc(const char*str,cm_func &result)
+  inline bool iscmathfunc(const char*str,cm_func &result)  // TODO: implement this
   {
    return false;
   }
@@ -4493,6 +4493,10 @@ namespace cmathinterp // Well, write-only
    else conoutf(CON_ERROR,"cmathinterp::decode failed: invalid string %s",str);
    return 0;
   }
+  /*
+   Called inside decodeexpression for highest priority operation
+   from is a position of detected operation
+  */
   inline bool mathop(vector<void*>&a,int from,int action)
   {
    double result=0;
@@ -4505,7 +4509,7 @@ namespace cmathinterp // Well, write-only
     conoutf(CON_ERROR,"cmathinterp::mathop failed: nothing after %s",cast(a[from])); \
     return false; \
    } \
-   if(from-before<0) \
+   if((from-before)<0) \
    { \
     conoutf(CON_ERROR,"cmathinterp::mathop failed: nothing before %s",cast(a[from])); \
     return false; \
@@ -4533,7 +4537,18 @@ namespace cmathinterp // Well, write-only
      break;
      icmcase(CM_DIVR,%);
      cmcase(CM_ADD,+);
-     cmcase(CM_SUB,-);
+     case(CM_SUB):
+      reserve(0,1); // we may have nothing before it
+      if((from-1)>=0&&isnum(cast(a[from-1]))) // previous value is a number
+       {
+        before = 1;
+        result = cmprev - cmnext;
+       }
+      else
+       {
+        result = -cmnext;
+       }
+     break;
      cmcase(CM_MOTHAN,>);
      cmcase(CM_LESSTHAN,<);
      cmcasenext(CM_EQ,==);
@@ -4574,15 +4589,15 @@ namespace cmathinterp // Well, write-only
         cmcase('*',2,CM_MUL);
         cmcase('/',2,CM_DIV);
         cmcase('%',2,CM_DIVR);
-        cmcase('+',3,CM_ADD);
-        case('-'):if(isnum(c))continue;else cmsetprio(3,CM_SUB);break;
+        cmcase('+',3,CM_ADD); // TODO: cmath "1/10+1/10"
+        case('-'):if(isnum(c))continue;else cmsetprio(3,CM_SUB);break; // skip on a negative value
         cmcase('>',4,CM_MOTHAN);
         cmcase('<',4,CM_LESSTHAN);
         cmcase('=',4,CM_EQ);break;
         case('&'):cmifnext('&',cmsetprio(8,CM_AND))else cmsetprio(5,CM_BWAND);break;
         cmcase('^',6,CM_XOR);
         case('|'):cmifnext('|',cmsetprio(9,CM_OR))else cmsetprio(7,CM_BWOR);break;
-        cmcase('?',10,CM_BRANCH);
+        cmcase('?',10,CM_BRANCH); // TODO: implement this
         #undef cmsetprio
         #undef cmcase
         #undef cmifnext
