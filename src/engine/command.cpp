@@ -4497,7 +4497,7 @@ namespace cmathinterp // Well, write-only
   {
    double result=0;
    int before=0,after=0;
-   #define reserve(as,bs) \
+   #define reserve(bs,as) \
    after = as; \
    before = bs; \
    if(a.length()<=(from+after)) \
@@ -4515,10 +4515,10 @@ namespace cmathinterp // Well, write-only
    #define cmnext2 decode(a[from+2])
    #define cmcase(func,action) case(func):reserve(1,1);result = cmprev action cmnext;break
    #define icmcase(func,action) case(func):reserve(1,1);result = (int)cmprev action (int)cmnext;break
-   #define cmcasenext(func,action) case(func):reserve(2,1);result = cmprev action cmnext2;break
+   #define cmcasenext(func,action) case(func):reserve(1,2);result = cmprev action cmnext2;break
    switch(action)
     {
-     case(CM_NOT):reserve(1,0);result = !cmnext;break;
+     case(CM_NOT):reserve(0,1);result = !cmnext;break;
      cmcasenext(CM_NEQ,!=);
      cmcase(CM_MUL,*);
      case(CM_DIV):
