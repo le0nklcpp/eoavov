@@ -4433,7 +4433,7 @@ namespace cmathinterp // Well, write-only
   /*
   
   */
-  inline bool isnum(const char*str) // it can handle negative numbers as well
+  inline bool isnum(const char*str) // it can handle negative numbers as well TODO: exponent notation
   {
    const char digits[12]="0123456789.";
    for(int i=(str[0]=='-'&&str[1])?1:0;str[i]&&i<MAXSTRLEN;i++) // skipping first symbol if it is -
@@ -4576,20 +4576,20 @@ namespace cmathinterp // Well, write-only
    while(index!=-1)
     {
      index = -1;
-     priority = 0;
+     priority = 11;
      loopv(a)
      {
       const char*c = cast(a[i]);
       switch(c[0])
        {
         #define cmcase(sign,prio,func)case(sign):cmsetprio(prio,func);break
-        #define cmsetprio(c,f) if(c>priority){priority = c;index = i;func = f;}
+        #define cmsetprio(c,f) if(c<priority){priority = c;index = i;func = f;}
         #define cmifnext(c,action) if(i+1<a.length()&&cast(a[i+1])[0]==c){action;i++;}
         case('!'):cmifnext('=',cmsetprio(4,CM_NEQ))else {mathop(a,i,CM_NOT);continue;}break; // We can do highest priority operation right now
         cmcase('*',2,CM_MUL);
         cmcase('/',2,CM_DIV);
         cmcase('%',2,CM_DIVR);
-        cmcase('+',3,CM_ADD); // TODO: cmath "1/10+1/10"
+        cmcase('+',3,CM_ADD);
         case('-'):if(isnum(c))continue;else cmsetprio(3,CM_SUB);break; // skip on a negative value
         cmcase('>',4,CM_MOTHAN);
         cmcase('<',4,CM_LESSTHAN);
