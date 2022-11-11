@@ -13,6 +13,7 @@ VAR(lock_control,0,0,1);
 VARF(flash_enabled,0,0,1,{if(!flash_enabled&&isconnected())player1->light = false;});
 GMCMD(flashlight,"i",(int*check),{if(!(*check)&&flash_enabled)player1->light = !player1->light;intret(player1->light);});
 VAR(cameratilt,-90,1,90);
+VAR(camrot,-90,0,90);
 void fixcarrydist()
 {
  max_carry_dist = max(min_carry_dist,max_carry_dist);
@@ -146,10 +147,9 @@ void playerEnt::think()
   {
    trydisconnect(true);
   }
- int tilt;
- if(k_left)tilt = -cameratilt;
- else if(k_right)tilt = cameratilt;
- else tilt = 0;
+ int tilt = camrot;
+ if(k_left)tilt -= cameratilt;
+ else if(k_right)tilt += cameratilt;
  setcamtilt(tilt);
 }
 void playerEnt::attack(bool down)
