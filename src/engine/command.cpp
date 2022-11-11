@@ -4384,7 +4384,7 @@ void strsplice(const char *s, const char *vals, int *skip, int *count)
 COMMAND(strsplice, "ssii");
 namespace cmathinterp // Well, write-only
 {
-   const char* specsyms="*/+-&|><=+^?![()]%~ ";
+   const char* specsyms="*/+-&|><=+^?![()]%~ :";
    const char* letters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz.1234567890_";
    inline int split(const char*s,vector<void*>&symbols) // the only function that works as expected in this namespace
    {
@@ -4557,6 +4557,22 @@ namespace cmathinterp // Well, write-only
      cmcasenext(CM_OR,||);
      icmcase(CM_BWOR,|);
      icmcase(CM_BWAND,&);
+     case(CM_BRANCH): // this operation is performed last, the statement is 100% ready
+     reserve(1,3); // cmprev?cmnext:cmnext3
+     if(cast(a[from+2])[0]!=':')// check synthax
+      {
+       conoutf(CON_ERROR,"cmathinterp::mathop failed: branching: expected \':\', but instead there\'s a stray \'%s\'",cast(a[from+2]));
+       return false;
+      }
+     if(cmprev)
+      {
+       result = cmnext;
+      }
+     else
+      {
+       result = decode(cast(a[from+3]));
+      }
+     break;
     }
    #undef cmnext
    #undef cmnext2
@@ -4597,7 +4613,7 @@ namespace cmathinterp // Well, write-only
         case('&'):cmifnext('&',cmsetprio(8,CM_AND))else cmsetprio(5,CM_BWAND);break;
         cmcase('^',6,CM_XOR);
         case('|'):cmifnext('|',cmsetprio(9,CM_OR))else cmsetprio(7,CM_BWOR);break;
-        cmcase('?',10,CM_BRANCH); // TODO: implement this
+        cmcase('?',10,CM_BRANCH);
         #undef cmsetprio
         #undef cmcase
         #undef cmifnext
