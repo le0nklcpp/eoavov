@@ -4539,7 +4539,7 @@ namespace cmathinterp // Well, write-only
      cmcase(CM_ADD,+);
      case(CM_SUB):
       reserve(0,1); // we may have nothing before it
-      if((from-1)>=0&&isnum(cast(a[from-1]))) // previous value is a number
+      if((from-1)>=0&&(isnum(cast(a[from-1]))||getident(cast(a[from-1])))) // previous value is a number
        {
         before = 1;
         result = cmprev - cmnext;
