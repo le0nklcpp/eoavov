@@ -139,25 +139,40 @@ namespace game{
   ent->state = CS_DEAD;
   ent->nextthink = 0;
  });
+ #define rayfpsents(insert) \
+     float newmaxdist = maxdist?maxdist:130.0; \
+     vec hitpos; \
+     if(!thruwalls)newmaxdist = raycubepos(from,to,hitpos,maxdist,RAY_CLIPMAT|RAY_ALPHAPOLY); \
+     loopv(fpsents) \
+     { \
+      float dist; \
+      fpsEntity&e = *fpsents[i]; \
+      if(e.state!=CS_ALIVE||!intersect(&e,from,to,dist,newmaxdist))continue;\
+      insert; \
+     }
+ vector<fpsEntity*>rayfpsentchain(const vec & from, const vec & to, float maxdist, bool thruwalls)
+ { // WARNING: DON'T FORGET TO CLEAR THIS VECTOR WITHOUT delete
+     vector <fpsEntity*>result;
+     rayfpsents(result.add(&e));
+     return result;
+ }
  fpsEntity* rayfpsent(const vec& from, const vec& to,float maxdist,bool thruwalls)
  {
-     float newmaxdist = maxdist?maxdist:130.0;
-     vec hitpos;
-     if(!thruwalls)newmaxdist = raycubepos(from,to,hitpos,maxdist,RAY_CLIPMAT|RAY_ALPHAPOLY);
      fpsEntity* result = NULL;
-     loopv(fpsents)
+     rayfpsents(
+      if(!result||dist<newmaxdist)
       {
-       float dist;
-       fpsEntity&e = *fpsents[i];
-       if(e.state!=CS_ALIVE||!intersect(&e,from,to,dist,newmaxdist))continue;
-       if(!result||dist<newmaxdist)
-        {
-        result = &e;
-        newmaxdist = dist;
-        }
-      }
-      return result;
+       result = &e;
+       newmaxdist = dist;
+      });
+     return result;
  }
+ GMCMD(dynent_ray,"fffffffi",(float*f1,float*f2,float*f3,float*t1,float*t2,float*t3,float* dist,int*thruwalls),
+ {
+  fpsEntity*result = rayfpsent(vec(*f1,*f2,*f3),vec(*t1,*t2,*t3),*dist,*thruwalls);
+  if(result)intret(result->tag);
+  else intret(-1);
+ });
  GMCMD(set_ev,"iis",(int*tag,int*attr,const char*val),{returnfpsent(*tag,ent);ent->setev(*attr,val);});
  GMCMD(set_dynent_route,"iii",(int*tag,int*rtag,int*revert),{returnfpsent(*tag,ent);ent->setroute(getrailent(*rtag),*revert);});
  GMCMD(get_ev,"ii",(int*tag,int*attr),{returnfpsent(*tag,ent);ent->getev(*attr);});

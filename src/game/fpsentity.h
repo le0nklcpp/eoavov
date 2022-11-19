@@ -43,6 +43,7 @@ extern void fpsremovebytag(int tag);
 extern bool fpsintersect(fpsEntity &e, const vec &o, const vec &ray,float maxdist);
 extern void fpsdetach(fpsEntity *e);
 extern fpsEntity* rayfpsent(const vec& from, const vec& to,float maxdist,bool thruwalls);
+extern vector<fpsEntity*>rayfpsentchain(const vec & from, const vec & to, float maxdist, bool thruwalls);
 };
 
 struct fpsEntity:dynent{ // dynamic entity
