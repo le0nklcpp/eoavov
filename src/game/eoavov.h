@@ -86,6 +86,33 @@ enum{
 extern playerEnt*player1;
 
 extern int lock_control;
+template<typename T, size_t size>static int parsearray(char*str,T (&a)[size])
+{
+ string s;
+ int ctr = 0,append=0;
+ for(int i=0;i<MAXSTRLEN;i++)
+ {
+  if(str[i]==','||str[i]==';'||str[i]==' '||!str[i])
+  {
+   s[append] = '\0';
+   a[ctr] = parsenumber(s);
+   append = 0;
+   ctr++;
+   if(ctr==size||!str[i])break;
+  }
+  else 
+  {
+   s[append]=str[i];
+   append++;
+   if(append==MAXSTRLEN)
+    {
+     conoutf(CON_ERROR,"failed to parse the following string: %s :line is too long",str);
+     return 0;
+    }
+  }
+ }
+ return ctr; 
+}
 namespace game
 {
  /*
@@ -100,6 +127,8 @@ namespace game
 
  */
  extern void recountspeed(bool togglewalk);
+ /*
+ */
 };
 namespace entities
 {
