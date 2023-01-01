@@ -271,6 +271,8 @@ bool fpsEntity::setev(int attr,const char*val)
  if(!val)return false;
  #define v atoi(val);
  #define fv atof(val);
+ #define pa(n,type) type a[n];if(parsearray(val,a)!=n)return false;
+ #define retfv(v) {pa(3,float);v = vec(a[0],a[1],a[2]);}
  switch(attr)
   {
    case(EV_HEALTH):health = fv;break;
@@ -285,6 +287,9 @@ bool fpsEntity::setev(int attr,const char*val)
    case(EV_LASTANIM):lastanim = v;break;
    case(EV_MASS):mass = fv;break;
    case(EV_STATE):state = v;break;
+   case(EV_VEL):retfv(vel);break;
+   case(EV_ATPOS):retfv(atpos);break;
+   case(EV_POS):retfv(o);resetinterp();break;
    default:return false;break;
   }
  return true;
@@ -311,6 +316,7 @@ bool fpsEntity::getev(int attr)
    case(EV_STATE):rei(state);break;
    case(EV_VEL):rev(vel);break;
    case(EV_ATPOS):rev(atpos);break;
+   case(EV_POS):rev(o);break;
    default:return false;break;
   }
  return true;

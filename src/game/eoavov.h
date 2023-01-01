@@ -86,7 +86,7 @@ enum{
 extern playerEnt*player1;
 
 extern int lock_control;
-template<typename T, size_t size>static int parsearray(char*str,T (&a)[size])
+template<typename T, size_t size>static int parsearray(const char*str,T (&a)[size])
 {
  string s;
  int ctr = 0,append=0;

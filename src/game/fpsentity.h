@@ -25,7 +25,8 @@ EV_IFVAR1,
 EV_IFVAR2,
 EV_IFVAR3,
 EV_VEL,
-EV_ATPOS
+EV_ATPOS,
+EV_POS
 };
 
 struct fpsEntity;
