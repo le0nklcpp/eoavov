@@ -181,6 +181,20 @@ bool playerEnt::setev(int attr,const char*val)
   }
  return true;
 }
+bool playerEnt::getev(int attr)
+{
+ #define getv(a) gmsetvar("ent_int",intval(a))
+ if(!fpsEntity::getev(attr))
+  {
+   switch(attr)
+    {
+     case(EV_NEXTATTACKTIME):getv(nextattacktime);break;
+     case(EV_NEXTINTERACTTIME):getv(nextinteracttime);break;
+     default:return false;break;
+    }
+  }
+ return true;
+}
 invItem* playerEnt::draw(int index)
 {
  if(index==-1)

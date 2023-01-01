@@ -25,6 +25,7 @@ struct playerEnt:fpsEntity,RPGObject{
  void think();
  void attack(bool down);
  bool setev(int attr,const char*val);
+ bool getev(int attr);
  invItem* draw(int index);
 };
 void fixcarrydist();
