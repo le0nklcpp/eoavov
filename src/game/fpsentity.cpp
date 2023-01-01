@@ -290,6 +290,7 @@ bool fpsEntity::setev(int attr,const char*val)
    case(EV_VEL):retfv(vel);break;
    case(EV_ATPOS):retfv(atpos);break;
    case(EV_POS):retfv(o);resetinterp();break;
+   case(EV_ANGLES):{pa(3,int);setangle(a[0],a[1],a[2]);}break;
    default:return false;break;
   }
  return true;
@@ -317,6 +318,7 @@ bool fpsEntity::getev(int attr)
    case(EV_VEL):rev(vel);break;
    case(EV_ATPOS):rev(atpos);break;
    case(EV_POS):rev(o);break;
+   case(EV_ANGLES):rev(vec(yaw,pitch,roll));break;
    default:return false;break;
   }
  return true;
