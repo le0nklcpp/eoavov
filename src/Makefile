@@ -73,7 +73,8 @@ MOD_OBJS= \
 	game/player.o \
 	game/dict.o \
 	game/hudtexture.o \
-	game/rail.o
+	game/rail.o \
+	game/projectile.o
 CLIENT_OBJS= \
 	shared/crypto.o \
 	shared/geom.o \

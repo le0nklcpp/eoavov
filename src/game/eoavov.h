@@ -51,6 +51,7 @@ enum
 #include "player.h"
 #include "creatures.h"
 #include "prop.h"
+#include "projectile.h"
 
 static const char * const animnames[] =
 {
