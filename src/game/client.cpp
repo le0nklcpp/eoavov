@@ -23,6 +23,7 @@ namespace game
      clearfpsents();
      clearmodels();
      clearroutes();
+     clearprojtypes();
     }
     void changemap(const char *name)
     {

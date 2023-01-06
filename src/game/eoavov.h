@@ -43,7 +43,8 @@ enum
  E_MOVABLE=4,
  E_VEHICLE,
  E_CREATURE,
- E_INVITEM
+ E_INVITEM,
+ E_PROJECTILE
 };
 
 #include "inventory.h"
