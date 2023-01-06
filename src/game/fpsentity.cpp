@@ -54,7 +54,7 @@ namespace game{
   {
    fpsEntity&e = *fpsents[i];
    e.move();
-   if(e.nextthink<lastmillis)continue;
+   if(e.nextthink>lastmillis)continue;
    if(e.state==CS_DEAD)
     {
     fpsremove(i);
