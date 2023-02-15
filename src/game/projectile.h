@@ -17,7 +17,7 @@ namespace game
  {
   fpsEntity*owner;
   projectileType *projtype;
-  projectileEnt(vec pos,vec dir,int t):fpsEntity(0)
+  projectileEnt(vec pos,vec dir,int t,int et):fpsEntity(0)
   {
    if(!projtypes.inrange(t))return;
    type = E_PROJECTILE;
@@ -29,6 +29,7 @@ namespace game
    pitch = -atan((pos.y-dir.y)/(pos.z-dir.z))*RAD;
    roll = atan((pos.x-dir.x)/(pos.z-dir.z))*RAD;
    projtype->oncreate(this);
+   tag = et;
   }
   void think()
   {

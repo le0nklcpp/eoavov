@@ -40,5 +40,5 @@ namespace game
   projtypes.deletecontents();
  }
  ICOMMAND(projtype_create,"sss",(char*th,char*hh,char*ch),{projtypes.add(new scriptedProjectileType(th,hh,ch));intret(projtypes.length()-1);});
- ICOMMAND(create_projectile,"iffffff",(int*index,float*mx,float*my,float*mz,float*tx,float*ty,float*tz),{fpsents.add(new projectileEnt(vec(*mx,*my,*mz),vec(*tx,*ty,*tz),*index));});
+ ICOMMAND(create_projectile,"iiffffff",(int*index,int*tag,float*mx,float*my,float*mz,float*tx,float*ty,float*tz),{fpsents.add(new projectileEnt(vec(*mx,*my,*mz),vec(*tx,*ty,*tz),*index,*tag));});
 };
