@@ -268,7 +268,7 @@ bool addzip(const char *name, const char *mount = NULL, const char *strip = NULL
     copystring(pname, name);
     path(pname);
     size_t plen = strlen(pname);
-    if(plen < 4 || !strchr(&pname[plen-4], '.')) concatstring(pname, ".zip");
+    if(plen < 4 || strcasecmp(&pname[plen-4], ".zip")) concatstring(pname, ".zip");
 
     ziparchive *exists = findzip(pname);
     if(exists)
@@ -563,9 +563,13 @@ int listzipfiles(const char *dir, const char *ext, vector<char *> &files)
             if(strncmp(f.name, dir, dirsize)) continue;
             const char *name = f.name + dirsize;
             if(name[0] == PATHDIV) name++;
-            if(strchr(name, PATHDIV)) continue;
-            if(!ext) files.add(newstring(name));
-            else
+            const char *div = strchr(name, PATHDIV);
+            if(!ext)
+            {
+                if(!div) files.add(newstring(name));
+                else if(files.empty() || !matchstring(files.last(), strlen(files.last()), name, div - name)) files.add(newstring(name, div - name));
+            }
+            else if(!div)
             {
                 size_t namelen = strlen(name);
                 if(namelen > extsize)

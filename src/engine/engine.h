@@ -12,7 +12,7 @@
 #include "bih.h"
 #include "model.h"
 
-#define TESS_BUILD_VERSION 2520
+#define TESS_BUILD_VERSION 2544
 
 extern dynent *player;
 extern physent *camera1;                // special ent that acts as camera, same object as player1 in FPS mode
@@ -158,7 +158,7 @@ extern void gl_setupframe(bool force = false);
 extern void gl_drawframe();
 extern void cleanupgl();
 extern void drawminimap();
-extern void enablepolygonoffset(GLenum type);
+extern void enablepolygonoffset(GLenum type, float scale = 1.0f);
 extern void disablepolygonoffset(GLenum type);
 extern bool calcspherescissor(const vec &center, float size, float &sx1, float &sy1, float &sx2, float &sy2, float &sz1, float &sz2);
 extern bool calcbbscissor(const ivec &bbmin, const ivec &bbmax, float &sx1, float &sy1, float &sx2, float &sy2);

@@ -1567,18 +1567,18 @@ FVAR(depthoffset, -1e4f, 0.01f, 1e4f);
 
 matrix4 nooffsetmatrix;
 
-void enablepolygonoffset(GLenum type)
+void enablepolygonoffset(GLenum type, float scale)
 {
     if(!depthoffset)
     {
-        glPolygonOffset(polygonoffsetfactor, polygonoffsetunits);
+        glPolygonOffset(polygonoffsetfactor * scale, polygonoffsetunits * scale);
         glEnable(type);
         return;
     }
 
     projmatrix = nojittermatrix;
     nooffsetmatrix = projmatrix;
-    projmatrix.d.z += depthoffset * projmatrix.c.z;
+    projmatrix.d.z += depthoffset * scale * projmatrix.c.z;
     setcamprojmatrix(false, true);
 }
 
@@ -2420,8 +2420,9 @@ void gl_drawview()
 
     rendergbuffer();
 
+    extern int showsky;
     if(wireframe && editmode) glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-    else if(limitsky() && editmode) renderexplicitsky(true);
+    else if(limitsky() && editmode && showsky) renderexplicitsky(true);
 
     renderao();
     GLERROR;
