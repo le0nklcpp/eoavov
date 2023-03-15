@@ -10,7 +10,7 @@ FVAR(MAX_INTERACT_DIST,0.,24.,1000.);
 VAR(NEXT_USE_DELAY,0,200,32767);
 VAR(lock_movement,0,0,1);
 VAR(lock_control,0,0,1);
-VARF(flash_enabled,0,0,1,{if(!flash_enabled&&isconnected())player1->light = false;});
+VARF(flash_enabled,0,1,1,{if(!flash_enabled&&isconnected())player1->light = false;});
 GMCMD(flashlight,"i",(int*check),{if(!(*check)&&flash_enabled)player1->light = !player1->light;intret(player1->light);});
 VAR(cameratilt,-90,1,90);
 VAR(camrot,-90,0,90);
