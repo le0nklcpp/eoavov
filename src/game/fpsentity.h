@@ -27,9 +27,9 @@ EV_IFVAR3,
 EV_VEL,
 EV_ATPOS,
 EV_POS,
-EV_ANGLES
+EV_ANGLES,
+EV_WATERPHYS
 };
-
 struct fpsEntity;
 namespace game{
 extern vector<fpsEntity*>fpsents;
@@ -49,6 +49,7 @@ extern vector<fpsEntity*>rayfpsentchain(const vec & from, const vec & to, float 
 };
 
 struct fpsEntity:dynent{ // dynamic entity
+bool waterphys;
 int tag;
 float health,maxhealth;
 bool visible,movable;
@@ -62,7 +63,7 @@ float mass;
 fpsEntity*attached;
 vec atpos; // attachedpos - relative
 routeManager route;
-fpsEntity(int hp):attached(NULL),movable(false),mass(0.),maxhealth(hp),health(hp),tag(-1),animsequence(-1),framerate(0),lastanim(0),team(0),nextthink(0),visible(true),model(""){state = CS_DEAD;type=-1;}
+fpsEntity(int hp):attached(NULL),waterphys(false),movable(false),mass(0.),maxhealth(hp),health(hp),tag(-1),animsequence(-1),framerate(0),lastanim(0),team(0),nextthink(0),visible(true),model(""){state = CS_DEAD;type=-1;}
 fpsEntity():fpsEntity(100){}
 virtual ~fpsEntity(){detach();}
 virtual void mirror(short axis); // 1 - X, 2 - Y, 3 - Z

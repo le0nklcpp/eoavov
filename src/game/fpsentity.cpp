@@ -197,7 +197,15 @@ void fpsEntity::move()
   }
  else if(route.end())
   {
-   if(movable)moveplayer(this,1,true);
+   if(movable)
+    {
+    moveplayer(this,1,true);
+    if(waterphys&&inwater)
+     {
+      float force = 0.125*eyeheight;
+      if(lookupmaterial(headpos())&MAT_WATER)vel.addz(force+rndscale(eyeheight/4));
+     }
+    }
   }
  else
   {
@@ -291,6 +299,7 @@ bool fpsEntity::setev(int attr,const char*val)
    case(EV_ATPOS):retfv(atpos);break;
    case(EV_POS):retfv(o);resetinterp();break;
    case(EV_ANGLES):{pa(3,int);setangle(a[0],a[1],a[2]);}break;
+   case(EV_WATERPHYS):waterphys = v;break;
    default:return false;break;
   }
  return true;
@@ -319,6 +328,7 @@ bool fpsEntity::getev(int attr)
    case(EV_ATPOS):rev(atpos);break;
    case(EV_POS):rev(o);break;
    case(EV_ANGLES):rev(vec(yaw,pitch,roll));break;
+   case(EV_WATERPHYS):rei(waterphys);break;
    default:return false;break;
   }
  return true;
