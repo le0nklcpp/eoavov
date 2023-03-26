@@ -177,6 +177,10 @@ namespace game{
  GMCMD(set_dynent_route,"iii",(int*tag,int*rtag,int*revert),{returnfpsent(*tag,ent);ent->setroute(getrailent(*rtag),*revert);});
  GMCMD(get_ev,"ii",(int*tag,int*attr),{returnfpsent(*tag,ent);ent->getev(*attr);});
 };
+inline bool fpsEntity::headinwater()
+{
+ return (lookupmaterial(headpos())&MAT_WATER);
+}
 void fpsEntity::mirror(short axis)
 {
  switch(axis)
@@ -203,7 +207,7 @@ void fpsEntity::move()
     if(waterphys&&inwater)
      {
       float force = 0.125*eyeheight;
-      if(lookupmaterial(headpos())&MAT_WATER)vel.addz(force+rndscale(eyeheight/4));
+      if(headinwater())vel.addz(force+rndscale(eyeheight/4));
      }
     }
   }

@@ -66,6 +66,7 @@ routeManager route;
 fpsEntity(int hp):attached(NULL),waterphys(false),movable(false),mass(0.),maxhealth(hp),health(hp),tag(-1),animsequence(-1),framerate(0),lastanim(0),team(0),nextthink(0),visible(true),model(""){state = CS_DEAD;type=-1;}
 fpsEntity():fpsEntity(100){}
 virtual ~fpsEntity(){detach();}
+virtual bool headinwater();
 virtual void mirror(short axis); // 1 - X, 2 - Y, 3 - Z
 virtual void think();
 virtual void move();
