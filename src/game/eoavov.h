@@ -44,7 +44,8 @@ enum
  E_VEHICLE,
  E_CREATURE,
  E_INVITEM,
- E_PROJECTILE
+ E_PROJECTILE,
+ E_FRAGMENT
 };
 
 #include "inventory.h"
@@ -53,6 +54,7 @@ enum
 #include "creatures.h"
 #include "prop.h"
 #include "projectile.h"
+#include "debris.h"
 
 static const char * const animnames[] =
 {
@@ -131,6 +133,11 @@ namespace game
  extern void recountspeed(bool togglewalk);
  /*
  */
+ static inline vec randomspread(vec m)
+ {
+  #define rndr(x) (rndscale(x*2.0)-x)
+  return vec(rndr(m.x),rndr(m.y),rndr(m.z));
+ }
 };
 namespace entities
 {
