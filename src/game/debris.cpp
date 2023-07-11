@@ -1,5 +1,7 @@
 #include "debris.h"
 VARP(debris_remove_time,0,0,300000); // 0 = do not remove
+VARP(debris_kick_normal,0,90,2000);
+#define kickvec vec(debris_kick_normal,debris_kick_normal,debris_kick_normal)
 
 debrisEnt::debrisEnt(vec pos,vec deviation,vec dir,vec v,string model):fpsEntity()
 {
@@ -14,9 +16,13 @@ debrisEnt::debrisEnt(vec pos,vec deviation,vec dir,vec v,string model):fpsEntity
 }
 inline void debrisEnt::move()
 {
- if(bounce(this,0.6,0.5,1))
+ if(bounce(this,0.6,0.5,1)&&collideplayer) // bounce returns true when it collides
  {
-  vec sp = game::randomspread(vec(90,90,90));
+  vel.add(kickvec.rotate_around_z(sincosmod360(collideplayer->yaw)));
+ }
+ if(!onfloor())
+ {
+  vec sp = game::randomspread(vec(170,170,170));
   setangle(sp.x,sp.y,sp.z);
  }
 }

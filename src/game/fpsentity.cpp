@@ -177,6 +177,15 @@ namespace game{
  GMCMD(set_dynent_route,"iii",(int*tag,int*rtag,int*revert),{returnfpsent(*tag,ent);ent->setroute(getrailent(*rtag),*revert);});
  GMCMD(get_ev,"ii",(int*tag,int*attr),{returnfpsent(*tag,ent);ent->getev(*attr);});
 };
+inline bool fpsEntity::onfloor()
+{
+ bool collided = false;
+ vec op = o;
+ o.add(vec(0,0,-1));
+ collided = collide(this,vec(0,0,0),0,false);
+ o = op;
+ return collided;
+}
 inline bool fpsEntity::headinwater()
 {
  return (lookupmaterial(headpos())&MAT_WATER);

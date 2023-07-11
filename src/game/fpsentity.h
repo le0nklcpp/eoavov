@@ -67,6 +67,7 @@ fpsEntity(int hp):attached(NULL),waterphys(false),movable(false),mass(0.),maxhea
 fpsEntity():fpsEntity(100){}
 virtual ~fpsEntity(){detach();}
 virtual bool headinwater();
+virtual bool onfloor();
 virtual void mirror(short axis); // 1 - X, 2 - Y, 3 - Z
 virtual void think();
 virtual void move();
