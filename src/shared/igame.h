@@ -92,6 +92,11 @@ namespace game
     extern int maxsoundradius(int n);
     extern bool needminimap();
     extern void sound(const char *s, const vec *loc = NULL, int vol = 0, int flags = 0, int loops = 0, int fade = 0, int chanid = -1, int radius = 0, int expire = -1);
+    namespace threads
+    {
+     extern SDL_mutex *scripts;
+     extern SDL_mutex *renderer;
+    }
 }
 
 namespace server

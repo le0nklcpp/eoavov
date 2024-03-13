@@ -6,7 +6,10 @@
 hashnameset<ident> idents; // contains ALL vars/commands/aliases
 vector<ident *> identmap;
 ident *dummyident = NULL;
-
+namespace game::threads
+{
+SDL_mutex * scripts = SDL_CreateMutex();
+};
 int identflags = 0;
 
 enum

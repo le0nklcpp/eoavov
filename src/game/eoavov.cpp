@@ -112,6 +112,9 @@ namespace game{
     void parseoptions(vector<const char *> &args)
     {
     }
+    void triggertexture(vec o,int type)
+    {
+    }
     GMCMD(quickswitch,"",(),player1->quickswitch());
     GMCMD(set_hudmodel,"sii",(const char*s,int*anim,int*time),player1->setvmodel(s,*anim,*time));
     ICOMMAND(precache_model,"s",(const char*fpath),preloadmodel(fpath));

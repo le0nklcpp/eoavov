@@ -22,12 +22,19 @@ inline void debrisEnt::move()
  }
  if(!onfloor())
  {
-  vec sp = game::randomspread(vec(170,170,170));
-  setangle(sp.x,sp.y,sp.z);
+  vec oa(yaw,pitch,roll);
+  vec sp = game::randomspread(vec(30,30,30));
+  setangle(oa.x+sp.x,oa.y+sp.y,oa.z+sp.z);
+ }
+ else
+ {
+   pitch = 90;
+   roll = 0;
  }
 }
 void add_debris(char*p,char*e,char*d,char*v,char*s,int* count)
 {
+ if(!isconnected())return;
  int pos[3],dev[3],dir[3],vel[3];
  parsearray(p,pos);
  parsearray(e,dev);

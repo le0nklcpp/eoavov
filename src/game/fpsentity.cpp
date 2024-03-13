@@ -1,5 +1,9 @@
 #include "eoavov.h"
 namespace game{
+ namespace threads
+ {
+  SDL_mutex*entities = SDL_CreateMutex();
+ };
  ICOMMAND(deletedynent,"i",(int*tag),fpsremovebytag(*tag));
  vector<fpsEntity*>fpsents;
  void createfpsent(int type,vec pos,int attr1,int attr2,int attr3,int attr4,int attr5)

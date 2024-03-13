@@ -47,7 +47,14 @@ enum
  E_PROJECTILE,
  E_FRAGMENT
 };
-
+enum
+{
+ TT_STEP,
+ TT_RUN,
+ TT_LAND,
+ TT_HIT,
+ TT_SCRATCH
+};
 #include "inventory.h"
 #include "rpgobject.h"
 #include "player.h"
