@@ -33,12 +33,14 @@ enum // cube empty-space materials
 
     MAT_DEATH    = 1 << MATF_FLAG_SHIFT,  // force player suicide
     MAT_NOGI     = 2 << MATF_FLAG_SHIFT,  // disable global illumination
-    MAT_ALPHA    = 4 << MATF_FLAG_SHIFT   // alpha blended
+    MAT_ALPHA    = 4 << MATF_FLAG_SHIFT,   // alpha blended
+    MAT_BREAKABLE = 8 << MATF_FLAG_SHIFT  // cubes inside can be destroyed
 };
 
 #define isliquid(mat) ((mat)==MAT_WATER || (mat)==MAT_LAVA)
 #define isclipped(mat) ((mat)==MAT_GLASS)
 #define isdeadly(mat) ((mat)==MAT_LAVA)
+#define isbreakable(mat) ((mat)==MAT_BREAKABLE||(mat)==MAT_GLASS)
 
 extern void lightent(extentity &e, float height = 8.0f);
 
@@ -128,7 +130,6 @@ extern int getvarmin(const char *name);
 extern int getvarmax(const char *name);
 extern bool identexists(const char *name);
 extern ident *getident(const char *name);
-extern ident *retrident(const char*name); // Will find or create new ident
 extern ident *newident(const char *name, int flags = 0);
 extern ident *readident(const char *name);
 extern ident *writeident(const char *name, int flags = 0);

@@ -12,26 +12,31 @@ namespace game
    copystring(createhook,ch);
   }
   ~scriptedProjectileType(){}
+  VAR(projectile_ent,-32767,0,32767);
+  VAR(projectile_target,-32767,0,32767);
+  FVAR(projectile_hit_x,-FLT_MIN,0,FLT_MAX);
+  FVAR(projectile_hit_y,-FLT_MIN,0,FLT_MAX);
+  FVAR(projectile_hit_z,-FLT_MIN,0,FLT_MAX);
   void think(projectileEnt*ent)
   {
    if(!thinkhook[0])return;
-   gmsetvar("projectile_ent",intval(ent->tag));
+   projectile_ent = ent->tag;
    cubeevent(thinkhook);
   }
   void onhit(projectileEnt*ent,vec hitpos,fpsEntity*hit)
   {
    if(!hithook[0])return;
-   gmsetvar("projectile_ent",intval(ent->tag));
-   gmsetvar("projectile_hit_x",floatval(hitpos.x));
-   gmsetvar("projectile_hit_y",floatval(hitpos.y));
-   gmsetvar("projectile_hit_z",floatval(hitpos.z));
-   gmsetvar("projectile_target",intval(hit->tag));
+   projectile_ent = ent->tag;
+   projectile_hit_x = hitpos.x;
+   projectile_hit_y = hitpos.y;
+   projectile_hit_z = hitpos.z;
+   projectile_target = hit->tag;
    cubeevent(hithook);
   }
   void oncreate(projectileEnt*ent)
   {
    if(!createhook[0])return;
-   gmsetvar("projectile_ent",intval(ent->tag));
+   projectile_ent = ent->tag;
    cubeevent(createhook);
   }
  };

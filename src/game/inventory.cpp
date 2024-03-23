@@ -40,11 +40,13 @@ RPGWeapon::RPGWeapon(const char*n,const char*dn,const char*vmdl,const char*mdl,i
  maxrange = maxar;
  maxammo = am;
 }
+VAR(item_owner_tag,-32767,0,32767);
+VAR(item_release,0,0,1);
 void RPGscriptedItem::event(const char*name,fpsEntity*user)
 {
  string funcname;
  formatstring(funcname,"%s_%s",devname,name);
- gmsetvar("item_owner_tag",intval(user->tag));
+ item_owner_tag = user->tag;
  game::cubeevent(funcname);
 }
 void RPGscriptedItem::draw(fpsEntity*user,invItem*i)
@@ -53,12 +55,12 @@ void RPGscriptedItem::draw(fpsEntity*user,invItem*i)
 }
 void RPGscriptedItem::use(fpsEntity*user,invItem*i,bool release)
 {
- gmsetvar("item_release",intval(release));
+ item_release = release;
  event("use",user);
 }
 void RPGscriptedItem::alt(fpsEntity*user,invItem*i,bool release)
 {
- gmsetvar("item_release",intval(release));
+ item_release = release;
  event("alt",user);
 }
 /*

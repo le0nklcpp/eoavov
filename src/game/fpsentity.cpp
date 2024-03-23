@@ -321,12 +321,15 @@ bool fpsEntity::setev(int attr,const char*val)
   }
  return true;
 }
+FVAR(ent_vec1,-FLT_MIN,0,FLT_MAX);
+FVAR(ent_vec2,-FLT_MIN,0,FLT_MAX);
+FVAR(ent_vec3,-FLT_MIN,0,FLT_MAX);
 bool fpsEntity::getev(int attr)
 {
- #define rei(val) gmsetvar("ent_int",intval(val))
- #define ref(val) gmsetvar("ent_float",floatval(val))
- #define res(val) gmsetvar("ent_str",strval(val))
- #define rev(val) gmsetvar("ent_vec1",floatval(val.x));gmsetvar("ent_vec2",floatval(val.y));gmsetvar("ent_vec3",floatval(val.z))
+ #define rei(val) intret(val)
+ #define ref(val) floatret(val)
+ #define res(val) stringret(val)
+ #define rev(val) ent_vec1 = val.x;ent_vec2=val.y;ent_vec3=val.z;
  switch(attr)
   {
    case(EV_HEALTH):ref(health);break;

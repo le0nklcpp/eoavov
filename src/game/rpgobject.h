@@ -5,9 +5,11 @@
 struct healthSystem
 {
  float * bodyparts; // array
- int numparts;
  float pain; // 0..1
- healthSystem(int n):pain(0.){bodyparts = new float[n];numparts = n;reset();}
+ ushort numparts;
+ ushort moral;
+ ushort maxmoral;
+ healthSystem(ushort n,ushort m):pain(0.){bodyparts = new float[n];numparts = n;maxmoral = m;reset();}
  ~healthSystem(){delete[](bodyparts);}
  float getpartdamage(int index)
  {
@@ -21,6 +23,7 @@ struct healthSystem
  void reset()
  {
   for(int i=0;i<numparts;i++)bodyparts[i]=0.;
+  moral = maxmoral;
  }
 };
 

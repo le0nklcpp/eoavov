@@ -111,7 +111,8 @@ const struct material
     {"gameclip", MAT_GAMECLIP},
     {"death", MAT_DEATH},
     {"nogi", MAT_NOGI},
-    {"alpha", MAT_ALPHA}
+    {"alpha", MAT_ALPHA},
+    {"breakable", MAT_BREAKABLE}
 };
 
 int findmaterial(const char *name)
@@ -498,6 +499,7 @@ void rendermatgrid()
                 case MAT_DEATH:    color = bvec4(40, 40, 40, 255); break; // black
                 case MAT_NOGI:     color = bvec4(40, 30,  0, 255); break; // brown
                 case MAT_ALPHA:    color = bvec4(85,  0, 85, 255); break; // pink
+                case MAT_BREAKABLE: color = bvec4(101,101,101,255); break; // grey
                 default: continue;
             }
             lastmat = m.material;

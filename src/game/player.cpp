@@ -14,12 +14,14 @@ VARF(flash_enabled,0,1,1,{if(!flash_enabled&&isconnected())player1->light = fals
 GMCMD(flashlight,"i",(int*check),{if(!(*check)&&flash_enabled)player1->light = !player1->light;intret(player1->light);});
 VAR(cameratilt,-90,1,90);
 VAR(camrot,-90,0,90);
+VAR(ENABLE_DOUBLEJUMP,1,0,1);
 void fixcarrydist()
 {
  max_carry_dist = max(min_carry_dist,max_carry_dist);
 }
 void playerEnt::reset()
 {
+ doublejump = false;
  vmodel[0]='\0';
  fpsEntity::reset();
  RPGObject::reset();
@@ -73,8 +75,6 @@ void playerEnt::dropitem(int index) // well, it could've been worse
    {
     setpos(oldpos);
     game::fpsremove(e);
-    gmsetvar("ent_int",intval(tag));
-    game::cubeevent("drop_failed");
     return;
    }
   }
@@ -107,6 +107,10 @@ void playerEnt::move()
  crouchplayer(this, 1, true);
  moveplayer(this, 1, true);
  moveitem();
+}
+void playerEnt::falldamage(int ftime)
+{
+ doublejump = false;
 }
 void playerEnt::dropent()
 {
@@ -183,7 +187,7 @@ bool playerEnt::setev(int attr,const char*val)
 }
 bool playerEnt::getev(int attr)
 {
- #define getv(a) gmsetvar("ent_int",intval(a))
+ #define getv(a) intret(a)
  if(!fpsEntity::getev(attr))
   {
    switch(attr)
