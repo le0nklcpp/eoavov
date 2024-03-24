@@ -63,7 +63,7 @@ void playerEnt::dropitem(int index) // well, it could've been worse
  RPGItemEnt * e = (RPGItemEnt*)game::fpsents.add(new RPGItemEnt(item));
  for(i=min_carry_dist;i<max_carry_dist;i++)
   {
-   e->setpos(vec(o).add(vec(camdir).mul(i)));
+   e->setpos(vec(o).add(vec(cameradir()).mul(i)));
    if(!collide(e)&&!collideinside)break;
   }
  if(i==max_carry_dist) // throw it under player feet
@@ -78,7 +78,7 @@ void playerEnt::dropitem(int index) // well, it could've been worse
     return;
    }
   }
- else e->vel = vec(camdir).mul(THROW_FORCE).add(vel);
+ else e->vel = vec(cameradir()).mul(THROW_FORCE).add(vel);
  e->physstate = PHYS_FALL;
  removeitem(index);
 }
@@ -89,7 +89,7 @@ inline void playerEnt::moveitem()
  int i=max_carry_dist;
  while(i>=min_carry_dist)
   {
-   carries->o = vec(o).add(vec(camdir).mul(i));
+   carries->o = vec(o).add(vec(cameradir()).mul(i));
    if((!collide(carries)&&!collideinside))
     {
      carries->resetinterp();
@@ -163,7 +163,7 @@ void playerEnt::attack(bool down)
   {
   fpsEntity* ent = carries;
   dropent();
-  ent->vel.add(vec(camdir).mul(THROW_FORCE).div(ent->mass));
+  ent->vel.add(vec(cameradir()).mul(THROW_FORCE).div(ent->mass));
   nextattacktime = lastmillis + NEXT_USE_DELAY;
   }
  else if(hands)

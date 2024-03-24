@@ -16,7 +16,7 @@ namespace game{
        player1->dropent();
        return;
       }
-     fpsEntity*ent = rayfpsent(player1->o,camdir,MAX_INTERACT_DIST,false);
+     fpsEntity*ent = rayfpsent(player1->o,player1->cameradir(),MAX_INTERACT_DIST,false);
      if(!ent)return;
      ent->playerused();
     }
@@ -45,7 +45,7 @@ namespace game{
     VAR(flash_colorb,0,255,255);
     void adddynlights()
     {
-        if(player1->light)adddynlight(vec(worldpos).sub(camdir),flash_radius,vec(flash_colorr,flash_colorg,flash_colorb));
+        if(player1->light)adddynlight(vec(player1->worlddir()).sub(player1->cameradir()),flash_radius,vec(flash_colorr,flash_colorg,flash_colorb));
     }
     float clipconsole(float w, float h)
     {

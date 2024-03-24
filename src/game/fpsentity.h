@@ -72,6 +72,8 @@ struct fpsEntity:dynent{ // dynamic entity
  virtual ~fpsEntity(){detach();}
  virtual bool headinwater();
  virtual bool onfloor();
+ virtual vec cameradir();
+ virtual vec worlddir();
  virtual void mirror(short axis); // 1 - X, 2 - Y, 3 - Z
  virtual void think();
  virtual void move();

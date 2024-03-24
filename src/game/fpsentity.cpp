@@ -194,6 +194,19 @@ inline bool fpsEntity::headinwater()
 {
  return (lookupmaterial(headpos())&MAT_WATER);
 }
+inline vec fpsEntity::cameradir()
+{
+ vec result;
+ vecfromyawpitch(yaw,pitch,1,0,result);
+ return result.rotate_around_y(-roll*RAD);
+}
+extern int worldsize;
+inline vec fpsEntity::worlddir()
+{
+ vec result = cameradir();
+ if(raycubepos(o, result, result, 0, RAY_CLIPMAT|RAY_SKIPFIRST) == -1)result.mul(2*worldsize).add(o);
+ return result;
+}
 void fpsEntity::mirror(short axis)
 {
  switch(axis)
