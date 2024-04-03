@@ -290,7 +290,16 @@ int lookupmaterial(const vec &v)
     }
     return c->material;
 }
-
+void deletecube(const vec &pos)
+{
+    const ivec ro = ivec(pos);
+    cube& c = lookupcube(ro);
+    ivec low,high;
+    low = high = ro;
+    emptyfaces(c);
+    discardchildren(c,true);
+    changed(low.sub(1),high.add(1),true);
+}
 const cube *neighbourstack[32];
 int neighbourdepth = -1;
 

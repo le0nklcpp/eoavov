@@ -12,8 +12,8 @@ namespace game
    copystring(createhook,ch);
   }
   ~scriptedProjectileType(){}
-  VAR(projectile_ent,-32767,0,32767);
-  VAR(projectile_target,-32767,0,32767);
+  ETAGVAR(projectile_ent);
+  ETAGVAR(projectile_target);
   FVAR(projectile_hit_x,-FLT_MIN,0,FLT_MAX);
   FVAR(projectile_hit_y,-FLT_MIN,0,FLT_MAX);
   FVAR(projectile_hit_z,-FLT_MIN,0,FLT_MAX);

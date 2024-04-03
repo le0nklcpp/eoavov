@@ -9,7 +9,7 @@ struct healthSystem
  ushort numparts;
  ushort moral;
  ushort maxmoral;
- healthSystem(ushort n,ushort m):pain(0.){bodyparts = new float[n];numparts = n;maxmoral = m;reset();}
+ healthSystem(ushort n,ushort m):pain(0.){bodyparts = new float[n];numparts = n;moral = maxmoral = m;reset();}
  ~healthSystem(){delete[](bodyparts);}
  float getpartdamage(int index)
  {

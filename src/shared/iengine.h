@@ -212,6 +212,7 @@ extern void logoutf(const char *fmt, ...) PRINTFARGS(1, 2);
 // octa
 extern int lookupmaterial(const vec &o);
 extern int lookuptexture(const vec &o);
+extern void deletecube(const vec &pos);
 
 static inline bool insideworld(const vec &o)
 {

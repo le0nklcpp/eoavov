@@ -19,8 +19,9 @@ AIAvoidZone(vec o,float rad,fpsEntity*ent):envZone(pos,rad,0,(const char*)"\0"){
 };
 struct creatureType{
 int maxhealth,mindamage,maxdamage,minskill,maxskill; // minskill,maxskill - in percent
+int minstrength,maxstrength,minmoral,maxmoral;
 int team;
-creatureType(int mh,int mind,int maxd,int mins,int maxs,int t):maxhealth(mh),mindamage(mind),maxdamage(maxd),minskill(mins),maxskill(maxs),team(t){}
+creatureType(int mh,int mind,int maxd,int mins,int maxs,int minm,int maxm,int minstr,int maxstr,int t):maxhealth(mh),mindamage(mind),maxdamage(maxd),minskill(mins),maxskill(maxs),team(t),minmoral(minm),maxmoral(maxm),minstrength(minstr),maxstrength(maxstr){}
 };
 
 extern vector<creatureType*>creatureClasses;

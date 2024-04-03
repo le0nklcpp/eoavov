@@ -1,8 +1,8 @@
 #include "cube.h"
 #include "prop.h"
 vector<proptype*>proptypes;
-VAR(prop_health,0,0,32767);
-VAR(prop_id,0,0,32767);
+VAR(prop_health,0,0,65535);
+ETAGVAR(prop_id);
 FVAR(prop_mass,0.,1.,32767.);
 VAR(prop_movable,0,1,1);
 VAR(prop_portable,0,1,1);
@@ -29,9 +29,9 @@ proptype::proptype()
 }
 ICOMMAND(push_prop,"",(),{proptypes.add(new proptype());});
 
-VAR(prop_hk_this, -32767,0,32767);
-VAR(prop_hk_tag, -32767,0,32767);
-VAR(prop_hk_type,-32767,0,32767);
+ETAGVAR(prop_hk_this);
+ETAGVAR(prop_hk_tag);
+ETAGVAR(prop_hk_type);
 FVAR(prop_hk_arg1,-32767.,0.,32767.);
 FVAR(prop_hk_arg2,-32767.,0.,32767.);
 FVAR(prop_hk_arg3,-32767.,0.,32767.);

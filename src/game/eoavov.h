@@ -11,6 +11,7 @@
 
 #define GMCMD(a,b,c,d) ICOMMAND(a,b,c,{if(isconnected()){d;}})
 #define GMACMD(a,b,c,d) GMCMD(a,b,c,{if(!lock_control)d;})
+#define ETAGVAR(name) VAR(name,-65535,0,65535)
 
 #define PLAYER_ENT_TAG 1337
 

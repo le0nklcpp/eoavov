@@ -5,9 +5,32 @@ namespace game{
   SDL_mutex*entities = SDL_CreateMutex();
  };
  ICOMMAND(deletedynent,"i",(int*tag),fpsremovebytag(*tag));
+ int etag_reserved = 1;
+ long newenttag()
+ {
+  if(etag_reserved<65535)return -(++etag_reserved);
+  etag_reserved = 1;
+  while(etag_reserved<65535)
+  {
+   bool fail = false;
+   loopv(fpsents)
+   {
+    if(fpsents[i]->tag==-etag_reserved)
+    {
+     fail = true;
+     break;
+    }
+   }
+   if(!fail)return -etag_reserved;
+   etag_reserved++;
+  }
+  conoutf(CON_ERROR,"Failed to create the new entity:640KB was not enough for anyone");
+  return -1;
+ }
  vector<fpsEntity*>fpsents;
  void createfpsent(int type,vec pos,int attr1,int attr2,int attr3,int attr4,int attr5)
  {
+   if(attr5<0)attr5 = newenttag();
    #define fadd(e) fpsents.add(new e(pos,attr1,attr2,attr3,attr4,attr5))
    switch(type)
     {
@@ -69,6 +92,7 @@ namespace game{
  }
  void clearfpsents()
  {
+  etag_reserved = 1;
   fpsents.deletecontents();
  }
  void clearfpsroutes()
@@ -142,6 +166,10 @@ namespace game{
   returnfpsent(*tag,ent);
   ent->state = CS_DEAD;
   ent->nextthink = 0;
+ });
+ GMCMD(dynent_hit_worldpos,"i",(int *tag),{
+  returnfpsent(*tag,ent);
+  if(lookupmaterial(ent->worlddir())&MAT_BREAKABLE)deletecube(ent->worlddir());
  });
  #define rayfpsents(insert) \
      float newmaxdist = maxdist?maxdist:130.0; \

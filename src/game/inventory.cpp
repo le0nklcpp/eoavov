@@ -40,7 +40,7 @@ RPGWeapon::RPGWeapon(const char*n,const char*dn,const char*vmdl,const char*mdl,i
  maxrange = maxar;
  maxammo = am;
 }
-VAR(item_owner_tag,-32767,0,32767);
+ETAGVAR(item_owner_tag);
 VAR(item_release,0,0,1);
 void RPGscriptedItem::event(const char*name,fpsEntity*user)
 {
