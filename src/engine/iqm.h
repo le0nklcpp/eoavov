@@ -173,6 +173,7 @@ struct iqm : skelloader<iqm>
                 m->group = this;
                 meshes.add(m);
                 m->name = newstring(&str[im.name]);
+                conoutf(CON_DEBUG,"Mesh name:%s",m->name);
                 m->numverts = im.num_vertexes;
                 int noblend = -1;
                 if(m->numverts)

@@ -70,7 +70,7 @@ void RPGscriptedItem::alt(fpsEntity*user,invItem*i,bool release)
 */
 invItem*inventory::getitem(int index)
 {
- return items.inrange(index)?items[index]:NULL;
+ return findone(items,index);
 }
 /*
 
@@ -190,7 +190,7 @@ namespace RPG
  }
  RPGitem* retrpgitem(int index)
  {
-  return itemexists(index)?itemlist[index]:NULL;
+  return findone(itemlist,index);
  }
 #define retplent playerEnt*ent = *tag==PLAYER_ENT_TAG?player1:(playerEnt*)game::getfpsent(*tag,E_CREATURE);if(!ent)return;
 GMCMD(rpg_register_item,"ssssiif",(char*n,char*dn,char*vmdl,char*mdl,int*w,int*i,float*v),registeritem(n,dn,vmdl,mdl,*w,*i,*v))

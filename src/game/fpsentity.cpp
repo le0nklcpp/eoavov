@@ -48,7 +48,7 @@ namespace game{
  fpsEntity*getfpsent(int tag,int type)
  {
   int result = fpsfindent(tag,type);
-  return fpsents.inrange(result)?fpsents[result]:NULL;
+  return findone(fpsents,result);
  }
  void fpsdetach(fpsEntity*e)
  {

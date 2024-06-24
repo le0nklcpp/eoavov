@@ -15,6 +15,8 @@
 
 #define PLAYER_ENT_TAG 1337
 
+#define findone(v,index) (v.inrange(index)?v[index]:NULL)
+
 enum
 {
 
