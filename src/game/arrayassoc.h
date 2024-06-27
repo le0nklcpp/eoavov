@@ -14,7 +14,7 @@ struct arrayAssoc
   class dynamicProperty
   {
     public:
-    const char *name;
+    string name;
     dynamicProperty(int t, void *val);
     dynamicProperty():dynamicProperty(DYNPROP_PTR,NULL){}
     ~dynamicProperty();
@@ -38,7 +38,16 @@ struct arrayAssoc
   hashnameset<dynamicProperty>fields;
   arrayAssoc(){}
   ~arrayAssoc(){fields.clear();}
-  dynamicProperty &operator [](const char *name){return fields[name];}
+  dynamicProperty &operator [](const char *name)
+  {
+   dynamicProperty *field = fields.access(name);
+   if(!field)
+   {
+    field = &fields[name];
+    copystring(field->name,name);
+   }
+   return *field;  
+  }
 };
 
 #endif
