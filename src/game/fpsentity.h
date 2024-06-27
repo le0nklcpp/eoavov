@@ -45,13 +45,12 @@ namespace game{
  extern bool fpsintersect(fpsEntity &e, const vec &o, const vec &ray,float maxdist);
  extern void fpsdetach(fpsEntity *e);
  extern fpsEntity* rayfpsent(const vec& from, const vec& to,float maxdist,bool thruwalls);
- extern vector<fpsEntity*>rayfpsentchain(const vec & from, const vec & to, float maxdist, bool thruwalls);
+ extern vector<fpsEntity*>&rayfpsentchain(const vec & from, const vec & to, float maxdist, bool thruwalls);// WARNING: Never clear this using deletecontents()
  namespace threads
  {
   extern SDL_mutex*entities;
  }
 };
-
 struct fpsEntity:dynent{ // dynamic entity
  bool waterphys;
  int tag;
@@ -93,8 +92,6 @@ struct fpsEntity:dynent{ // dynamic entity
  virtual void setroute(rail*r,bool revert=false);
  virtual void stoproute();
  virtual void reset();
+ virtual void turnto(const vec &d);
 };
-
-
-
 #endif

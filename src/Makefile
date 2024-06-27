@@ -75,7 +75,8 @@ MOD_OBJS= \
 	game/hudtexture.o \
 	game/rail.o \
 	game/projectile.o \
-        game/debris.o
+	game/debris.o \
+	game/arrayassoc.o
 CLIENT_OBJS= \
 	shared/crypto.o \
 	shared/geom.o \

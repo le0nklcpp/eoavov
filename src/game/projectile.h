@@ -25,9 +25,7 @@ namespace game
    movable = true;
    state = CS_ALIVE;
    setpos(pos);
-   yaw = -atan((pos.x-dir.x)/(pos.y-dir.y))/RAD;
-   pitch = -atan((pos.y-dir.y)/(pos.z-dir.z))/RAD;
-   roll = atan((pos.x-dir.x)/(pos.z-dir.z))/RAD;
+   turnto(dir);
    projtype->oncreate(this);
    tag = et;
   }

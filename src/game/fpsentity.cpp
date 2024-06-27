@@ -93,6 +93,7 @@ namespace game{
  void clearfpsents()
  {
   etag_reserved = 1;
+  clearfpsroutes();
   fpsents.deletecontents();
  }
  void clearfpsroutes()
@@ -133,9 +134,16 @@ namespace game{
  ICOMMAND(get_dynentsnum,"",(),{intret(fpsents.length());});
  #define returnfpsent(id,entname) \
  fpsEntity* entname;\
+ entname = getfpsent(id); \
  if(id==PLAYER_ENT_TAG)entname = player1; \
- else entname = getfpsent(id); \
- if(!entname)return;
+ if(!entname){conoutf(CON_DEBUG,"Failed to find entity with tag %i",id);return;}
+ void turnto(int t1,int t2)
+ {
+  returnfpsent(t1,pl);
+  returnfpsent(t2,target);
+  pl->turnto(target->o);
+ }
+ GMCMD(turnmeto,"ii",(int *t1,int *t2),turnto(*t1,*t2));
  GMCMD(set_dynent_pos,"ifff",(int*tag,float*fx,float*fy,float*fz),
  {
   returnfpsent(*tag,ent);
@@ -182,11 +190,12 @@ namespace game{
       if(e.state!=CS_ALIVE||!intersect(&e,from,to,dist,newmaxdist))continue;\
       insert; \
      }
- vector<fpsEntity*>rayfpsentchain(const vec & from, const vec & to, float maxdist, bool thruwalls)
- { // WARNING: DON'T FORGET TO CLEAR THIS VECTOR WITHOUT delete
-     vector <fpsEntity*>result;
-     rayfpsents(result.add(&e));
-     return result;
+ vector <fpsEntity*>&rayfpsentchain(const vec & from, const vec & to, float maxdist, bool thruwalls)
+ {
+     static vector <fpsEntity*>rayentresult;
+     rayentresult.setsize(0); // It is safe
+     rayfpsents(rayentresult.add(&e));
+     return rayentresult;
  }
  fpsEntity* rayfpsent(const vec& from, const vec& to,float maxdist,bool thruwalls)
  {
@@ -208,6 +217,7 @@ namespace game{
  GMCMD(set_ev,"iis",(int*tag,int*attr,const char*val),{returnfpsent(*tag,ent);ent->setev(*attr,val);});
  GMCMD(set_dynent_route,"iii",(int*tag,int*rtag,int*revert),{returnfpsent(*tag,ent);ent->setroute(getrailent(*rtag),*revert);});
  GMCMD(get_ev,"ii",(int*tag,int*attr),{returnfpsent(*tag,ent);ent->getev(*attr);});
+ GMCMD(cansee,"ii",(int*me,int*target),{returnfpsent(*me,ent);returnfpsent(*target,t);aiManager man("test_manager");intret(man.knows(ent,t));})
 };
 inline bool fpsEntity::onfloor()
 {
@@ -394,6 +404,14 @@ bool fpsEntity::getev(int attr)
   }
  return true;
 }
+#undef v
+#undef pa
+#undef fv
+#undef retfv
+#undef rei
+#undef ref
+#undef res
+#undef rev
 void fpsEntity::setroute(rail*r,bool revert)
 {
  route.set(r,revert);
@@ -401,4 +419,9 @@ void fpsEntity::setroute(rail*r,bool revert)
 void fpsEntity::stoproute()
 {
  route.next = NULL;
+}
+void fpsEntity::turnto(const vec &d)
+{
+ yaw = -atan2(d.x-o.x,d.y-o.y)/RAD;
+ pitch = asin((d.z - o.z) / d.dist(o))/RAD;
 }
