@@ -65,12 +65,12 @@ void arrayAssoc::dynamicProperty::clearData()
     {
         case(DYNPROP_IVAR):
         {
-            delete value.iv;
+            free(value.iv);
         }
         break;
         case(DYNPROP_FVAR):
         {
-            delete value.fv;
+            free(value.fv);
         }
         break;
         case(DYNPROP_SVAR):
