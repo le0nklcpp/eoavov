@@ -1,11 +1,7 @@
 #include "eoavov.h"
 aiManager *findManager(const char*name)
 {
-    loopv(game::creatureManagers)
-    {
-        if(!strcmp(game::creatureManagers[i]->name,name))return game::creatureManagers[i];
-    }
-    return NULL;
+    return *game::creatureManagers.access(name);
 }
 #define aimanexists (crtype&&crtype->manager)
 void creatureEntity::think()
@@ -126,6 +122,11 @@ bool aiManager::knows(fpsEntity*parent,fpsEntity*ent)
     }
     return false;
 }
+void aiManager::think(creatureEntity *parent)
+{
+    if(!parent->target||!parent->knows(parent->target))parent->findnearesttarget();
+    parent->nextthink = lastmillis + 1400;
+}
 struct flyingAI : aiManager
 {
     #define FLIGHT_TRACK_TIME 800
@@ -143,7 +144,7 @@ struct flyingAI : aiManager
     {
         creatureEntity &p = *parent;
         p.physstate = PHYS_FLIGHT;
-        if(p["flighttime"].getValue<int>()>lastmillis)
+        if(p["flighttime"].intValue()>lastmillis)
         {
             p["flighttime"].setValue(lastmillis + FLIGHT_TRACK_TIME);
             p["flightdir"].setValue(rnd(63));
@@ -151,25 +152,48 @@ struct flyingAI : aiManager
             else if(p.knownpositions)p.turnto(p.lastknownenemypos[0]);
             else p.yaw += rndscale(90)-45;
         }
-        int dir = (p["flightdir"].getValue<int>());
+        int dir = (p["flightdir"].intValue());
         p.physent::move = ((dir&(1<<1)&&(!avoid(parent,AI_AVOID_FORWARD)))||parent->target)?1:((dir&(1<<2)&&!p.k_up&&!avoid(parent,AI_AVOID_BACKWARD))?-1:0);
         p.strafe = (dir&(1<<3)&&(!avoid(parent,AI_AVOID_LEFT)))?1:((dir&(1<<4)&&!avoid(parent,AI_AVOID_RIGHT))?-1:0);
         if(((!(dir&(1<<5)))||p.o.z<p.target->o.z)&&!avoid(parent,AI_AVOID_TOP))p.vel.add(vec(0,0,(int)p.maxspeed/(rnd(4)+1)));
         if(((!p.jumping&&(dir&1<<6))||p.o.z>p.target->o.z)&&!avoid(parent,AI_AVOID_BOTTOM))p.vel.add(vec(0,0,-(int)p.maxspeed/(rnd(4)+1)));
         p.move();
     }
-    void think(creatureEntity *parent)
+};
+struct genericAI:aiManager
+{
+    genericAI():aiManager("genericAI")
     {
-        if(!parent->target);
+    }
+    void init(creatureEntity *parent)
+    {
+        parent->nextthink = lastmillis + 1400;
+    }
+    void move(creatureEntity *parent)
+    {
+        parent->turnto(parent->target->o);
+        parent->physent::move = 1;
+        parent->move();
     }
 };
 namespace game
 {
    vector <creatureType*>creatureClasses;
-   vector<aiManager*>creatureManagers;
+   hashnameset<aiManager*>creatureManagers;
    int register_creature_class(int maxhealth,int mindamage,int maxdamage,int minskill,int maxskill,int minmoral,int maxmoral,int minstr,int maxstr,int team,const char *manid,bool avw)
     {
      creatureClasses.add(new creatureType(maxhealth,mindamage,maxdamage,minskill,maxskill,minmoral,maxmoral,minstr,maxstr,team,manid,avw));
      return creatureClasses.length()-1;
+    }
+    void initai()
+    {
+     clearai();
+     creatureManagers.add(new genericAI());
+     creatureManagers.add(new flyingAI());
+    }
+    void clearai()
+    {
+     creatureManagers.clear();
+     creatureClasses.deletecontents();
     }
 };

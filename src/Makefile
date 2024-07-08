@@ -76,7 +76,8 @@ MOD_OBJS= \
 	game/rail.o \
 	game/projectile.o \
 	game/debris.o \
-	game/arrayassoc.o
+	game/arrayassoc.o \
+        game/waypoint.o
 CLIENT_OBJS= \
 	shared/crypto.o \
 	shared/geom.o \

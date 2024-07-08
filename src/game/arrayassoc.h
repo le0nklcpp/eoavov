@@ -13,17 +13,6 @@ struct arrayAssoc
 {
   class dynamicProperty
   {
-    public:
-    string name;
-    dynamicProperty(int t, void *val);
-    dynamicProperty():dynamicProperty(DYNPROP_PTR,NULL){}
-    ~dynamicProperty();
-    template<typename T>T getValue();
-    void setValue(int t,void *val);
-    void setValue(int val);
-    void setValue(const char *str);
-    void setValue(void *ptr);
-    void setValue(float val);
     private:
     union{
         int *iv;
@@ -34,6 +23,21 @@ struct arrayAssoc
     }value;
     uchar type;
     void clearData();
+    public:
+    string name;
+    dynamicProperty(int t, void *val);
+    dynamicProperty():dynamicProperty(DYNPROP_PTR,NULL){}
+    ~dynamicProperty();
+    int intValue();
+    float floatValue();
+    void *ptrValue();
+    vec vecValue();
+    const char * strValue();
+    void setValue(int t,void *val);
+    void setValue(int val);
+    void setValue(const char *str);
+    void setValue(void *ptr);
+    void setValue(float val);
   };
   hashnameset<dynamicProperty>fields;
   arrayAssoc(){}

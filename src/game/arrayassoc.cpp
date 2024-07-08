@@ -59,6 +59,30 @@ void arrayAssoc::dynamicProperty::setValue(const char *str)
     clearData();
     setValue(DYNPROP_SVAR,(void*)&value);
 }
+int arrayAssoc::dynamicProperty::intValue()
+{
+    assert(type==DYNPROP_IVAR&&"arrayAssoc::dynamicProperty::intValue called on non-int type");
+    return *(value.iv);
+}
+float arrayAssoc::dynamicProperty::floatValue()
+{
+    assert(type==DYNPROP_FVAR&&"arrayAssoc::dynamicProperty::floatValue called on non-float type");
+    return *(value.fv);
+}
+vec arrayAssoc::dynamicProperty::vecValue()
+{
+    assert(type==DYNPROP_VVAR&&"arrayAssoc::dynamicProperty::vecValue called on non-vec type");
+    return *(vec*)(value.vv);
+}
+const char* arrayAssoc::dynamicProperty::strValue()
+{
+    assert(type==DYNPROP_SVAR&&"arrayAssoc::dynamicProperty::strValue called on non-vec type");
+    return (const char*)value.ptr;
+}
+void * arrayAssoc::dynamicProperty::ptrValue()
+{
+    return value.ptr;
+}
 void arrayAssoc::dynamicProperty::clearData()
 {
     switch(type)
@@ -89,38 +113,6 @@ void arrayAssoc::dynamicProperty::clearData()
         }
         break;
     }
-}
-template<typename T>T arrayAssoc::dynamicProperty::getValue()
-{
-    switch(type)
-    {
-        case(DYNPROP_IVAR):
-        {
-            return *static_cast<T*>(value.iv);
-        }
-        break;
-        case(DYNPROP_FVAR):
-        {
-            return *static_cast<T*>(value.fv);
-        }
-        break;
-        case(DYNPROP_SVAR):
-        {
-            return static_cast<T>(value.sv);
-        }
-        break;
-        case(DYNPROP_VVAR):
-        {
-            return static_cast<T>(value.vv);
-        }
-        break;
-        case(DYNPROP_PTR):
-        {
-            return static_cast<T>(value.ptr);
-        }
-        break;
-    }
-    return 0;
 }
 arrayAssoc::dynamicProperty::~dynamicProperty()
 {
