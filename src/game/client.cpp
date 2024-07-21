@@ -7,30 +7,30 @@ namespace game
     const char *gameident() {return "eoavov";}
     void initclient()
     {
-    player1 = new playerEnt();
+        player1 = new playerEnt();
     }
     void gameconnect(bool _remote)
     {
-     player1->reset();
+        player1->reset();
     }
     #define clearmodels() {cleanupmodels();clear_models();int dummy=0;mapmodelreset(&dummy);}
     void gamedisconnect(bool cleanup)
     {
-     RPG::itemlist.deletecontents();
-     proptypes.deletecontents();
-     clearacoustic();
-     cleargamezones();
-     clearfpsents();
-     clearmodels();
-     clearroutes();
-     clearprojtypes();
+        RPG::itemlist.deletecontents();
+        proptypes.deletecontents();
+        clearacoustic();
+        cleargamezones();
+        clearfpsents();
+        clearmodels();
+        clearroutes();
+        clearprojtypes();
     }
     void changemap(const char *name)
     {
-     cubeevent("map_loading");
-     if(editmode) toggleedit();
-     if(!isconnected()) localconnect();
-     if(!load_world(name)) emptymap(0, true, name);
+        cubeevent("map_loading");
+        if(editmode) toggleedit();
+        if(!isconnected()) localconnect();
+        if(!load_world(name)) emptymap(0, true, name);
     }
     void forceedit(const char *name)
     {
@@ -54,6 +54,7 @@ namespace game
 	fpsthink();
 	player1->think();
 	zonetriggers(player1->o);
+        ai::navigate();
     }
 
     void suicide(physent *d)

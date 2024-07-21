@@ -10,10 +10,25 @@ namespace game
   FVAR(swayup, -1, 0.15f, 1);
   VAR(showhud,0,1,1);
   VAR(showhudmsg,0,1,1);
+  VAR(showwaypoints,0,0,1);
+  void renderwaypoints()
+  {
+      int len = ai::waypoints.length();
+      loopi(len)
+      {
+          loopj(ai::MAXWAYPOINTLINKS)
+          {
+              int link = ai::waypoints[i].links[j];
+              if(!link) break;
+              particle_flare(ai::waypoints[i].o, ai::waypoints[link].o, 1, PART_STREAK, 0x0000FF);
+          }
+      }
+  }
   void rendergame()
   {
    renderfpsents();
    renderplayer();
+   if(showwaypoints)renderwaypoints();
   }
   void renderfpsents()
   {

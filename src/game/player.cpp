@@ -21,6 +21,7 @@ void fixcarrydist()
 }
 void playerEnt::reset()
 {
+ lastnode = -1;
  doublejump = false;
  vmodel[0]='\0';
  fpsEntity::reset();

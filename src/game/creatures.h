@@ -63,11 +63,9 @@ fpsEntity * target;
 inventory inv;
 vec lastknownenemypos[MAX_KNOWN_POSITIONS];
 uchar knownpositions;
-int lastnode;
-int prevnodes[6];
-creatureEntity(vec pos,int attr1,int attr2,int attr3,int attr4,int attr5):playerEnt(),controlled(false),vangles(0,0,0),team(0),warned(false),goodattacktime(-1),target(NULL),knownpositions(0),lastnode(-1){setpos(pos);roll = attr1;type = E_CREATURE;crtype = findone(game::creatureClasses,attr2);}
+creatureEntity(vec pos,int attr1,int attr2,int attr3,int attr4,int attr5):playerEnt(),controlled(false),vangles(0,0,0),team(0),warned(false),goodattacktime(-1),target(NULL),knownpositions(0){setpos(pos);roll = attr1;type = E_CREATURE;crtype = findone(game::creatureClasses,attr2);}
 ~creatureEntity(){}
-void reset(){fpsEntity::reset();lastnode = -1;target = NULL;}
+void reset(){playerEnt::reset();target = NULL;}
 bool avoid();
 void findnearesttarget();
 bool knows(fpsEntity *target);

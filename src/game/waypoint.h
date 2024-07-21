@@ -16,16 +16,16 @@ namespace ai
     const float SIGHTMAX        = 1024.f;  // maximum line of sight
     const float VIEWMIN         = 90.f;    // minimum field of view
     const float VIEWMAX         = 180.f;   // maximum field of view
-    extern bool route(creatureEntity *d, int node, int goal, vector<int> &route, const avoidset &obstacles, int retries = 0);
+    extern bool route(playerEnt *d, int node, int goal, vector<int> &route, const avoidset &obstacles, int retries = 0);
     extern void navigate();
     extern void clearwaypoints(bool full = false);
     extern void seedwaypoints();
     extern void loadwaypoints(bool force = false, const char *mname = NULL);
     extern void savewaypoints(bool force = false, const char *mname = NULL);
     extern int showwaypoints, dropwaypoints;
-    extern int closestwaypoint(const vec &pos, float mindist, bool links, creatureEntity *d = NULL);
+    extern int closestwaypoint(const vec &pos, float mindist, bool links, playerEnt *d = NULL);
     extern void findwaypointswithin(const vec &pos, float mindist, float maxdist, vector<int> &results);
-    extern void inferwaypoints(creatureEntity *d, const vec &o, const vec &v, float mindist = 32.);
+    extern void inferwaypoints(playerEnt *d, const vec &o, const vec &v, float mindist = 32.);
     extern vector<waypoint>waypoints;
     struct waypoint
     {
@@ -117,12 +117,12 @@ namespace ai
                 } \
             }
 
-        bool find(int n, creatureEntity *d) const
+        bool find(int n, playerEnt *d) const
         {
             loopavoid(*this, d, { if(wp == n) return true; });
             return false;
         }
 
-        int remap(creatureEntity *d, int n, vec &pos, bool retry = false);
+        int remap(playerEnt *d, int n, vec &pos, bool retry = false);
     };
 };

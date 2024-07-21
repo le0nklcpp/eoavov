@@ -207,7 +207,7 @@ namespace ai
 
     vector<wpcache::node *> wpcachestack;
 
-    int closestwaypoint(const vec &pos, float mindist, bool links, creatureEntity *d)
+    int closestwaypoint(const vec &pos, float mindist, bool links, playerEnt *d)
     {
         if(waypoints.empty()) return -1;
         if(clearedwpcaches) buildwpcache();
@@ -369,7 +369,7 @@ namespace ai
         for(int i = lastwpcache; i < waypoints.length(); i++) { CHECKNEAR(i); }
     }
 
-    int avoidset::remap(creatureEntity *d, int n, vec &pos, bool retry)
+    int avoidset::remap(playerEnt *d, int n, vec &pos, bool retry)
     {
         if(!obstacles.empty())
         {
@@ -419,7 +419,7 @@ namespace ai
 
     static inline float heapscore(waypoint *q) { return q->score(); }
 
-    bool route(creatureEntity *d, int node, int goal, vector<int> &route, const avoidset &obstacles, int retries)
+    bool route(playerEnt *d, int node, int goal, vector<int> &route, const avoidset &obstacles, int retries)
     {
         if(waypoints.empty() || !iswaypoint(node) || !iswaypoint(goal) || goal == node || !waypoints[node].links[0])
             return false;
@@ -506,7 +506,7 @@ namespace ai
         return !route.empty();
     }
 
-    VARF(dropwaypoints, 0, 0, 1, { /*player1->lastnode = -1;*/ });
+    VARF(dropwaypoints, 0, 0, 1, { player1->lastnode = -1; });
 
     int addwaypoint(const vec &o, int weight = -1)
     {
@@ -538,12 +538,12 @@ namespace ai
         return false;*/
     }
 
-    static inline bool shoulddrop(creatureEntity *d)
+    static inline bool shoulddrop(playerEnt *d)
     {
         return d->type==E_PLAYER && (dropwaypoints || !loadedwaypoints[0]);
     }
 
-    void inferwaypoints(creatureEntity *d, const vec &o, const vec &v, float mindist)
+    void inferwaypoints(playerEnt *d, const vec &o, const vec &v, float mindist)
     {
         if(!shouldnavigate()) return;
         if(shoulddrop(d))
@@ -564,7 +564,7 @@ namespace ai
         else d->lastnode = closestwaypoint(v, WAYPOINTRADIUS*2, false, d);
     }
 
-    void navigate(creatureEntity *d)
+    void navigate(playerEnt *d)
     {
         vec v(d->feetpos());
         if(d->state != CS_ALIVE) { d->lastnode = -1; return; }
@@ -594,7 +594,11 @@ namespace ai
 
     void navigate()
     {
-        if(shouldnavigate()) loopv(fpsents) {if(fpsents[i]->type==E_CREATURE)ai::navigate((creatureEntity*)fpsents[i]);}
+        if(shouldnavigate())
+        {
+            ai::navigate(player1);
+            loopv(fpsents) {if(fpsents[i]->type==E_CREATURE||fpsents[i]->type==E_PLAYER)ai::navigate((playerEnt*)fpsents[i]);}
+        }
         if(invalidatedwpcaches) clearwpcache(false);
     }
 
@@ -668,7 +672,7 @@ namespace ai
         if(cleared)
         {
             //player1->lastnode = -1;
-            loopv(fpsents) if(fpsents[i]->type==E_CREATURE) ((creatureEntity*)(fpsents[i]))->lastnode = -1;
+            loopv(fpsents) if(fpsents[i]->type==E_CREATURE) ((playerEnt*)(fpsents[i]))->lastnode = -1;
             remapwaypoints();
             clearwpcache();
             return true;
