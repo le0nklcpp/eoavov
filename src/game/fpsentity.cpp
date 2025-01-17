@@ -217,7 +217,7 @@ namespace game{
  GMCMD(set_ev,"iis",(int*tag,int*attr,const char*val),{returnfpsent(*tag,ent);ent->setev(*attr,val);});
  GMCMD(set_dynent_route,"iii",(int*tag,int*rtag,int*revert),{returnfpsent(*tag,ent);ent->setroute(getrailent(*rtag),*revert);});
  GMCMD(get_ev,"ii",(int*tag,int*attr),{returnfpsent(*tag,ent);ent->getev(*attr);});
- GMCMD(cansee,"ii",(int*me,int*target),{returnfpsent(*me,ent);returnfpsent(*target,t);aiManager man("test_manager");intret(man.knows(ent,t));})
+ GMCMD(cansee,"ii",(int*me,int*target),{returnfpsent(*me,ent);returnfpsent(*target,t);aiManager man("test_manager");intret(man.visible(ent,t));})
 };
 inline bool fpsEntity::onfloor()
 {

@@ -37,6 +37,22 @@ inline void creatureEntity::findnearesttarget()
         }
     }
 }
+void creatureEntity::updateenemypos(const vec &o)
+{
+    loopi(knownpositions)
+    {
+        if(lastknownenemypos[i].dist(o)<KNOWN_POS_THRESHOLD)
+        {
+            lastknownenemypos[i] = o;
+            return;
+        }
+    }
+    if(knownpositions<(MAX_KNOWN_POSITIONS-1))
+    {
+        knownpositions++;
+        lastknownenemypos[knownpositions] = o;
+    }
+}
 extern const float JUMPVEL;
 inline bool creatureEntity::avoid()
 {
@@ -85,7 +101,20 @@ bool aiManager::avoid(creatureEntity*parent,int avoiddir)
     parent->o = pos;
     return (collided||avoids);
 }
-bool aiManager::knows(fpsEntity*parent,fpsEntity*ent)
+
+inline void aiManager::move(creatureEntity*parent)
+{
+    if(ai::waypoints.inrange(parent->lastnode))
+    {
+        ai::waypoint *w = &ai::waypoints[parent->lastnode];
+        if(w&&w->o.dist(parent->o)<ai::CLOSEDIST)
+        {
+            parent->turnto(w->o);
+            parent->physent::move = 1;
+        }
+    }
+}
+inline bool aiManager::visible(fpsEntity *parent,fpsEntity *ent)
 {
     // To be sure you need to always hit the center, so set it to even values
     #define VIS_SCAN_W_DEPTH 4
@@ -119,6 +148,25 @@ bool aiManager::knows(fpsEntity*parent,fpsEntity*ent)
                 if(rayresult[i]==ent)return true;
             }
         }
+    }
+    return false;
+}
+inline bool aiManager::knows(creatureEntity*parent,fpsEntity*ent)
+{
+    if(visible(parent,ent))
+    {
+        if(ent->type==E_CREATURE)
+        {
+            if(!(parent->team&ent->team))
+            {
+                parent->updateenemypos(ent->o);
+            }
+        }
+        return true;
+    }
+    loopi(parent->knownpositions)
+    {
+        if(ent->o.dist(parent->lastknownenemypos[i])<KNOWN_POS_THRESHOLD)return true;
     }
     return false;
 }

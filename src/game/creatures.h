@@ -26,11 +26,12 @@ class aiManager
     string name;
     virtual bool avoid(creatureEntity *parent,int avoiddir);
     virtual void init(creatureEntity *parent) {}
-    virtual void move(creatureEntity *parent) {}
+    virtual void move(creatureEntity *parent);
     virtual void think(creatureEntity *parent);
     virtual void attacked(creatureEntity *parent,fpsEntity *attacker, uchar damagetype,vec hitpos) {}
     virtual void touched(creatureEntity *parent,fpsEntity *ent){}
-    virtual bool knows(fpsEntity *parent,fpsEntity *ent);
+    virtual bool visible(fpsEntity *parent,fpsEntity *ent);
+    virtual bool knows(creatureEntity *parent,fpsEntity *ent);
     aiManager(const char*n){copystring(name,n);enemypositions = MAX_KNOWN_POSITIONS;}
     ~aiManager(){}
 };
@@ -51,6 +52,7 @@ extern vector<creatureType*>creatureClasses;
 void initai();
 void clearai();
 };
+#define KNOWN_POS_THRESHOLD 10.0
 struct creatureEntity:playerEnt,arrayAssoc{
 creatureType *crtype;
 bool warned; // knows that player is somewhere here
@@ -72,6 +74,7 @@ bool knows(fpsEntity *target);
 void think();
 void attacked(fpsEntity *attacker,uchar damagetype,vec hitpos);
 void touched(fpsEntity *ent);
+void updateenemypos(const vec &o);
 };
 #include "waypoint.h"
 #endif
