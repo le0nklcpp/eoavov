@@ -59,6 +59,11 @@ void arrayAssoc::dynamicProperty::setValue(const char *str)
     clearData();
     setValue(DYNPROP_SVAR,(void*)&value);
 }
+void arrayAssoc::dynamicProperty::setValue(void *ptr)
+{
+    clearData();
+    setValue(DYNPROP_PTR,ptr);
+}
 int arrayAssoc::dynamicProperty::intValue()
 {
     assert(type==DYNPROP_IVAR&&"arrayAssoc::dynamicProperty::intValue called on non-int type");
@@ -109,7 +114,7 @@ void arrayAssoc::dynamicProperty::clearData()
         break;
         case(DYNPROP_PTR):
         {
-            delete value.ptr;
+           // delete value.ptr;
         }
         break;
     }
