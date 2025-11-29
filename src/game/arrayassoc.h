@@ -50,7 +50,7 @@ struct arrayAssoc
     field = &fields[name];
     copystring(field->name,name);
    }
-   return *field;  
+   return *field;
   }
 };
 

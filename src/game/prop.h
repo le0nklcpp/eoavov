@@ -1,6 +1,6 @@
 #ifndef __GAME__PROPENTS
 #define __GAME__PROPENTS
-#include "eoavov.h" 
+#include "eoavov.h"
 struct proptype
 {
  int health;

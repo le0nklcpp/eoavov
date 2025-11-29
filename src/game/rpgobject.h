@@ -30,7 +30,7 @@ struct healthSystem
 struct RPGObject
 {
  inventory inv;
- healthSystem* organism; // Engrish
+ healthSystem* organism;
  invItem*hands,*holster;
  RPGObject():hands(NULL){organism = NULL;} // head, legs,hands, body
  virtual ~RPGObject() {delete organism;inv.clear();}

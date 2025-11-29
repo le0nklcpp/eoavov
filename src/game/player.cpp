@@ -15,6 +15,7 @@ GMCMD(flashlight,"i",(int*check),{if(!(*check)&&flash_enabled)player1->light = !
 VAR(cameratilt,-90,1,90);
 VAR(camrot,-90,0,90);
 VAR(ENABLE_DOUBLEJUMP,1,0,1);
+
 void fixcarrydist()
 {
  max_carry_dist = max(min_carry_dist,max_carry_dist);
@@ -52,7 +53,7 @@ void playerEnt::removeitem(int index)
   }
   if(item==holster)holster=NULL;
   inv.removeitem(index);
-  
+
   Maybe it is worth moving RPGObject structure to playerEnt
   */
 }
@@ -137,6 +138,7 @@ void playerEnt::killed(fpsEntity*killer)
  roll = 0;
  yaw = pitch = 90;
  nextthink = lastmillis + LOSE_DELAY;
+ game::cubeevent("player_killed");
 }
 void playerEnt::quickswitch()
 {
@@ -148,10 +150,6 @@ void playerEnt::quickswitch()
 void playerEnt::think()
 {
  if(state!=CS_DEAD)move();
- else if(nextthink<=lastmillis)
-  {
-   trydisconnect(true);
-  }
  int tilt = camrot;
  if(k_left)tilt -= cameratilt;
  else if(k_right)tilt += cameratilt;

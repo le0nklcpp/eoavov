@@ -2,7 +2,7 @@
 namespace entities
 {
     using namespace game;
-    
+
     int extraentinfosize() { return 0; }       // size in bytes of what the 2 methods below read/write... so it can be skipped by other games
 
     void writeent(entity &e, char *buf)   // write any additional data to disk (except for ET_ ents)
@@ -26,14 +26,14 @@ namespace entities
      static int etag;
      loopv(ents)
       {
-	etag = -1;
-	extentity &e = *ents[i];
-	if(e.type!=type)continue;
-	switch(type)
-	 {
-	 case(ENT_MAPMODEL):etag = e.attr5;break;
-	 }
-	if(etag==tag)return i;
+      etag = -1;
+      extentity &e = *ents[i];
+      if(e.type!=type)continue;
+      switch(type)
+       {
+        case(ENT_MAPMODEL):etag = e.attr5;break;
+       }
+      if(etag==tag)return i;
       }
      return -1;
     }
@@ -49,16 +49,16 @@ namespace entities
     void spawnitems(bool force)
     {
         #define isFpsEnt(type) (type==ENT_CREATURE||type==ENT_ITEM||type==ENT_PROP)
-	loopv(ents)
-	 {
-	  extentity &e = *ents[i];
-	  if(isFpsEnt(e.type))createfpsent(e.type,e.o,e.attr1,e.attr2,e.attr3,e.attr4,e.attr5);
-	  else if(e.type==ENT_RAIL)rails.add(new rail(e));
-	 }
-	loopv(rails)
-	 {
-	  rails[i]->update(); // Quickfix
-	 }
+    loopv(ents)
+     {
+      extentity &e = *ents[i];
+      if(isFpsEnt(e.type))createfpsent(e.type,e.o,e.attr1,e.attr2,e.attr3,e.attr4,e.attr5);
+      else if(e.type==ENT_RAIL)rails.add(new rail(e));
+     }
+    loopv(rails)
+     {
+      rails[i]->update(); // Quickfix
+     }
     }
     #ifdef __CUBE_LEGACY__
     void setspawn(int i, bool on) { if(ents.inrange(i)) ents[i]->spawned = on; }
@@ -96,8 +96,8 @@ namespace entities
     {
      /*   switch(e.type)
         {
-	    case ENT_PROP:
-	    case ENT_VEHICLE:
+        case ENT_PROP:
+        case ENT_VEHICLE:
                 e.attr5 = e.attr4;
                 e.attr4 = e.attr3;
             case ENT_TELEDEST:
@@ -134,8 +134,8 @@ namespace entities
             }
             case ENT_PROP:
                 vec dir;
-		vecfromyawpitch(e.attr2,0,1,0,dir);
-		renderentarrow(e, dir, 4);
+        vecfromyawpitch(e.attr2,0,1,0,dir);
+        renderentarrow(e, dir, 4);
                 break;
         }
     }

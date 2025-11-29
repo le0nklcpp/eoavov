@@ -23,21 +23,21 @@ namespace game{
     GMACMD(use,"",(),{if(player1->nextinteracttime<lastmillis){epressed();player1->nextinteracttime = lastmillis + NEXT_USE_DELAY;}});
     void recountspeed(bool togglewalk)
     {
-     if(!isconnected())return;
-     player1->maxspeed = togglewalk?PLAYER_WALK_SPEED:PLAYER_DEFAULT_SPEED;
+         if(!isconnected())return;
+         player1->maxspeed = togglewalk?PLAYER_WALK_SPEED:PLAYER_DEFAULT_SPEED;
     }
     const char *defaultcrosshair(int index)
-    {	    
-	return "media/interface/crosshair/default.png";
+    {
+        return "media/interface/crosshair/default.png";
     }
     FVAR(crosshairhidevel,0.,60.,9000.);
     int selectcrosshair(vec &col)
     {
-	return player1->vel.magnitude()<crosshairhidevel?0:-1;
+        return player1->vel.magnitude()<crosshairhidevel?0:-1;
     }
     float abovegameplayhud(int w, int h)
     {
-	return 1650.0f/1800.0f;
+        return 1650.0f/1800.0f;
     }
     FVAR(flash_radius,0.0,15.5,1000.0);
     VAR(flash_colorr,0,255,255);
@@ -53,19 +53,19 @@ namespace game{
     }
     void dynentcollide(physent *d, physent *o, const vec &dir)
     {
-     ((fpsEntity*)(d))->touched((fpsEntity*)o,dir);
+         ((fpsEntity*)(d))->touched((fpsEntity*)o,dir);
     }
     bool canjump()
     {
-     return true;
+         return true;
     }
     bool cancrouch()
     {
-     return true;
+         return true;
     }
     bool allowmove(physent * d)
     {
-	return true;
+        return true;
     }
     bool collidecamera()
     {
@@ -73,7 +73,7 @@ namespace game{
     }
     bool needminimap()
     {
-	return false;
+        return false;
     }
     void lightfire_creature(playerEnt*owner, vec &o, vec &hud)
     {
@@ -83,7 +83,7 @@ namespace game{
     }
     void dynlighttrack(physent *owner, vec &o, vec &hud)
     {
-        if(owner->type==E_PLAYER||owner->type==E_CREATURE)lightfire_creature((playerEnt*)owner,o,hud);	
+        if(owner->type==E_PLAYER||owner->type==E_CREATURE)lightfire_creature((playerEnt*)owner,o,hud);
     }
     void particletrack_creature(playerEnt*owner,vec &o,vec &d)
     {
@@ -100,7 +100,7 @@ namespace game{
     }
     void particletrack(physent *owner, vec &o, vec &d)
     {
-	if(owner->type==E_PLAYER||owner->type==E_CREATURE)particletrack_creature((playerEnt*)owner,o,d);
+    if(owner->type==E_PLAYER||owner->type==E_CREATURE)particletrack_creature((playerEnt*)owner,o,d);
     }
     void bounced(physent *d, const vec &surface)
     {

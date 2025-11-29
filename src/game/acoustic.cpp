@@ -10,7 +10,7 @@ int vol;
 int timestamp;
 deferredsound(const char*f,int v,int t):vol(v),timestamp(t){copystring(file,f);}
 ~deferredsound(){}
-bool emit() 
+bool emit()
  {
   if(lastmillis >= timestamp)
    {
@@ -24,8 +24,8 @@ vector<deferredsound*>sounds;
 void playacoustic(const char*file,const vec *pos)
 {
  playsoundname(file,pos);
- sounds.add(new deferredsound(file,ACOUSTIC_FIRST_VOLUME,lastmillis+ACOUSTIC_FIRST_DELAY)); 
- sounds.add(new deferredsound(file,ACOUSTIC_SECOND_VOLUME,lastmillis+ACOUSTIC_SECOND_DELAY)); 
+ sounds.add(new deferredsound(file,ACOUSTIC_FIRST_VOLUME,lastmillis+ACOUSTIC_FIRST_DELAY));
+ sounds.add(new deferredsound(file,ACOUSTIC_SECOND_VOLUME,lastmillis+ACOUSTIC_SECOND_DELAY));
 }
 void checkacoustic()
 {

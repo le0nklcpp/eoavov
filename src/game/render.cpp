@@ -45,22 +45,22 @@ namespace game
   }
   void drawhudmodel()
   {
-	if(!showhud||player1->vmodel[0]=='\0')return; // Nothing to draw
-	vec sway;
-	vecfromyawpitch(player1->yaw, 0, 0, 1, sway);
-	float steps = swaydist/swaystep*M_PI;
-	if(!hudgunsway)sway = player1->o;
+    if(!showhud||player1->vmodel[0]=='\0')return; // Nothing to draw
+    vec sway;
+    vecfromyawpitch(player1->yaw, 0, 0, 1, sway);
+    float steps = swaydist/swaystep*M_PI;
+    if(!hudgunsway)sway = player1->o;
         else
          {
-	 sway.mul(swayside*cosf(steps));
-	 sway.z = swayup*(fabs(sinf(steps)) - 1);
-	 sway.add(swaydir).add(player1->o);
+     sway.mul(swayside*cosf(steps));
+     sway.z = swayup*(fabs(sinf(steps)) - 1);
+     sway.add(swaydir).add(player1->o);
          }
-	//modelattach a[2];
-	//player1->muzzle = vec(-1, -1, -1);
-	//a[0] = modelattach("tag_muzzle", &player1->muzzle);
-	rendermodel(player1->vmodel, player1->vanim, sway, player1->yaw, player1->pitch, 0, MDL_NOBATCH, NULL, NULL/*a*/, player1->lastvanimtime, 0, 1);
-	if(player1->muzzle.x >= 0) player1->muzzle = calcavatarpos(player1->muzzle, 12);
+    //modelattach a[2];
+    //player1->muzzle = vec(-1, -1, -1);
+    //a[0] = modelattach("tag_muzzle", &player1->muzzle);
+    rendermodel(player1->vmodel, player1->vanim, sway, player1->yaw, player1->pitch, 0, MDL_NOBATCH, NULL, NULL/*a*/, player1->lastvanimtime, 0, 1);
+    if(player1->muzzle.x >= 0) player1->muzzle = calcavatarpos(player1->muzzle, 12);
   }
   void findanims(const char *pattern, vector<int> &anims)
   {

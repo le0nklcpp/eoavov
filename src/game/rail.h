@@ -5,7 +5,7 @@
 /* This is entity for creating paths
    tag - entity tag
    fromtag - previous rail entity tag
-   totag - next rail entity tag 
+   totag - next rail entity tag
    revert - if set to 1, then the entity moving along this route will be sent back after reaching this entity, also it marks entity route as reverted
    arrivaltime - time(in millis) moving from the previous rail to this rail takes
    /newent rail tag fromtag totag revert arrivaltime

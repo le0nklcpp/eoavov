@@ -147,13 +147,13 @@ namespace game{
  GMCMD(set_dynent_pos,"ifff",(int*tag,float*fx,float*fy,float*fz),
  {
   returnfpsent(*tag,ent);
-  ent->setpos(vec(*fx,*fy,*fz));  
+  ent->setpos(vec(*fx,*fy,*fz));
  });
  GMCMD(attach_dynent,"iifff",(int*attached,int*tag,float*fx,float*fy,float*fz),
  {
   returnfpsent(*attached,ent);
   returnfpsent(*tag,target);
-  if(target!=ent)ent->attach(target,vec(*fx,*fy,*fz)); 
+  if(target!=ent)ent->attach(target,vec(*fx,*fy,*fz));
  });
  GMCMD(set_dynent_angle,"iiii",(int*tag,int*yaw,int*pitch,int*roll),
  {
@@ -298,7 +298,7 @@ void fpsEntity::hit(fpsEntity*attacker,float damage,uchar damagetype)
    state = CS_DEAD;
    nextthink = lastmillis + 40;
    killed(attacker);
-  } 
+  }
 }
 void fpsEntity::falldamage(int ftime)
 {

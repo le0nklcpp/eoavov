@@ -46,20 +46,30 @@ namespace game
         else if(floorlevel<0) {((fpsEntity*)d)->falldamage(timeinair);}
     }
 
+    bool playersdead()
+    {
+        if(player1->state == CS_DEAD && player1->nextthink < lastmillis)
+        {
+            return true;
+        }
+        return false;
+    }
+
     void updateworld()        // main game update loop
     {
-	if(!isconnected())return;
-	checkacoustic();
-	physicsframe();
-	fpsthink();
-	player1->think();
-	zonetriggers(player1->o);
+        if(!isconnected())return;
+        if(playersdead())trydisconnect(true);
+        checkacoustic();
+        physicsframe();
+        fpsthink();
+        player1->think();
+        zonetriggers(player1->o);
         ai::navigate();
     }
 
     void suicide(physent *d)
     {
-	fpsEntity*cast = (fpsEntity*)d;
+        fpsEntity*cast = (fpsEntity*)d;
         cast->killed(cast);
     }
     GMCMD(kill,"",(),{player1->killed(NULL);});
@@ -70,43 +80,43 @@ namespace game
     }
     void startmap(const char *name)   // called just after a map load
     {
-	player1->reset();
-	clearroutes();
-	clearfpsents();
-	findplayerspawn(player1);
-	entities::resetspawns();
-	entities::spawnitems(true);
-	cubeevent("map_loaded");
-	copystring(clientmap, name ? name : "");
-	preparemovables();
+        player1->reset();
+        clearroutes();
+        clearfpsents();
+        findplayerspawn(player1);
+        entities::resetspawns();
+        entities::spawnitems(true);
+        cubeevent("map_loaded");
+        copystring(clientmap, name ? name : "");
+        preparemovables();
     }
     void newmap(int size)
     {
     }
     void gameplayhud(int w,int h)
     {
-	pushhudscale(h/1800.0f);
-	renderhudmsg(w,h);
-	renderhudtextures(w,h);
-	pophudmatrix();
+        pushhudscale(h/1800.0f);
+        renderhudmsg(w,h);
+        renderhudtextures(w,h);
+        pophudmatrix();
     }
     const char *getscreenshotinfo()
     {
-	return "eoavov_";
+        return "eoavov_";
     }
-    void edittoggled(bool on,bool post) 
+    void edittoggled(bool on,bool post)
     {
-	if(!post)
-	 {
-	 player1->reset();
-	 return;
-	 }
-	if(on)
-         {
+        if(!post)
+        {
+         player1->reset();
+         return;
+        }
+        if(on)
+        {
          clearfpsents();
          clearroutes();
-         }
-	else entities::spawnitems(true);
+        }
+        else entities::spawnitems(true);
     }
     const char *gameconfig() { return "config/game.cfg"; }
     const char *savedconfig() { return "config/saved.cfg"; }
@@ -120,7 +130,7 @@ namespace game
     }
     int maxsoundradius(int n)
     {
-	return 500;
+        return 500;
     }
     GMACMD(attack1,"D",(int*down),player1->attack(*down));
     void connectfail(){}

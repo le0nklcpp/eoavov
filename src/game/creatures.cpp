@@ -180,7 +180,7 @@ struct flyingAI : aiManager
     #define FLIGHT_TRACK_TIME 800
     flyingAI():aiManager("flyingAI")
     {
-        
+
     }
     void init(creatureEntity *parent)
     {

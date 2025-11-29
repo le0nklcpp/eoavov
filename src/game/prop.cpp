@@ -20,7 +20,7 @@ proptype::proptype()
   mass = prop_mass;
   movable = prop_movable;
   portable = prop_portable;
-  copystring(movehook,prop_movehook); 
+  copystring(movehook,prop_movehook);
   copystring(breakhook,prop_breakhook);
   copystring(drophook,prop_drophook);
   copystring(usehook,prop_usehook);

@@ -2,7 +2,7 @@
 namespace game{
 vector <envZone*>gamezones;
  void cleargamezones()
- { 
+ {
   gamezones.deletecontents();
  }
 #define loopzones(p,zt,action,outsideaction) \
