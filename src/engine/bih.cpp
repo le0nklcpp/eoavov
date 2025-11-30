@@ -520,7 +520,7 @@ static inline bool triboxoverlap(const vec &radius, const vec &a, const vec &b, 
 template<>
 inline void BIH::tricollide<COLLIDE_ELLIPSE>(const mesh &m, int tidx, physent *d, const vec &dir, float cutoff, const vec &center, const vec &radius, const matrix4x3 &orient, float &dist, const ivec &bo, const ivec &br)
 {
-    if(m.tribbs[tidx].outside(bo, br)) return; 
+    if(m.tribbs[tidx].outside(bo, br)) return;
 
     const tri &t = m.tris[tidx];
     vec a = m.getpos(t.vert[0]), b = m.getpos(t.vert[1]), c = m.getpos(t.vert[2]),

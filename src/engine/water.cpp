@@ -82,7 +82,7 @@ void renderwaterfog(int mat, float surface)
 {
     glDepthFunc(GL_NOTEQUAL);
     glDepthMask(GL_FALSE);
-    glDepthRange(1, 1); 
+    glDepthRange(1, 1);
 
     glEnable(GL_BLEND);
 
@@ -136,7 +136,7 @@ void renderwaterfog(int mat, float surface)
     gle::end();
 
     glDisable(GL_BLEND);
-        
+
     glDepthFunc(GL_LESS);
     glDepthMask(GL_TRUE);
     glDepthRange(0, 1);

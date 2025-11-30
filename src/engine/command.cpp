@@ -1866,7 +1866,7 @@ static void compilestatements(vector<uint> &code, const char *&p, int rettype, i
                     case 'V': comtype = CODE_COMV; if(more) while(numargs < MAXARGS && (more = compilearg(code, p, VAL_CANY, prevargs+numargs))) numargs++; goto compilecomv;
                     case '1': case '2': case '3': case '4':
                         if(more && numargs < MAXARGS)
-                        { 
+                        {
                             int numrep = *fmt-'0'+1;
                             fmt -= numrep;
                             rep = true;
@@ -3989,7 +3989,7 @@ void findfile_(char *name)
     path(fname);
     intret(
 #ifndef STANDALONE
-        findzipfile(fname) || 
+        findzipfile(fname) ||
 #endif
         fileexists(fname, "e") || findfile(fname, "e") ? 1 : 0
     );
@@ -4252,7 +4252,7 @@ ICOMMAND(round, "ff", (float *n, float *k),
     }
     else r = r < 0 ? ceil(r - 0.5) : floor(r + 0.5);
     floatret(float(r));
-}); 
+});
 
 ICOMMAND(cond, "ee2V", (tagval *args, int numargs),
 {
@@ -4486,7 +4486,7 @@ namespace cmathinterp // Well, write-only
       return 0;
   }
   /*
-  
+
   */
   inline bool isnum(const char*str) // it can handle negative numbers as well TODO: exponent notation
   {
@@ -4726,7 +4726,7 @@ namespace cmathinterp // Well, write-only
   }
   /*
 
-  Final function to call  
+  Final function to call
 
   */
   inline void domath(const char*s)
@@ -4768,14 +4768,14 @@ vector<sleepcmd> sleepcmds;
 
 void addsleep(int msec, char* cmd,int id=-1)
 {
-    sleepcmd &s = sleepcmds.add(); 
-    s.delay = max(msec, 1); 
-    s.millis = lastmillis; 
-    s.command = newstring(cmd); 
-    s.flags = identflags; 
-    s.id = id;  
+    sleepcmd &s = sleepcmds.add();
+    s.delay = max(msec, 1);
+    s.millis = lastmillis;
+    s.command = newstring(cmd);
+    s.flags = identflags;
+    s.id = id;
 }
-void removesleep(int taskid) 
+void removesleep(int taskid)
 {
  if(taskid==-1)return;
  loopv(sleepcmds)
@@ -4785,7 +4785,7 @@ void removesleep(int taskid)
 }
 ICOMMAND(sleep, "is", (int*msec,char*cmd), addsleep(*msec,cmd));
 ICOMMAND(set_task, "iis", (int*msec,int*id,char*cmd), addsleep(*msec,cmd,*id));
-ICOMMAND(delete_task, "i", (int*id), removesleep(*id)); 
+ICOMMAND(delete_task, "i", (int*id), removesleep(*id));
 VAR(sleep_id,0,0,65535);
 
 void checksleep(int millis)

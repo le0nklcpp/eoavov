@@ -697,14 +697,14 @@ struct stainrenderer
             center.mul(scale);
             if(staincenter.reject(vec(e.o).add(center), stainradius + rejectradius*scale)) continue;
 
-            if(m->animated() || (!m->bih && !m->setBIH())) continue; 
+            if(m->animated() || (!m->bih && !m->setBIH())) continue;
 
             int yaw = e.attr2, pitch = e.attr3, roll = e.attr4;
 
             m->bih->genstaintris(this, staincenter, stainradius, e.o, yaw, pitch, roll, scale);
         }
     }
-    
+
     void gentris(cube *c, const ivec &o, int size, int escaped = 0)
     {
         int overlap = octaboxoverlap(o, size, bbmin, bbmax);
@@ -717,7 +717,7 @@ struct stainrenderer
                 if(cu.ext)
                 {
                     if(cu.ext->va && cu.ext->va->matsurfs) findmaterials(cu.ext->va);
-                    if(cu.ext->ents && cu.ext->ents->mapmodels.length()) genmmtris(*cu.ext->ents);            
+                    if(cu.ext->ents && cu.ext->ents->mapmodels.length()) genmmtris(*cu.ext->ents);
                 }
                 if(cu.children) gentris(cu.children, co, size>>1, cu.escaped);
                 else

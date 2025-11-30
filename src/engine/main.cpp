@@ -204,9 +204,9 @@ void renderbackgroundview(int w, int h, const char *caption, Texture *mapshot, c
     }
     if(mapshot || mapname)
     {
-	pushhudtranslate(0.15*w,h*0.4,0.05f*min(w,h)/FONTH);
-	draw_textf(loadingadvice,0,0);
-	pophudmatrix(); 
+        pushhudtranslate(0.15*w,h*0.4,0.05f*min(w,h)/FONTH);
+        draw_textf(loadingadvice,0,0);
+        pophudmatrix();
     }
 
     glDisable(GL_BLEND);
@@ -302,7 +302,7 @@ void renderprogressview(int w, int h, float bar, const char *text)   // also use
         int tw = text_width(text);
         float tsz = bh*0.6f/FONTH;
         if(tw*tsz > mw) tsz = mw/tw;
-    
+
         pushhudtranslate(bx+sw, by + (bh - FONTH*tsz)/2, tsz);
         draw_text(text, 0, 0);
         pophudmatrix();
@@ -590,7 +590,7 @@ void setupscreen()
         glcompat = glversions[i] <= 30 ? 1 : 0;
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, glversions[i] / 10);
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, glversions[i] % 10);
-        SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, glversions[i] >= 32 ? SDL_GL_CONTEXT_PROFILE_CORE : 0); 
+        SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, glversions[i] >= 32 ? SDL_GL_CONTEXT_PROFILE_CORE : 0);
         glcontext = SDL_GL_CreateContext(screen);
         if(glcontext) break;
     }
@@ -702,7 +702,7 @@ static int interceptevents(void *data, SDL_Event *event)
     }
     return 1;
 }
- 
+
 static void clearinterceptkey()
 {
     SDL_DelEventWatch(interceptevents, NULL);
@@ -778,7 +778,7 @@ void checkinput()
 
             case SDL_TEXTINPUT:
                 if(textinputmask && int(event.text.timestamp-textinputtime) >= textinputfilter)
-                {   
+                {
                     uchar buf[SDL_TEXTINPUTEVENT_TEXT_SIZE+1];
                     size_t len = decodeutf8(buf, sizeof(buf)-1, (const uchar *)event.text.text, strlen(event.text.text));
                     if(len > 0) { buf[len] = '\0'; processtextinput((const char *)buf, len); }
@@ -802,14 +802,14 @@ void checkinput()
                         shouldgrab = true;
                         break;
                     case SDL_WINDOWEVENT_ENTER:
-			shouldgrab = false;
-			focused = 1;
+            shouldgrab = false;
+            focused = 1;
                         break;
 
                     case SDL_WINDOWEVENT_LEAVE:
                     case SDL_WINDOWEVENT_FOCUS_LOST:
-			shouldgrab = false;
-			focused = -1;
+            shouldgrab = false;
+            focused = -1;
                         break;
 
                     case SDL_WINDOWEVENT_MINIMIZED:
@@ -915,7 +915,7 @@ void limitfps(int &millis, int curmillis)
 extern "C"
 {
 #ifdef __GNUC__
-__attribute__((dllexport))    
+__attribute__((dllexport))
 #else
 __declspec(dllexport)
 #endif

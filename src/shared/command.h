@@ -122,7 +122,7 @@ struct ident
         uchar numargs; // ID_COMMAND
     };
     ushort flags;
-    int index;   
+    int index;
     const char *name;
     union
     {
