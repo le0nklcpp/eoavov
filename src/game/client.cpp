@@ -133,6 +133,7 @@ namespace game
         return 500;
     }
     GMACMD(attack1,"D",(int*down),player1->attack(*down));
+    GMACMD(attack2,"D",(int*down),player1->attack2(*down));
     void connectfail(){}
     void connectattempt(const char *name, const char *password, const ENetAddress &address) {}
     const char *getmapinfo() { return NULL; }

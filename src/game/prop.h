@@ -37,6 +37,7 @@ struct propEnt:fpsEntity
    type = E_MOVABLE;
  }
  ~propEnt(){}
+ bool draggable();
  void attacked(fpsEntity*attacker,float damage,uchar damagetype,vec hitpos);
  void killed(fpsEntity*killer);
  void touched(fpsEntity*ent,vec side);

@@ -24,7 +24,7 @@ namespace game{
     void recountspeed(bool togglewalk)
     {
          if(!isconnected())return;
-         player1->maxspeed = togglewalk?PLAYER_WALK_SPEED:PLAYER_DEFAULT_SPEED;
+         player1->maxspeed = (togglewalk || player1->dragging) ? PLAYER_WALK_SPEED : PLAYER_DEFAULT_SPEED;
     }
     const char *defaultcrosshair(int index)
     {

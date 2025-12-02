@@ -1,6 +1,8 @@
 #include "eoavov.h"
 VARFP(min_carry_dist,0,7,1000,fixcarrydist());
 VARFP(max_carry_dist,0,10,1000,fixcarrydist());
+FVAR(min_dragging_dist,0,20,1000);
+FVAR(max_dragging_dist,0,30,1000);
 VAR(LOSE_DELAY,0,3000,32767);
 FVAR(THROW_FORCE,0.,212.0,32767.);
 VARF(togglewalk,0,0,1,game::recountspeed(togglewalk));
@@ -33,6 +35,7 @@ void playerEnt::reset()
  movable = true;
  light = false;
  carries = NULL;
+ dragging = NULL;
 }
 void playerEnt::setvmodel(const char*path,int anim,int animtime)
 {
@@ -86,21 +89,49 @@ void playerEnt::dropitem(int index) // well, it could've been worse
 }
 inline void playerEnt::moveitem()
 {
- if(!carries)return;
- vec oldpos = carries->o;
- int i=max_carry_dist;
- while(i>=min_carry_dist)
+ if(carries)
+ {
+  vec oldpos = carries->o;
+  int i=max_carry_dist;
+  while(i>=min_carry_dist)
+   {
+    carries->o = vec(o).add(vec(cameradir()).mul(i));
+    if((!collide(carries)&&!collideinside))
+     {
+      carries->resetinterp();
+      return;
+     }
+    i--;
+   }
+  carries->o = oldpos;
+  dropent();
+ }
+ if(dragging)
+ {
+  vec ppos = feetpos();
+  if(ppos.dist(dragging->o) < min_dragging_dist)return;
+  if(ppos.dist(dragging->o) > max_dragging_dist || (o.z - dragging->o.z) > min_dragging_dist)
   {
-   carries->o = vec(o).add(vec(cameradir()).mul(i));
-   if((!collide(carries)&&!collideinside))
-    {
-     carries->resetinterp();
-     return;
-    }
-   i--;
+   stopdragging();
+   return;
   }
- carries->o = oldpos;
- dropent();
+  bool upped = false;
+  if(dragging->onfloor())
+  {
+   dragging->o.addz(1.0f);
+   upped = true;
+  }
+  dragging->turnto(ppos);
+  dragging->pitch = 0;
+  vec d = dragging->cameradir();
+  if(upped)dragging->o.addz(-1.0f);
+  while(ppos.dist2(dragging->o) > min_dragging_dist)
+  {
+   if(collide(dragging, d, 0.0f, true, true))break;
+   dragging->o.add(d);
+  }
+  dragging->resetinterp();
+ }
 }
 void playerEnt::move()
 {
@@ -113,6 +144,11 @@ void playerEnt::move()
 void playerEnt::falldamage(int ftime)
 {
  doublejump = false;
+}
+void playerEnt::stopdragging()
+{
+    dragging = NULL;
+    game::recountspeed(togglewalk);
 }
 void playerEnt::dropent()
 {
@@ -169,6 +205,19 @@ void playerEnt::attack(bool down)
   {
    hands->parent->use(this,hands,down);
   }
+}
+void playerEnt::attack2(bool down)
+{
+ if(crouching&&!down)
+  {
+   fpsEntity*ent = game::rayfpsent(o,cameradir(),MAX_INTERACT_DIST,false);
+   if(ent&&ent->draggable())
+    {
+     if(dragging != ent)dragging = ent;
+     else stopdragging();
+     game::recountspeed(togglewalk);
+    }
+ }
 }
 bool playerEnt::setev(int attr,const char*val)
 {

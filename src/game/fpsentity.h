@@ -69,6 +69,8 @@ struct fpsEntity:dynent{ // dynamic entity
  fpsEntity(int hp):attached(NULL),waterphys(false),movable(false),mass(0.),maxhealth(hp),health(hp),tag(-1),animsequence(-1),framerate(0),lastanim(0),team(0),nextthink(0),visible(true),model(""){state = CS_DEAD;type=-1;}
  fpsEntity():fpsEntity(100){}
  virtual ~fpsEntity(){detach();}
+ void turnto(const vec &d);
+ virtual bool draggable();
  virtual bool headinwater();
  virtual bool onfloor();
  virtual vec cameradir();
@@ -92,6 +94,5 @@ struct fpsEntity:dynent{ // dynamic entity
  virtual void setroute(rail*r,bool revert=false);
  virtual void stoproute();
  virtual void reset();
- virtual void turnto(const vec &d);
 };
 #endif

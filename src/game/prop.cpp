@@ -38,6 +38,10 @@ FVAR(prop_hk_arg3,-32767.,0.,32767.);
 FVAR(prop_hk_arg4,-32767.,0.,32767.);
 FVAR(prop_hk_arg5,-32767.,0.,32767.);
 #define getpt if(!proptypes.inrange(propid))return;proptype &p = *proptypes[propid];prop_hk_this = this->tag;
+bool propEnt::draggable()
+{
+  return true;
+}
 void propEnt::attacked(fpsEntity*attacker,float damage,uchar damagetype,vec hitpos)
 {
   if(!attacker)return;

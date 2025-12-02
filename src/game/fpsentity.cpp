@@ -57,6 +57,7 @@ namespace game{
     if(fpsents[i]->attached==e)fpsents[i]->detach();
    }
   if(player1->carries == e)player1->carries = NULL;
+  if(player1->dragging == e)player1->dragging = NULL;
  }
  void fpsremove(int index)
  {
@@ -219,6 +220,10 @@ namespace game{
  GMCMD(get_ev,"ii",(int*tag,int*attr),{returnfpsent(*tag,ent);ent->getev(*attr);});
  GMCMD(cansee,"ii",(int*me,int*target),{returnfpsent(*me,ent);returnfpsent(*target,t);aiManager man("test_manager");intret(man.visible(ent,t));})
 };
+inline bool fpsEntity::draggable()
+{
+ return false;
+}
 inline bool fpsEntity::onfloor()
 {
  bool collided = false;
