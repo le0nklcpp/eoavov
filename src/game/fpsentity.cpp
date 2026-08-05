@@ -53,11 +53,9 @@ namespace game{
  void fpsdetach(fpsEntity*e)
  {
   loopv(fpsents)
-   {
-    if(fpsents[i]->attached==e)fpsents[i]->detach();
-   }
-  if(player1->carries == e)player1->carries = NULL;
-  if(player1->dragging == e)player1->dragging = NULL;
+  {
+    fpsents[i]->detach(e);
+  }
  }
  void fpsremove(int index)
  {
@@ -164,7 +162,13 @@ namespace game{
  GMCMD(detach_dynent,"i",(int*tag),
  {
   returnfpsent(*tag,ent);
-  ent->detach();
+  fpsdetach(ent);
+ });
+ GMCMD(detach_from_dynent,"ii",(int*tag, int *attached),
+ {
+  returnfpsent(*tag,ent);
+  returnfpsent(*attached,at);
+  ent->detach(at);
  });
  GMCMD(set_dynent_vel,"ifff",(int*tag,float*vx,float*vy,float*vz),
  {
@@ -324,7 +328,7 @@ void fpsEntity::playerused()
 void fpsEntity::reset()
 {
  health = maxhealth;
- detach();
+ attached = NULL;
  setroute(NULL,0);
 }
 void fpsEntity::attach(fpsEntity*ent,vec pos)
@@ -332,9 +336,9 @@ void fpsEntity::attach(fpsEntity*ent,vec pos)
  attached = ent;
  atpos = pos;
 }
-void fpsEntity::detach()
+void fpsEntity::detach(fpsEntity*ent)
 {
- attached = NULL;
+ if(attached == ent)attached = NULL;
 }
 void fpsEntity::setpos(vec newpos)
 {

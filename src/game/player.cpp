@@ -133,6 +133,12 @@ void playerEnt::falldamage(int ftime)
 {
     doublejump = false;
 }
+void playerEnt::detach(fpsEntity *ent)
+{
+    fpsEntity::detach(ent);
+    if(ent == carries)carries = NULL;
+    if(ent == dragging)stopdragging();
+}
 void playerEnt::stopdragging()
 {
     dragging = NULL;

@@ -23,6 +23,7 @@ struct playerEnt:fpsEntity,RPGObject{
  void moveitem();
  void move();
  void falldamage(int ftime);
+ void detach(fpsEntity *ent);
  void stopdragging();
  void dropent();
  void grabent(fpsEntity*e);

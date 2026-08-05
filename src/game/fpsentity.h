@@ -68,7 +68,7 @@ struct fpsEntity:dynent{ // dynamic entity
  routeManager route;
  fpsEntity(int hp):attached(NULL),waterphys(false),movable(false),mass(0.),maxhealth(hp),health(hp),tag(-1),animsequence(-1),framerate(0),lastanim(0),team(0),nextthink(0),visible(true),model(""){state = CS_DEAD;type=-1;}
  fpsEntity():fpsEntity(100){}
- virtual ~fpsEntity(){detach();}
+ virtual ~fpsEntity(){}
  void turnto(const vec &d);
  virtual bool draggable();
  virtual bool headinwater();
@@ -86,7 +86,7 @@ struct fpsEntity:dynent{ // dynamic entity
  virtual void killed(fpsEntity*killer);
  virtual void playerused(); // playerEnt * player1
  virtual void attach(fpsEntity*ent,vec pos);
- virtual void detach();
+ virtual void detach(fpsEntity*ent);
  virtual void setpos(vec o);
  virtual void setangle(int y=-1,int p=-1,int r=-1); // -1 = don't change
  virtual bool setev(int attr,const char*val); // for scripting purposes.Returns false if it didnt find value to set.
