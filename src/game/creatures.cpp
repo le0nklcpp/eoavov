@@ -49,8 +49,8 @@ void creatureEntity::updateenemypos(const vec &o)
     }
     if(knownpositions<(MAX_KNOWN_POSITIONS-1))
     {
-        knownpositions++;
         lastknownenemypos[knownpositions] = o;
+        knownpositions++;
     }
 }
 extern const float JUMPVEL;
