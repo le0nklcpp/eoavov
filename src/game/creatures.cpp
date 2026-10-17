@@ -47,7 +47,7 @@ void creatureEntity::updateenemypos(const vec &o)
             return;
         }
     }
-    if(knownpositions<(MAX_KNOWN_POSITIONS-1))
+    if(knownpositions<MAX_KNOWN_POSITIONS)
     {
         lastknownenemypos[knownpositions] = o;
         knownpositions++;
